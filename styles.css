@@ -1,0 +1,231 @@
+/* WPBakery Raw HTML — scoped to #interactive-map (auto-generated) */
+#interactive-map {
+  position: relative !important;
+  width: 100% !important;
+  max-width: 1080px !important;
+  margin-left: auto !important;
+  margin-right: auto !important;
+  display: block !important;
+  box-sizing: border-box !important;
+  color: #333333 !important;
+  font-family: Roboto, Helvetica, Arial, Verdana, sans-serif !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+}
+
+#interactive-map *,
+#interactive-map *::before,
+#interactive-map *::after {
+  box-sizing: border-box !important;
+}
+
+#interactive-map svg {
+  display: block !important;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100% !important;
+  overflow: hidden !important;
+}
+
+/* Neutralise The7/HTML legend styles on SVG <g class="legend"> */
+#interactive-map g.legend {
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: inline !important;
+  width: auto !important;
+  min-width: 0 !important;
+  max-width: none !important;
+  white-space: normal !important;
+  float: none !important;
+}
+
+#interactive-map path.dg-letters--white, #interactive-map path.dg-letters--white.brokerage, #interactive-map #map-container g:not(.map-background) path.dg-letters--white.brokerage {fill: #ffffff !important}
+#interactive-map #map-container g:not(.map-background) path.export, #interactive-map #map-container g:not(.map-background) path.transit {fill: #ffffff !important}
+#interactive-map .transit, #interactive-map .brokerage, #interactive-map .export {fill: #848484 !important}
+#interactive-map .brokerage {fill: url(#brokeragestripes) !important}
+#interactive-map .export {fill: url(#exportstripes) !important}
+#interactive-map .transit {fill: #ff6600 !important}
+#interactive-map .has_url { cursor: pointer; }
+#interactive-map { width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: block; }
+#interactive-map path, #interactive-map g, #interactive-map text, #interactive-map tspan {transition: 0.2s}
+#interactive-map .info-text { position: absolute;
+  top: 400px !Important;
+  transform: translatey(-50%);
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background: #ffffff;
+  max-width: 300px;
+  pointer-events: none !important; }
+#interactive-map .info-text h3 { margin-top: 0;
+  color: #333333;
+  pointer-events: none !important; }
+#interactive-map .info-text p { margin-bottom: 0;
+  color: #333333;
+  pointer-events: none !important; }
+#interactive-map .st0, #interactive-map .st1, #interactive-map .st2, #interactive-map .st3, #interactive-map .st4 { fill-rule: evenodd;
+  clip-rule: evenodd;
+  fill: #D1D2D5; }
+#interactive-map .st5, #interactive-map .st6, #interactive-map .st7, #interactive-map .st9, #interactive-map .st10 { fill-rule: evenodd;
+  clip-rule: evenodd;
+  fill: #D1D2D5;
+  stroke: #FFFFFF;
+  stroke-width: 1.5;
+  stroke-miterlimit: 10; }
+#interactive-map path.st2.brokerage, #interactive-map path.st2.transit {fill: #ffffff !important}
+#interactive-map .st8 { fill-rule: evenodd;
+  clip-rule: evenodd;
+  fill: #D1D2D5; }
+#interactive-map .button-map { pointer-events: all;
+  padding: 8px 14px 8px 14px;
+  border-radius: 5px;
+  background: #ff6600;
+  display: inline-block;
+  margin: 20px 0 0 0;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.4em; }
+#interactive-map .button-map i { margin-left: 10px; }
+@media (max-width: 1000px)  {
+}
+
+#interactive-map .legend-text { font-size: 20px; }
+#interactive-map #ukraine g path.st2, #interactive-map #bosnia g path.st2, #interactive-map #poland g path.st2, #interactive-map #switserland g path.st2 {fill: #ffffff !important}
+#interactive-map #brokeragestripes line, #interactive-map #exportstripes line { transform: rotate(270deg); }
+#interactive-map circle.st1.brokerage, #interactive-map rect.brokerage {fill: #3F5C68 !important; stroke: #3F5C68 !important}
+#interactive-map circle.st4.export, #interactive-map rect.export {fill: #900C3F !important; stroke: #900C3F !important}
+#interactive-map .has_url { cursor: pointer; }
+#interactive-map { width: 100%;
+    max-width: 1080px;
+    margin: 0 auto;
+    display: block; }
+#interactive-map path,
+#interactive-map g,
+#interactive-map text,
+#interactive-map tspan {transition: .2s}
+#interactive-map .st0, #interactive-map .st1, #interactive-map .st2, #interactive-map .st3, #interactive-map .st4 { fill-rule: evenodd;
+    clip-rule: evenodd;
+    fill: #D1D2D5;
+    stroke: #FFFFFF;
+    stroke-width: 1.5;
+    stroke-miterlimit: 10; }
+#interactive-map .st5, #interactive-map .st6, #interactive-map .st7, #interactive-map .st9, #interactive-map .st10 { fill-rule: evenodd;
+    clip-rule: evenodd;
+    fill: #D1D2D5;
+    stroke: #FFFFFF;
+    stroke-width: 1.5;
+    stroke-miterlimit: 10; }
+#interactive-map .st8 { fill-rule: evenodd;
+    clip-rule: evenodd;
+    fill: #D1D2D5; }
+#interactive-map .button-map { pointer-events: all;
+    padding: 8px 14px 8px 14px;
+    border-radius: 5px;
+    background: #CA4300;
+    display: inline-block;
+    margin: 20px 0 0 0;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+    line-height: 1.4em; }
+#interactive-map .button-map i { margin-left: 10px; }
+@media (max-width: 1000px)  {
+}
+
+#interactive-map .legend-text { font-size: 20px; }
+
+
+/* Service colours — after .st0-.st4 stroke rules; higher specificity for markers */
+#interactive-map circle.transit {
+  fill: #ff6600 !important;
+  stroke: #ffffff !important;
+  stroke-width: 1.5px !important;
+}
+#interactive-map .legend rect.transit {
+  fill: #ff6600 !important;
+  stroke: none !important;
+}
+#interactive-map circle.st1.brokerage {
+  fill: #3F5C68 !important;
+  stroke: #3F5C68 !important;
+  stroke-width: 1.5px !important;
+}
+#interactive-map .legend rect.brokerage {
+  fill: #3F5C68 !important;
+  stroke: #3F5C68 !important;
+}
+#interactive-map circle.st4.export {
+  fill: #900C3F !important;
+  stroke: #900C3F !important;
+  stroke-width: 1.5px !important;
+}
+#interactive-map .legend rect.export {
+  fill: #900C3F !important;
+  stroke: #900C3F !important;
+}
+
+/* Popup + button (HTML inside #interactive-map) */
+#interactive-map .info-text {
+  position: absolute !important;
+  top: 400px !important;
+  transform: translateY(-50%) !important;
+  padding: 20px !important;
+  border-radius: 5px !important;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19) !important;
+  background: #ffffff !important;
+  max-width: 300px !important;
+  pointer-events: none !important;
+}
+
+#interactive-map .info-text h3 {
+  margin-top: 0 !important;
+  color: #333333 !important;
+  pointer-events: none !important;
+  font-family: Roboto, Helvetica, Arial, Verdana, sans-serif !important;
+  font-size: inherit !important;
+  font-weight: bold !important;
+}
+
+#interactive-map .info-text p {
+  margin-bottom: 0 !important;
+  color: #333333 !important;
+  pointer-events: none !important;
+  font-family: Roboto, Helvetica, Arial, Verdana, sans-serif !important;
+}
+
+#interactive-map .button-map {
+  pointer-events: all !important;
+  padding: 8px 14px !important;
+  border-radius: 5px !important;
+  background: #CA4300 !important;
+  display: inline-block !important;
+  margin: 20px 0 0 0 !important;
+  color: #ffffff !important;
+  text-decoration: none !important;
+  font-size: 14px !important;
+  font-weight: bold !important;
+  line-height: 1.4em !important;
+}
+
+#interactive-map .button-map i {
+  margin-left: 10px !important;
+}
+
+@media (max-width: 1000px) {
+  #interactive-map .info-text {
+    max-width: calc(100% - 40px) !important;
+    top: auto !important;
+    bottom: -50px !important;
+    transform: none !important;
+  }
+  #interactive-map .legend-text {
+    font-size: 20px !important;
+  }
+}
