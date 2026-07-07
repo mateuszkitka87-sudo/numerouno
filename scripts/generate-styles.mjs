@@ -15,27 +15,24 @@ const SCSS_URL = 'https://ecustoms.sgs.com/wp-content/custom_codes/1243-scss-out
 const scss = await fetch(SCSS_URL);
 fs.writeFileSync('scripts/output/1243-scss-output.css', scss);
 
-// Exact map block from 1243-scss-output.css (lines 6-124)
 const mapBlockStart = scss.indexOf('.map-container {');
 const mapBlockEnd = scss.indexOf('.vc_cta3_content-container h2');
 const mapBlock = scss.slice(mapBlockStart, mapBlockEnd).trim();
 
-// vc_custom-css from live page (clean head version)
 const vcCustom = await fetch('https://ecustoms.sgs.com/');
 const vcMatch = vcCustom.match(/<style data-type="vc_custom-css">([\s\S]*?)<\/style>/);
 if (!vcMatch) throw new Error('vc_custom-css not found');
 const vcBlock = vcMatch[1].trim();
 
+// No @import here — fonts loaded via <link> in index.html so map CSS always applies.
 const css = `/*
  * Auto-extracted from live https://ecustoms.sgs.com/
  *
  * Sources (load order):
  * 1. Theme reset + body (dt-the7 main.min.css computed values)
- * 2. wp-content/custom_codes/1243-scss-output.css (map rules)
+ * 2. wp-content/custom_codes/1243-scss-output.css (map section)
  * 3. Page vc_custom-css inline block
  */
-
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,normal");
 
 * {
   padding: 0;
@@ -59,18 +56,35 @@ ${vcBlock}
 
 fs.writeFileSync('styles.css', css);
 
-// manifest of extracted rules for documentation
-const manifest = {
-  sources: [
-    { file: '1243-scss-output.css', url: SCSS_URL, bytes: mapBlock.length },
-    { file: 'vc_custom-css', bytes: vcBlock.length },
-    { file: 'main.min.css', note: 'only * reset and body inherited styles included' },
-  ],
-  mapBlockPreview: mapBlock.split('\n').slice(0, 5),
-  vcBlockPreview: vcBlock.split('\n').slice(0, 5),
-};
+// Embed same CSS inline in index.html so the map renders when styles.css cannot load
+// (e.g. opening index.html alone, IDE preview, or missing relative path).
+const indexPath = 'index.html';
+let indexHtml = fs.readFileSync(indexPath, 'utf8');
 
-fs.writeFileSync('scripts/output/css-manifest.json', JSON.stringify(manifest, null, 2));
-console.log('Wrote styles.css', css.length, 'bytes');
-console.log('Map block lines:', mapBlock.split('\n').length);
-console.log('Includes circle.st4.export:', mapBlock.includes('circle.st4.export'));
+const headInjection = `  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,normal">
+  <link rel="stylesheet" href="styles.css">
+  <style id="map-styles-inline">
+${css}
+  </style>`;
+
+indexHtml = indexHtml.replace(
+  /\s*<link rel="stylesheet" href="styles\.css">\s*(?:<style id="map-styles-inline">[\s\S]*?<\/style>\s*)?/,
+  `\n${headInjection}\n`
+);
+
+if (!indexHtml.includes('id="map-styles-inline"')) {
+  indexHtml = indexHtml.replace(
+    '</head>',
+    `${headInjection}\n</head>`
+  );
+}
+
+fs.writeFileSync(indexPath, indexHtml);
+
+fs.writeFileSync('scripts/output/css-manifest.json', JSON.stringify({
+  stylesCssBytes: css.length,
+  inlineEmbedded: true,
+  mapBlockLines: mapBlock.split('\n').length,
+}, null, 2));
+
+console.log('Wrote styles.css and embedded inline CSS in index.html');

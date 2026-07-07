@@ -3,11 +3,9 @@
  *
  * Sources (load order):
  * 1. Theme reset + body (dt-the7 main.min.css computed values)
- * 2. wp-content/custom_codes/1243-scss-output.css (map rules)
+ * 2. wp-content/custom_codes/1243-scss-output.css (map section)
  * 3. Page vc_custom-css inline block
  */
-
-@import url("https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,normal");
 
 * {
   padding: 0;
