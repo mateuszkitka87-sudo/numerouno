@@ -1,0 +1,176 @@
+/*
+ * Recreated from SGS e-Customs WordPress environment:
+ * - wp-content/custom_codes/1243-scss-output.css
+ * - Page custom CSS (vc_custom-css) on https://ecustoms.sgs.com/
+ *
+ * vc_custom-css rules that overlap are included after 1243 rules.
+ */
+
+.map-container {
+  position: relative;
+}
+
+path.dg-letters--white,
+path.dg-letters--white.brokerage,
+#map-container g:not(.map-background) path.dg-letters--white.brokerage {
+  fill: #ffffff !important;
+}
+
+#map-container g:not(.map-background) path.export,
+#map-container g:not(.map-background) path.transit {
+  fill: #ffffff !important;
+}
+
+#interactive-map .transit,
+#interactive-map .brokerage,
+#interactive-map .export {
+  fill: #848484;
+}
+
+#interactive-map .brokerage {
+  fill: url(#brokeragestripes);
+}
+
+#interactive-map .export {
+  fill: url(#exportstripes);
+}
+
+#interactive-map .transit {
+  fill: #ff6600;
+}
+
+.has_url {
+  cursor: pointer;
+}
+
+#interactive-map {
+  width: 100%;
+  max-width: 1080px;
+  margin: 0 auto;
+  display: block;
+}
+
+#interactive-map path,
+#interactive-map g,
+#interactive-map text,
+#interactive-map tspan {
+  transition: 0.2s;
+}
+
+.info-text {
+  position: absolute;
+  top: 400px !Important;
+  transform: translatey(-50%);
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  background: #ffffff;
+  max-width: 300px;
+  pointer-events: none !important;
+}
+
+.info-text h3 {
+  margin-top: 0;
+  color: #333333;
+  pointer-events: none !important;
+}
+
+.info-text p {
+  margin-bottom: 0;
+  color: #333333;
+  pointer-events: none !important;
+}
+
+.st5,
+.st6,
+.st7,
+.st9,
+.st10 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  fill: #D1D2D5;
+  stroke: #FFFFFF;
+  stroke-width: 1.5;
+  stroke-miterlimit: 10;
+}
+
+path.st2.brokerage,
+path.st2.transit {
+  fill: #ffffff !important;
+}
+
+.st8 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  fill: #D1D2D5;
+}
+
+.button-map i {
+  margin-left: 10px;
+}
+
+#ukraine g path.st2,
+#bosnia g path.st2,
+#poland g path.st2,
+#switserland g path.st2 {
+  fill: #ffffff !important;
+}
+
+#brokeragestripes line,
+#exportstripes line {
+  transform: rotate(270deg);
+}
+
+circle.st1.brokerage,
+rect.brokerage {
+  fill: #3F5C68 !important;
+  stroke: #3F5C68 !important;
+}
+
+circle.st4.export,
+rect.export {
+  fill: #900C3F !important;
+  stroke: #900C3F !important;
+}
+
+/* vc_custom-css overrides (loads after 1243-scss-output.css on WordPress) */
+
+.st0,
+.st1,
+.st2,
+.st3,
+.st4 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+  fill: #D1D2D5;
+  stroke: #FFFFFF;
+  stroke-width: 1.5;
+  stroke-miterlimit: 10;
+}
+
+.button-map {
+  pointer-events: all;
+  padding: 8px 14px 8px 14px;
+  border-radius: 5px;
+  background: #CA4300;
+  display: inline-block;
+  margin: 20px 0 0 0;
+  color: #ffffff;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: bold;
+  line-height: 1.4em;
+}
+
+@media (max-width: 1000px) {
+  .info-text {
+    max-width: calc(100% - 40px);
+    top: auto;
+    bottom: -50px;
+    transform: none;
+  }
+
+  .legend-text {
+    font-size: 20px;
+  }
+}
