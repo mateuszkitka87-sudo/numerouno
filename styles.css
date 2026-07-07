@@ -225,40 +225,19 @@ body {
   fill: var(--color-map-fill);
 }
 
-/* Country label letters on markers */
-#interactive-map .st2 {
-  fill: #ffffff;
-  stroke: none;
-}
-
-/* Service type colors — preserved exactly */
-#interactive-map .transit,
+/* Service type colors — preserved exactly (markers & legend rects only) */
 #interactive-map circle.transit,
-#interactive-map .legend .transit {
+#interactive-map .legend rect.transit {
   fill: var(--color-transit);
 }
 
-#interactive-map .brokerage,
 #interactive-map circle.brokerage,
-#interactive-map .legend .brokerage {
+#interactive-map .legend rect.brokerage {
   fill: url(#brokeragestripes);
 }
 
-#interactive-map .export,
 #interactive-map circle.export,
-#interactive-map .legend .export {
-  fill: url(#exportstripes);
-}
-
-#interactive-map path.transit {
-  fill: var(--color-transit);
-}
-
-#interactive-map path.brokerage {
-  fill: url(#brokeragestripes);
-}
-
-#interactive-map path.export {
+#interactive-map .legend rect.export {
   fill: url(#exportstripes);
 }
 
@@ -292,18 +271,7 @@ body {
   cursor: pointer;
 }
 
-/* Legend typography — preserve colors, refine rendering */
-#interactive-map .legend-text {
-  font-family:
-    -apple-system,
-    BlinkMacSystemFont,
-    "SF Pro Text",
-    system-ui,
-    sans-serif;
-  fill: var(--apple-text);
-  font-weight: 500;
-}
-
+/* Legend — preserve inline SVG font sizes; colors unchanged */
 #interactive-map .legend rect {
   transition:
     transform var(--apple-duration) var(--apple-ease),
