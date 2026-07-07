@@ -1,0 +1,31 @@
+{
+  "sources": [
+    {
+      "file": "1243-scss-output.css",
+      "url": "https://ecustoms.sgs.com/wp-content/custom_codes/1243-scss-output.css?ver=278",
+      "bytes": 3087
+    },
+    {
+      "file": "vc_custom-css",
+      "bytes": 1761
+    },
+    {
+      "file": "main.min.css",
+      "note": "only * reset and body inherited styles included"
+    }
+  ],
+  "mapBlockPreview": [
+    ".map-container {",
+    "  position: relative;",
+    "}",
+    "path.dg-letters--white, path.dg-letters--white.brokerage, #map-container g:not(.map-background) path.dg-letters--white.brokerage {",
+    "  fill: #ffffff !important;"
+  ],
+  "vcBlockPreview": [
+    ".google-visualization-tooltip {width:300px;height:auto;}\r",
+    "\r",
+    ".map-container{\r",
+    "    position: relative;\r",
+    "}\r"
+  ]
+}
