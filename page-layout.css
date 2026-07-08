@@ -29,7 +29,7 @@
 
   box-sizing: border-box !important;
   min-height: 100% !important;
-  padding: clamp(48px, 8vw, 96px) clamp(24px, 5vw, 48px) clamp(64px, 10vw, 120px) !important;
+  padding: clamp(40px, 6vw, 80px) clamp(12px, 2.5vw, 24px) clamp(56px, 8vw, 100px) !important;
   background:
     radial-gradient(ellipse 80% 50% at 50% -20%, rgba(202, 67, 0, 0.04), transparent 55%),
     radial-gradient(ellipse 60% 40% at 100% 0%, rgba(0, 0, 0, 0.02), transparent 50%),
@@ -47,13 +47,13 @@
 }
 
 .map-page__container {
-  width: min(1080px, 100%);
-  margin: 0 auto;
+  width: min(1600px, 95vw);
+  margin-inline: auto;
 }
 
 .map-page__header {
-  max-width: 680px;
-  margin: 0 auto clamp(40px, 6vw, 64px);
+  max-width: min(720px, 100%);
+  margin: 0 auto clamp(36px, 5vw, 56px);
   text-align: center;
   animation: map-page-fade-up var(--ui-duration) var(--ui-ease) both;
 }
@@ -109,6 +109,8 @@
 
 .wpb_raw_html .map-page__card,
 .map-page__card {
+  width: min(1600px, 95vw) !important;
+  margin-inline: auto !important;
   position: relative !important;
   background: var(--ui-glass) !important;
   border-radius: var(--ui-radius-xl) !important;
@@ -136,7 +138,12 @@
   position: relative;
   z-index: 1;
   isolation: isolate;
-  padding: clamp(28px, 4vw, 44px) clamp(20px, 3vw, 36px) clamp(32px, 4.5vw, 48px);
+  padding: clamp(24px, 3.5vw, 40px) clamp(16px, 2.5vw, 32px) clamp(28px, 4vw, 44px);
+}
+
+.map-page__card-inner #interactive-map {
+  max-width: none !important;
+  width: 100% !important;
 }
 
 /* Prevent page typography hints from altering locked SVG text rendering */
@@ -162,15 +169,15 @@
 }
 
 @media (max-width: 900px) {
-  .map-page__container {
-    width: min(100%, 720px);
+  .map-page__container,
+  .map-page__card {
+    width: min(1600px, 95vw);
   }
 }
 
 @media (max-width: 768px) {
   .map-page {
-    padding-top: 32px;
-    padding-bottom: 48px;
+    padding: 32px clamp(10px, 2.5vw, 16px) 48px !important;
   }
 
   .map-page__header {
