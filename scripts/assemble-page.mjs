@@ -32,7 +32,8 @@ ${layoutStyles.trim()}
 /* --- Popup & button chrome --- */
 ${uiChromeStyles.trim()}`;
 
-  return `<style id="sgs-e-customs-map-embed">
+  return `<!-- SGS e-Customs WPBakery embed | layout-integrated | replace entire Raw HTML block -->
+<style id="sgs-e-customs-map-embed">
 ${inlineCss}
 </style>
 

@@ -1,5 +1,7 @@
 /* Apple-inspired page shell — does not style SVG paths, circles, or markers */
+/* Higher specificity + !important so The7/WPBakery theme rules cannot flatten the layout */
 
+.wpb_raw_html .map-page,
 .map-page {
   --ui-bg: #ffffff;
   --ui-text: #1d1d1f;
@@ -25,15 +27,15 @@
   --ui-duration: 250ms;
   --ui-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
-  box-sizing: border-box;
-  min-height: 100%;
-  padding: clamp(48px, 8vw, 96px) clamp(24px, 5vw, 48px) clamp(64px, 10vw, 120px);
+  box-sizing: border-box !important;
+  min-height: 100% !important;
+  padding: clamp(48px, 8vw, 96px) clamp(24px, 5vw, 48px) clamp(64px, 10vw, 120px) !important;
   background:
     radial-gradient(ellipse 80% 50% at 50% -20%, rgba(202, 67, 0, 0.04), transparent 55%),
     radial-gradient(ellipse 60% 40% at 100% 0%, rgba(0, 0, 0, 0.02), transparent 50%),
-    var(--ui-bg);
-  font-family: var(--ui-font);
-  color: var(--ui-text);
+    var(--ui-bg) !important;
+  font-family: var(--ui-font) !important;
+  color: var(--ui-text) !important;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -82,13 +84,15 @@
   margin: 0;
 }
 
+.wpb_raw_html .map-page__title,
 .map-page__title {
-  margin: 0 0 18px;
-  font-size: clamp(2.5rem, 5.5vw, 3.5rem);
-  font-weight: 600;
-  line-height: 1.05;
-  letter-spacing: -0.04em;
-  color: var(--ui-text);
+  margin: 0 0 18px !important;
+  font-size: clamp(2.5rem, 5.5vw, 3.5rem) !important;
+  font-weight: 600 !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.04em !important;
+  color: var(--ui-text) !important;
+  text-transform: none !important;
   animation: map-page-fade-up calc(var(--ui-duration) * 1.2) var(--ui-ease) 60ms both;
 }
 
@@ -103,13 +107,14 @@
   animation: map-page-fade-up calc(var(--ui-duration) * 1.2) var(--ui-ease) 120ms both;
 }
 
+.wpb_raw_html .map-page__card,
 .map-page__card {
-  position: relative;
-  background: var(--ui-glass);
-  border-radius: var(--ui-radius-xl);
-  border: 1px solid var(--ui-glass-border);
-  box-shadow: var(--ui-shadow-soft);
-  overflow: hidden;
+  position: relative !important;
+  background: var(--ui-glass) !important;
+  border-radius: var(--ui-radius-xl) !important;
+  border: 1px solid var(--ui-glass-border) !important;
+  box-shadow: var(--ui-shadow-soft) !important;
+  overflow: hidden !important;
   transition:
     box-shadow var(--ui-duration) var(--ui-ease),
     transform var(--ui-duration) var(--ui-ease),
