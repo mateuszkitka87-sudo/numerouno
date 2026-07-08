@@ -103,7 +103,7 @@ async function run() {
   if (afterLeave.popupDisplay !== 'none') failures.push(`After mouseleave popup still: ${afterLeave.popupDisplay}`);
 
   const report = { previewUrl, rest, hover, afterLeave, failures, passed: failures.length === 0 };
-  fs.writeFileSync(path.join(OUT, 'step1-verify-report.json'), JSON.stringify(report, null, 2));
+  fs.writeFileSync(path.join(OUT, 'ui-verify-report.json'), JSON.stringify(report, null, 2));
 
   console.log('Layout:', rest.layout);
   console.log('Hover:', hover);
@@ -111,7 +111,7 @@ async function run() {
   for (const f of failures) console.log(' -', f);
 
   if (failures.length > 0) process.exit(1);
-  console.log('Step 1 verification passed.');
+  console.log('UI verification passed.');
 }
 
 run();

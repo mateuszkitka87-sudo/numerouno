@@ -1,24 +1,39 @@
-/* Step 1 — page layout only (does not style #interactive-map internals) */
+/* Apple-inspired page shell — does not style SVG paths, circles, or markers */
 
 .map-page {
-  --map-page-bg: #f5f5f7;
-  --map-page-text: #1d1d1f;
-  --map-page-text-secondary: #6e6e73;
-  --map-page-accent: #ca4300;
-  --map-page-card-bg: #ffffff;
-  --map-page-radius: 22px;
-  --map-page-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.04),
-    0 8px 24px rgba(0, 0, 0, 0.06),
-    0 24px 48px rgba(0, 0, 0, 0.04);
-  --map-page-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ui-bg: #ffffff;
+  --ui-text: #1d1d1f;
+  --ui-text-secondary: #86868b;
+  --ui-text-tertiary: #6e6e73;
+  --ui-accent: #ca4300;
+  --ui-accent-soft: rgba(202, 67, 0, 0.08);
+  --ui-line: rgba(0, 0, 0, 0.06);
+  --ui-glass: #ffffff;
+  --ui-glass-border: rgba(0, 0, 0, 0.06);
+  --ui-radius-xl: 28px;
+  --ui-radius-lg: 22px;
+  --ui-radius-md: 14px;
+  --ui-shadow-soft:
+    0 1px 1px rgba(0, 0, 0, 0.02),
+    0 4px 12px rgba(0, 0, 0, 0.04),
+    0 20px 40px rgba(0, 0, 0, 0.06);
+  --ui-shadow-hover:
+    0 2px 4px rgba(0, 0, 0, 0.03),
+    0 12px 28px rgba(0, 0, 0, 0.07),
+    0 32px 64px rgba(0, 0, 0, 0.08);
+  --ui-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ui-duration: 250ms;
+  --ui-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 
   box-sizing: border-box;
   min-height: 100%;
-  padding: clamp(32px, 6vw, 72px) clamp(20px, 4vw, 40px) clamp(48px, 8vw, 96px);
-  background: var(--map-page-bg);
-  font-family: var(--map-page-font);
-  color: var(--map-page-text);
+  padding: clamp(48px, 8vw, 96px) clamp(24px, 5vw, 48px) clamp(64px, 10vw, 120px);
+  background:
+    radial-gradient(ellipse 80% 50% at 50% -20%, rgba(202, 67, 0, 0.04), transparent 55%),
+    radial-gradient(ellipse 60% 40% at 100% 0%, rgba(0, 0, 0, 0.02), transparent 50%),
+    var(--ui-bg);
+  font-family: var(--ui-font);
+  color: var(--ui-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -30,76 +45,173 @@
 }
 
 .map-page__container {
-  width: min(1120px, 100%);
+  width: min(1080px, 100%);
   margin: 0 auto;
 }
 
 .map-page__header {
-  max-width: 720px;
-  margin: 0 auto clamp(28px, 4vw, 48px);
+  max-width: 680px;
+  margin: 0 auto clamp(40px, 6vw, 64px);
   text-align: center;
+  animation: map-page-fade-up var(--ui-duration) var(--ui-ease) both;
+}
+
+.map-page__badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 0 20px;
+  padding: 6px 14px;
+  border-radius: 100px;
+  background: var(--ui-accent-soft);
+  border: 1px solid rgba(202, 67, 0, 0.12);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ui-accent);
+  transition: transform var(--ui-duration) var(--ui-ease), box-shadow var(--ui-duration) var(--ui-ease);
+}
+
+.map-page__badge:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(202, 67, 0, 0.1);
 }
 
 .map-page__eyebrow {
-  margin: 0 0 12px;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--map-page-accent);
+  margin: 0;
 }
 
 .map-page__title {
-  margin: 0 0 16px;
-  font-size: clamp(2rem, 4.5vw, 3rem);
+  margin: 0 0 18px;
+  font-size: clamp(2.5rem, 5.5vw, 3.5rem);
   font-weight: 600;
-  line-height: 1.08;
-  letter-spacing: -0.03em;
-  color: var(--map-page-text);
+  line-height: 1.05;
+  letter-spacing: -0.04em;
+  color: var(--ui-text);
+  animation: map-page-fade-up calc(var(--ui-duration) * 1.2) var(--ui-ease) 60ms both;
 }
 
 .map-page__subtitle {
-  margin: 0;
-  font-size: clamp(1rem, 2vw, 1.125rem);
+  margin: 0 auto;
+  max-width: 540px;
+  font-size: clamp(1.0625rem, 2.1vw, 1.25rem);
   font-weight: 400;
-  line-height: 1.55;
-  color: var(--map-page-text-secondary);
+  line-height: 1.5;
+  letter-spacing: -0.01em;
+  color: var(--ui-text-secondary);
+  animation: map-page-fade-up calc(var(--ui-duration) * 1.2) var(--ui-ease) 120ms both;
 }
 
 .map-page__card {
-  background: var(--map-page-card-bg);
-  border-radius: var(--map-page-radius);
-  box-shadow: var(--map-page-shadow);
-  border: 1px solid rgba(0, 0, 0, 0.04);
+  position: relative;
+  background: var(--ui-glass);
+  border-radius: var(--ui-radius-xl);
+  border: 1px solid var(--ui-glass-border);
+  box-shadow: var(--ui-shadow-soft);
   overflow: hidden;
+  transition:
+    box-shadow var(--ui-duration) var(--ui-ease),
+    transform var(--ui-duration) var(--ui-ease),
+    border-color var(--ui-duration) var(--ui-ease);
+  animation: map-page-fade-up calc(var(--ui-duration) * 1.4) var(--ui-ease) 180ms both;
+}
+
+.map-page__card::before {
+  content: none;
+}
+
+.map-page__card:hover {
+  box-shadow: var(--ui-shadow-hover);
+  transform: translateY(-2px);
+  border-color: rgba(255, 255, 255, 0.85);
 }
 
 .map-page__card-inner {
-  padding: clamp(20px, 3vw, 36px) clamp(16px, 2.5vw, 28px) clamp(24px, 3.5vw, 40px);
+  position: relative;
+  z-index: 1;
+  isolation: isolate;
+  padding: clamp(28px, 4vw, 44px) clamp(20px, 3vw, 36px) clamp(32px, 4.5vw, 48px);
+}
+
+/* Prevent page typography hints from altering locked SVG text rendering */
+.map-page__card-inner #interactive-map,
+.map-page__card-inner #interactive-map * {
+  -webkit-font-smoothing: auto;
+  -moz-osx-font-smoothing: auto;
+}
+
+.map-page__card-glow {
+  display: none;
+}
+
+@keyframes map-page-fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 900px) {
+  .map-page__container {
+    width: min(100%, 720px);
+  }
 }
 
 @media (max-width: 768px) {
   .map-page {
-    padding-top: 24px;
-    padding-bottom: 40px;
+    padding-top: 32px;
+    padding-bottom: 48px;
   }
 
   .map-page__header {
     text-align: left;
-    margin-bottom: 24px;
+    margin-bottom: 28px;
+  }
+
+  .map-page__subtitle {
+    margin-left: 0;
+    max-width: none;
   }
 
   .map-page__card {
-    border-radius: 18px;
+    border-radius: var(--ui-radius-lg);
+  }
+
+  .map-page__card:hover {
+    transform: none;
   }
 
   .map-page__card-inner {
-    padding: 16px 12px 20px;
+    padding: 20px 14px 24px;
   }
 }
 
 @media (max-width: 480px) {
   .map-page__title {
-    letter-spacing: -0.02em;
+    letter-spacing: -0.03em;
+  }
+
+  .map-page__badge {
+    margin-bottom: 16px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-page__header,
+  .map-page__title,
+  .map-page__subtitle,
+  .map-page__card,
+  .map-page__badge {
+    animation: none;
+    transition: none;
+  }
+
+  .map-page__card:hover {
+    transform: none;
   }
 }

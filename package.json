@@ -6,9 +6,11 @@
     "generate": "node scripts/generate-wp-embed.mjs",
     "assemble": "node scripts/assemble-page.mjs",
     "verify": "node scripts/generate-wp-embed.mjs && node scripts/verify-wp-embed.mjs",
-    "verify:step1": "node scripts/assemble-page.mjs && node scripts/verify-step1.mjs"
+    "verify:map": "node scripts/assemble-page.mjs && node scripts/verify-map-locked.mjs",
+    "verify:ui": "node scripts/assemble-page.mjs && node scripts/verify-map-locked.mjs && node scripts/verify-step1.mjs"
   },
   "devDependencies": {
+    "pngjs": "^7.0.0",
     "puppeteer": "^24.34.0"
   }
 }

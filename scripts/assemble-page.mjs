@@ -2,6 +2,7 @@ import fs from 'fs';
 
 const mapStyles = fs.readFileSync('styles.css', 'utf8');
 const layoutStyles = fs.readFileSync('page-layout.css', 'utf8');
+const uiChromeStyles = fs.readFileSync('map-ui-chrome.css', 'utf8');
 const layoutWrapper = fs.readFileSync('page-layout.wrapper.html', 'utf8');
 const mapFragment = fs.readFileSync('map.fragment.html', 'utf8');
 
@@ -22,6 +23,9 @@ ${mapStyles.trim()}
 <style id="map-page-layout-styles">
 ${layoutStyles.trim()}
 </style>
+<style id="map-ui-chrome-styles">
+${uiChromeStyles.trim()}
+</style>
 
 ${pageBody}
 
@@ -41,7 +45,7 @@ const preview = `<!DOCTYPE html>
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   <style>
-    html, body { margin: 0; padding: 0; min-height: 100%; background: #f5f5f7; }
+    html, body { margin: 0; padding: 0; min-height: 100%; background: #ffffff; }
   </style>
 </head>
 <body>

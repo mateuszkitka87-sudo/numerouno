@@ -1,0 +1,60 @@
+/* Popup & button chrome only — loaded after map styles; does not alter SVG rendering */
+
+#interactive-map {
+  --ui-popup-radius: 18px;
+  --ui-popup-shadow:
+    0 2px 8px rgba(0, 0, 0, 0.04),
+    0 12px 32px rgba(0, 0, 0, 0.1),
+    0 0 0 1px rgba(0, 0, 0, 0.04);
+  --ui-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ui-duration: 250ms;
+}
+
+#interactive-map .info-text {
+  border-radius: var(--ui-popup-radius) !important;
+  box-shadow: var(--ui-popup-shadow) !important;
+  background: rgba(255, 255, 255, 0.92) !important;
+  backdrop-filter: blur(24px) saturate(160%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(160%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.8) !important;
+  transition:
+    opacity var(--ui-duration) var(--ui-ease),
+    transform var(--ui-duration) var(--ui-ease),
+    box-shadow var(--ui-duration) var(--ui-ease) !important;
+  will-change: opacity, transform;
+}
+
+#interactive-map .info-text h3 {
+  letter-spacing: -0.02em !important;
+  line-height: 1.25 !important;
+}
+
+#interactive-map .info-text p {
+  line-height: 1.55 !important;
+  letter-spacing: -0.01em !important;
+}
+
+#interactive-map .button-map {
+  border-radius: 980px !important;
+  box-shadow: 0 2px 8px rgba(202, 67, 0, 0.2) !important;
+  transition:
+    background-color var(--ui-duration) var(--ui-ease),
+    transform var(--ui-duration) var(--ui-ease),
+    box-shadow var(--ui-duration) var(--ui-ease) !important;
+}
+
+#interactive-map .button-map:hover {
+  transform: translateY(-1px) !important;
+  box-shadow: 0 4px 14px rgba(202, 67, 0, 0.28) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #interactive-map .info-text,
+  #interactive-map .button-map {
+    transition: none !important;
+  }
+
+  #interactive-map .button-map:hover {
+    transform: none !important;
+  }
+}
