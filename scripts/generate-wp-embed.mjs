@@ -296,9 +296,10 @@ const fragmentSource = fs.existsSync('map.fragment.html')
 const mapFragment = cleanMapFragment(fragmentSource);
 fs.writeFileSync('map.fragment.html', mapFragment);
 
-const wpEmbed = `<style id="interactive-map-styles">\n${scopedCss}\n</style>\n\n${mapFragment}`;
-fs.writeFileSync('index.html', wpEmbed);
+fs.writeFileSync('map.fragment.html', mapFragment);
 fs.writeFileSync('scripts/output/wp-embed-scoped.css', scopedCss);
+
+await import('./assemble-page.mjs');
 
 const ruleCount = (scopedCss.match(/\{/g) || []).length;
 const dupSelectors = (() => {
@@ -314,7 +315,6 @@ const dupSelectors = (() => {
   return dups;
 })();
 
-console.log('Generated index.html (%d bytes)', wpEmbed.length);
 console.log('Scoped CSS: %d bytes, ~%d rule blocks', scopedCss.length, ruleCount);
 console.log('Map fragment: map.fragment.html (%d bytes)', mapFragment.length);
 if (dupSelectors.length) console.warn('Duplicate selectors:', dupSelectors.length);
