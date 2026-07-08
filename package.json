@@ -7,7 +7,8 @@
     "assemble": "node scripts/assemble-page.mjs",
     "verify": "node scripts/generate-wp-embed.mjs && node scripts/verify-wp-embed.mjs",
     "verify:map": "node scripts/assemble-page.mjs && node scripts/verify-map-locked.mjs",
-    "verify:ui": "node scripts/assemble-page.mjs && node scripts/verify-map-locked.mjs && node scripts/verify-step1.mjs"
+    "verify:ui": "node scripts/assemble-page.mjs && node scripts/verify-map-locked.mjs && node scripts/verify-step1.mjs",
+    "verify:production": "node scripts/assemble-page.mjs && node scripts/verify-production.mjs"
   },
   "devDependencies": {
     "pngjs": "^7.0.0",

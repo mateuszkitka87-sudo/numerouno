@@ -1,6 +1,8 @@
 import puppeteer from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
+import { buildProductionEmbed } from './assemble-page.mjs';
+import { buildWpHarness, wpHarnessFileUrl } from './wp-harness.mjs';
 
 const OUT = 'scripts/output';
 fs.mkdirSync(OUT, { recursive: true });
@@ -15,12 +17,16 @@ const PROBES = [
 ];
 
 async function run() {
+  const embed = buildProductionEmbed();
+  const harnessPath = path.join(OUT, 'wp-harness.html');
+  buildWpHarness(embed, { outPath: harnessPath });
+
   const browser = await puppeteer.launch({ headless: 'new', args: ['--no-sandbox'] });
   const page = await browser.newPage();
   await page.setViewport({ width: 1400, height: 900 });
 
-  const previewUrl = 'file://' + process.cwd() + '/preview.html';
-  await page.goto(previewUrl, { waitUntil: 'networkidle2', timeout: 60000 });
+  const embedUrl = wpHarnessFileUrl(harnessPath);
+  await page.goto(embedUrl, { waitUntil: 'networkidle2', timeout: 60000 });
 
   await page.waitForFunction(() => document.querySelector('#interactive-map path.st2.brokerage'), { timeout: 15000 });
 
@@ -29,6 +35,7 @@ async function run() {
     const out = { layout: {}, map: {} };
     const layoutTitle = document.querySelector('.map-page__title');
     const layoutCard = document.querySelector('.map-page__card');
+    const embedStyle = document.querySelector('#sgs-e-customs-map-embed');
     if (layoutTitle) {
       const cs = getComputedStyle(layoutTitle);
       out.layout.titleFontSize = cs.fontSize;
@@ -39,6 +46,7 @@ async function run() {
       out.layout.cardBorderRadius = cs.borderRadius;
       out.layout.cardBoxShadow = cs.boxShadow;
     }
+    out.layout.singleInlineStyle = !!embedStyle;
     for (const [sel, key, props] of probes) {
       const el = sel.startsWith('#') ? document.querySelector(sel) : map.querySelector(sel);
       if (!el) { out.map[key] = null; continue; }
@@ -48,7 +56,6 @@ async function run() {
     return out;
   }, PROBES);
 
-  // Hover Netherlands — popup must appear
   await page.evaluate(() => {
     window.jQuery('#interactive-map #netherlands').trigger('mouseenter');
   });
@@ -75,13 +82,14 @@ async function run() {
     return { popupDisplay: popup ? getComputedStyle(popup).display : null };
   });
 
-  await page.screenshot({ path: path.join(OUT, 'step1-preview.png'), fullPage: false });
+  await page.screenshot({ path: path.join(OUT, 'step1-production.png'), fullPage: false });
   await browser.close();
 
   const failures = [];
 
   if (!rest.layout.titleVisible) failures.push('Layout title not visible');
   if (!rest.layout.cardBoxShadow || rest.layout.cardBoxShadow === 'none') failures.push('Card shadow missing');
+  if (!rest.layout.singleInlineStyle) failures.push('Missing single inline embed stylesheet');
 
   const expected = {
     st0: { fill: 'rgb(209, 210, 213)', stroke: 'rgb(255, 255, 255)' },
@@ -102,7 +110,7 @@ async function run() {
   if (!hover.popupH3?.includes('Netherlands')) failures.push('Hover popup missing Netherlands title');
   if (afterLeave.popupDisplay !== 'none') failures.push(`After mouseleave popup still: ${afterLeave.popupDisplay}`);
 
-  const report = { previewUrl, rest, hover, afterLeave, failures, passed: failures.length === 0 };
+  const report = { embedUrl, rest, hover, afterLeave, failures, passed: failures.length === 0 };
   fs.writeFileSync(path.join(OUT, 'ui-verify-report.json'), JSON.stringify(report, null, 2));
 
   console.log('Layout:', rest.layout);

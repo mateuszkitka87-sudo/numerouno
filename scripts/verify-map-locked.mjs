@@ -2,6 +2,8 @@ import puppeteer from 'puppeteer';
 import fs from 'fs';
 import path from 'path';
 import { PNG } from 'pngjs';
+import { buildProductionEmbed } from './assemble-page.mjs';
+import { buildWpHarness, buildLayoutBaselineHarness, wpHarnessFileUrl } from './wp-harness.mjs';
 
 const OUT = 'scripts/output';
 fs.mkdirSync(OUT, { recursive: true });
@@ -20,40 +22,8 @@ const SVG_PROBES = [
   ['svg', ['width', 'height']],
 ];
 
-function buildBaselineHarness(containerWidth) {
-  const mapStyles = fs.readFileSync('styles.css', 'utf8');
-  const layoutStyles = fs.readFileSync('page-layout.css', 'utf8');
-  const uiChrome = fs.readFileSync('map-ui-chrome.css', 'utf8');
-  const mapFragment = fs.readFileSync('map.fragment.html', 'utf8');
-  return `<!DOCTYPE html>
-<html lang="en"><head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-<style id="interactive-map-styles">${mapStyles}</style>
-<style id="map-page-layout-styles">${layoutStyles}</style>
-<style id="map-ui-chrome-styles">${uiChrome}</style>
-<style>
-  html, body { margin: 0; padding: 0; min-height: 100%; background: #ffffff; }
-  .map-page__header { display: none; }
-  .map-page__container { width: min(1080px, 100%); margin: 0 auto; }
-</style>
-</head><body>
-<div class="map-page">
-  <div class="map-page__container">
-    <header class="map-page__header"></header>
-    <section class="map-page__card">
-      <div class="map-page__card-inner">
-        ${mapFragment.replace(/<script[\s\S]*<\/script>\s*$/, '')}
-      </div>
-    </section>
-  </div>
-</div>
-${mapFragment.match(/<script[\s\S]*<\/script>\s*$/)?.[0] || ''}
-</body></html>`;
+function buildBaselineHarness() {
+  return buildLayoutBaselineHarness({ outPath: path.join(OUT, 'map-baseline-harness.html') });
 }
 
 async function probeMap(page) {
@@ -79,6 +49,21 @@ async function probeMap(page) {
     }
     return out;
   }, SVG_PROBES);
+}
+
+async function stabilizeForScreenshot(page) {
+  await page.evaluate(() => {
+    document.querySelector('.map-page__header')?.style.setProperty('display', 'none', 'important');
+    for (const sel of ['.map-page__header', '.map-page__title', '.map-page__subtitle', '.map-page__card', '.map-page__badge']) {
+      document.querySelectorAll(sel).forEach((el) => {
+        el.style.animation = 'none';
+        el.style.transition = 'none';
+      });
+    }
+    const card = document.querySelector('.map-page__card');
+    if (card) card.style.transform = 'none';
+  });
+  await new Promise((r) => setTimeout(r, 300));
 }
 
 async function screenshotSvg(page, label) {
@@ -110,82 +95,77 @@ function comparePngBuffers(bufA, bufB) {
 }
 
 async function run() {
+  const embed = buildProductionEmbed();
+  const harnessPath = path.join(OUT, 'wp-harness.html');
+  buildWpHarness(embed, { outPath: harnessPath });
+  buildBaselineHarness();
+
   const browser = await puppeteer.launch({ headless: 'new', args: ['--no-sandbox'] });
   const failures = [];
 
-  // Preview first — measure rendered map width
-  const previewPage = await browser.newPage();
-  await previewPage.setViewport({ width: 1400, height: 900 });
-  await previewPage.goto('file://' + process.cwd() + '/preview.html', { waitUntil: 'networkidle2', timeout: 60000 });
-  await previewPage.evaluate(() => document.querySelector('#interactive-map')?.scrollIntoView({ block: 'center' }));
+  const prodPage = await browser.newPage();
+  await prodPage.setViewport({ width: 1400, height: 900 });
+  await prodPage.goto(wpHarnessFileUrl(harnessPath), { waitUntil: 'networkidle2', timeout: 60000 });
+  await prodPage.evaluate(() => document.querySelector('.map-page')?.scrollIntoView({ block: 'start' }));
   await new Promise((r) => setTimeout(r, 1200));
-  const previewData = await probeMap(previewPage);
-  const previewShot = await screenshotSvg(previewPage, 'preview');
-  await previewPage.close();
-
-  const containerWidth = Math.round(previewData.mapWidth);
-  const baselinePath = path.join(OUT, 'map-baseline-harness.html');
-  fs.writeFileSync(baselinePath, buildBaselineHarness(containerWidth));
+  await stabilizeForScreenshot(prodPage);
+  const prodData = await probeMap(prodPage);
+  const prodShot = await screenshotSvg(prodPage, 'production');
 
   const baselinePage = await browser.newPage();
   await baselinePage.setViewport({ width: 1400, height: 900 });
-  await baselinePage.goto('file://' + process.cwd() + '/' + baselinePath, { waitUntil: 'networkidle2', timeout: 60000 });
+  await baselinePage.goto(wpHarnessFileUrl(path.join(OUT, 'map-baseline-harness.html')), { waitUntil: 'networkidle2', timeout: 60000 });
   await new Promise((r) => setTimeout(r, 800));
+  await stabilizeForScreenshot(baselinePage);
   const baselineData = await probeMap(baselinePage);
   const baselineShot = await screenshotSvg(baselinePage, 'baseline');
-  await baselinePage.close();
 
-  if (baselineData.pathCount !== previewData.pathCount) {
-    failures.push(`path count: ${baselineData.pathCount} vs ${previewData.pathCount}`);
+  if (baselineData.pathCount !== prodData.pathCount) {
+    failures.push(`path count: ${baselineData.pathCount} vs ${prodData.pathCount}`);
   }
-  if (baselineData.circleCount !== previewData.circleCount) {
-    failures.push(`circle count: ${baselineData.circleCount} vs ${previewData.circleCount}`);
+  if (baselineData.circleCount !== prodData.circleCount) {
+    failures.push(`circle count: ${baselineData.circleCount} vs ${prodData.circleCount}`);
   }
-  if (baselineData.viewBox !== previewData.viewBox) {
-    failures.push(`viewBox: ${baselineData.viewBox} vs ${previewData.viewBox}`);
+  if (baselineData.viewBox !== prodData.viewBox) {
+    failures.push(`viewBox: ${baselineData.viewBox} vs ${prodData.viewBox}`);
   }
-  if (Math.abs(baselineData.svgWidth - previewData.svgWidth) > 1) {
-    failures.push(`svg width: ${baselineData.svgWidth} vs ${previewData.svgWidth}`);
+  if (Math.abs(baselineData.svgWidth - prodData.svgWidth) > 1) {
+    failures.push(`svg width: ${baselineData.svgWidth} vs ${prodData.svgWidth}`);
   }
-  if (baselineShot.box && previewShot.box) {
-    if (Math.abs(baselineShot.box.width - previewShot.box.width) > 1) {
-      failures.push(`screenshot width: ${baselineShot.box.width} vs ${previewShot.box.width}`);
+  if (baselineShot.box && prodShot.box) {
+    if (Math.abs(baselineShot.box.width - prodShot.box.width) > 1) {
+      failures.push(`screenshot width: ${baselineShot.box.width} vs ${prodShot.box.width}`);
     }
-    if (Math.abs(baselineShot.box.height - previewShot.box.height) > 1) {
-      failures.push(`screenshot height: ${baselineShot.box.height} vs ${previewShot.box.height}`);
+    if (Math.abs(baselineShot.box.height - prodShot.box.height) > 1) {
+      failures.push(`screenshot height: ${baselineShot.box.height} vs ${prodShot.box.height}`);
     }
   }
 
   for (const [sel] of SVG_PROBES) {
     const a = baselineData.probes[sel];
-    const b = previewData.probes[sel];
+    const b = prodData.probes[sel];
     if (!a || !b) {
       if (a !== b) failures.push(`probe missing: ${sel}`);
       continue;
     }
     for (const prop of Object.keys(a)) {
-      if (a[prop] !== b[prop]) failures.push(`${sel}.${prop}: baseline=${a[prop]} preview=${b[prop]}`);
+      if (a[prop] !== b[prop]) failures.push(`${sel}.${prop}: baseline=${a[prop]} production=${b[prop]}`);
     }
   }
 
-  const pixelCompare = comparePngBuffers(baselineShot.buffer, previewShot.buffer);
+  const pixelCompare = comparePngBuffers(baselineShot.buffer, prodShot.buffer);
   if (pixelCompare.pct > 0.05) {
     failures.push(`SVG pixel diff: ${pixelCompare.diffPixels}/${pixelCompare.comparedPixels} (${pixelCompare.pct.toFixed(4)}%)`);
   }
 
-  // Hover functionality on preview
-  const hoverPage = await browser.newPage();
-  await hoverPage.setViewport({ width: 1400, height: 900 });
-  await hoverPage.goto('file://' + process.cwd() + '/preview.html', { waitUntil: 'networkidle2' });
-  await hoverPage.waitForFunction(() => document.querySelector('#interactive-map path.st2.brokerage'), { timeout: 15000 });
-  await hoverPage.evaluate(() => window.jQuery('#interactive-map #netherlands').trigger('mouseenter'));
+  await prodPage.evaluate(() => window.jQuery('#interactive-map #netherlands').trigger('mouseenter'));
   await new Promise((r) => setTimeout(r, 500));
-  const hover = await hoverPage.evaluate(() => {
+  const hover = await prodPage.evaluate(() => {
     const p = document.querySelector('#interactive-map .info-text[data-name=netherlands]');
     const cs = p ? getComputedStyle(p) : null;
     return { display: cs?.display, h3: p?.querySelector('h3')?.textContent?.trim() };
   });
-  await hoverPage.evaluate(() => window.jQuery('#interactive-map #netherlands').trigger('mouseleave'));
+  await prodPage.evaluate(() => window.jQuery('#interactive-map #netherlands').trigger('mouseleave'));
   await browser.close();
 
   if (hover.display !== 'block') failures.push(`hover popup: ${hover.display}`);
@@ -193,9 +173,9 @@ async function run() {
 
   const report = {
     comparedAt: new Date().toISOString(),
-    containerWidth,
+    containerWidth: Math.round(prodData.mapWidth),
     baseline: { data: baselineData, screenshot: baselineShot.file },
-    preview: { data: previewData, screenshot: previewShot.file },
+    production: { data: prodData, screenshot: prodShot.file },
     screenshotDiffPercent: pixelCompare.pct,
     pixelCompare,
     hover,
@@ -204,7 +184,7 @@ async function run() {
   };
 
   fs.writeFileSync(path.join(OUT, 'map-locked-verify.json'), JSON.stringify(report, null, 2));
-  console.log('Container width:', containerWidth);
+  console.log('Container width:', Math.round(prodData.mapWidth));
   console.log('SVG pixel diff:', pixelCompare.pct.toFixed(4) + '%', `(${pixelCompare.diffPixels} px)`);
   console.log('Failures:', failures.length);
   for (const f of failures) console.log(' -', f);

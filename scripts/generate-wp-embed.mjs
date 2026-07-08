@@ -295,8 +295,6 @@ const fragmentSource = fs.existsSync('map.fragment.html')
 
 const mapFragment = cleanMapFragment(fragmentSource);
 fs.writeFileSync('map.fragment.html', mapFragment);
-
-fs.writeFileSync('map.fragment.html', mapFragment);
 fs.writeFileSync('scripts/output/wp-embed-scoped.css', scopedCss);
 
 await import('./assemble-page.mjs');

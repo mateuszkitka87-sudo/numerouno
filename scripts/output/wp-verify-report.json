@@ -274,7 +274,7 @@
       "width": "auto",
       "maxWidth": "300px",
       "margin": "0px",
-      "backgroundColor": "rgb(255, 255, 255)",
+      "backgroundColor": "rgba(255, 255, 255, 0.92)",
       "display": "none"
     },
     "map": {
@@ -284,7 +284,7 @@
       "color": "rgb(51, 51, 51)",
       "fontSize": "16px",
       "fontFamily": "Roboto, Helvetica, Arial, Verdana, sans-serif",
-      "width": "1062px",
+      "width": "1006px",
       "maxWidth": "1080px",
       "margin": "0px",
       "backgroundColor": "rgba(0, 0, 0, 0)",

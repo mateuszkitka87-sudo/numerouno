@@ -1,59 +1,47 @@
 import fs from 'fs';
 
-const mapStyles = fs.readFileSync('styles.css', 'utf8');
-const layoutStyles = fs.readFileSync('page-layout.css', 'utf8');
-const uiChromeStyles = fs.readFileSync('map-ui-chrome.css', 'utf8');
-const layoutWrapper = fs.readFileSync('page-layout.wrapper.html', 'utf8');
-const mapFragment = fs.readFileSync('map.fragment.html', 'utf8');
+/**
+ * Build the production WPBakery Raw HTML fragment (self-contained, all CSS inline).
+ */
+export function buildProductionEmbed() {
+  const mapStyles = fs.readFileSync('styles.css', 'utf8');
+  const layoutStyles = fs.readFileSync('page-layout.css', 'utf8');
+  const uiChromeStyles = fs.readFileSync('map-ui-chrome.css', 'utf8');
+  const layoutWrapper = fs.readFileSync('page-layout.wrapper.html', 'utf8');
+  const mapFragment = fs.readFileSync('map.fragment.html', 'utf8');
 
-const scriptIdx = mapFragment.indexOf('<script');
-if (scriptIdx === -1) throw new Error('map.fragment.html: missing <script>');
-const mapDiv = mapFragment.slice(0, scriptIdx).trim();
-const mapScript = mapFragment.slice(scriptIdx).trim();
+  const scriptIdx = mapFragment.indexOf('<script');
+  if (scriptIdx === -1) throw new Error('map.fragment.html: missing <script>');
+  const mapDiv = mapFragment.slice(0, scriptIdx).trim();
+  const mapScript = mapFragment.slice(scriptIdx).trim();
 
-if (!mapDiv.startsWith('<div id="interactive-map">')) {
-  throw new Error('map.fragment.html: expected root #interactive-map div');
-}
+  if (!mapDiv.startsWith('<div id="interactive-map">')) {
+    throw new Error('map.fragment.html: expected root #interactive-map div');
+  }
 
-const pageBody = layoutWrapper.replace('{{MAP}}', mapDiv);
+  const pageBody = layoutWrapper.replace('{{MAP}}', mapDiv);
 
-const embed = `<style id="interactive-map-styles">
+  const inlineCss = `/* SGS e-Customs — WPBakery Raw HTML embed (auto-generated) */
+
+/* --- Map styles (locked; scoped to #interactive-map) --- */
 ${mapStyles.trim()}
-</style>
-<style id="map-page-layout-styles">
+
+/* --- Page layout --- */
 ${layoutStyles.trim()}
-</style>
-<style id="map-ui-chrome-styles">
-${uiChromeStyles.trim()}
+
+/* --- Popup & button chrome --- */
+${uiChromeStyles.trim()}`;
+
+  return `<style id="sgs-e-customs-map-embed">
+${inlineCss}
 </style>
 
 ${pageBody}
 
 ${mapScript}
 `;
+}
 
+const embed = buildProductionEmbed();
 fs.writeFileSync('index.html', embed);
-
-const preview = `<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SGS e-Customs — European Coverage Map</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <style>
-    html, body { margin: 0; padding: 0; min-height: 100%; background: #ffffff; }
-  </style>
-</head>
-<body>
-${embed}
-</body>
-</html>
-`;
-
-fs.writeFileSync('preview.html', preview);
-console.log('Assembled index.html (%d bytes)', embed.length);
-console.log('Assembled preview.html (%d bytes)', preview.length);
+console.log('Built production WPBakery embed: index.html (%d bytes)', embed.length);
