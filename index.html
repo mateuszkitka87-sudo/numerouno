@@ -1,9 +1,4 @@
-<!-- SGS e-Customs WPBakery embed | layout-integrated | replace entire Raw HTML block -->
 <style id="sgs-e-customs-map-embed">
-/* SGS e-Customs — WPBakery Raw HTML embed (auto-generated) */
-
-/* --- Map styles (locked; scoped to #interactive-map) --- */
-/* WPBakery Raw HTML — scoped to #interactive-map */
 #interactive-map {
   position: relative !important;
   width: 100% !important;
@@ -158,10 +153,6 @@
   }
 }
 
-/* --- Page layout --- */
-/* Apple-inspired page shell — does not style SVG paths, circles, or markers */
-/* Higher specificity + !important so The7/WPBakery theme rules cannot flatten the layout */
-
 .wpb_raw_html .map-page,
 .map-page {
   --ui-bg: #ffffff;
@@ -300,7 +291,6 @@
   padding: clamp(28px, 4vw, 44px) clamp(20px, 3vw, 36px) clamp(32px, 4.5vw, 48px);
 }
 
-/* Prevent page typography hints from altering locked SVG text rendering */
 .map-page__card-inner #interactive-map,
 .map-page__card-inner #interactive-map * {
   -webkit-font-smoothing: auto;
@@ -382,9 +372,6 @@
   }
 }
 
-/* --- Popup & button chrome --- */
-/* Popup & button chrome only — loaded after map styles; does not alter SVG rendering */
-
 #interactive-map {
   --ui-popup-radius: 18px;
   --ui-popup-shadow:
@@ -458,7 +445,7 @@
       <div class="map-page__card-glow" aria-hidden="true"></div>
       <div class="map-page__card-inner">
         <div id="interactive-map">
-<!-- Generator: Adobe Illustrator 26.5.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+
 <svg version="1.1"
 	 id="interactive-map-svg" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:cc="http://creativecommons.org/ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" inkscape:output_extension="org.inkscape.output.svg.inkscape" inkscape:version="0.46+pre4" sodipodi:docname="Blank_map_europe_no_borders.svg" sodipodi:version="0.32"
 	 xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" viewBox="1000 2750 8192 5250"
@@ -1630,10 +1617,7 @@
 	</g>
 </g>
 </svg>
-<!-- <div class="info-text" data-name="country name" data-url="ccountry link" data-type="type of country (inactive, transit, brokerage & export" style="display: none;">
-	<h3>Title</h3>
-	<p>Text</p>
-</div> -->
+
 
 <div class="info-text" data-name="netherlands" data-url="" data-type="brokerage" style="display: none;">
 	<h3>Netherlands</h3>
@@ -1903,35 +1887,21 @@ Through our Italian offices, companies can initiate transit declarations from ke
 
 
 <script>
-jQuery(document).ready(function ($) {
-	// Itterate every info popup
+jQuery(document).ready(function ($) {
 	var popupClass = '.info-text';
 
-	$('.info-text').each(function () {
-		// Get data attributes
+	$('.info-text').each(function () {
 		var countryName = $(this).data('name');
 		var countryUrl = $(this).data('url');
-		var countryType = $(this).data('type');
-
-		// Set data names
+		var countryType = $(this).data('type');
 		var mapName = "#" + countryName;
-		var popupName = "[data-name='" + countryName + "']";
-
-		// Add class to svg country path with
-		$(this).parent().find('svg ' + mapName + ' path').addClass(countryType);
-
-		// Add class if url exists
+		var popupName = "[data-name='" + countryName + "']";
+		$(this).parent().find('svg ' + mapName + ' path').addClass(countryType);
 		if (countryUrl) {
 			$(this).parent().find('svg ' + mapName + ' path').addClass('has_url');
-		}
-
-		// If data type is not inactive
-		if (countryType !== 'inactive') {
-
-			// Find every svg with the country name
-			var svg = $(this).parent().find('svg ' + mapName);
-
-			// On hover in if found SVG
+		}
+		if (countryType !== 'inactive') {
+			var svg = $(this).parent().find('svg ' + mapName);
 			svg.hover(function () {
 				$(popupClass + popupName).fadeIn('fast');
 
@@ -1951,9 +1921,7 @@ jQuery(document).ready(function ($) {
 					$(this).find('path').css({
 						'fill': '#ff8f1f',
 					});
-				}
-
-				// On hover out if found svg
+				}
 			}, function () {
 				$(popupClass + popupName).fadeOut('fast');
 
@@ -1977,16 +1945,14 @@ jQuery(document).ready(function ($) {
 			});
 
 			function svgLink() {
-				svg.on('click', function () {
-					// Fool proof if mapurl is not shown
+				svg.on('click', function () {
 					if (countryUrl) {
 						window.open(countryUrl);
 					} else {
 						console.log('No url given.');
 					}
 				});
-			}
-			// On click on found SVG
+			}
 			if ($(window).width() >= 1000) {
 				svgLink();
 			} else if (countryUrl) {
