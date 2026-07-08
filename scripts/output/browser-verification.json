@@ -1,0 +1,117 @@
+[
+  {
+    "label": "01-http-with-css",
+    "url": "http://localhost:9891/",
+    "networkLog": [
+      {
+        "url": "http://localhost:9891/styles.css",
+        "status": 200,
+        "ok": true
+      },
+      {
+        "url": "https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,normal",
+        "status": 200,
+        "ok": true
+      }
+    ],
+    "stylesheetLinkHref": "https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,normal",
+    "stylesCssEntry": {
+      "href": "http://localhost:9891/styles.css",
+      "rules": 37
+    },
+    "stylesCssLoaded": true,
+    "st0": {
+      "computedFill": "rgb(209, 210, 213)",
+      "computedStroke": "rgb(255, 255, 255)",
+      "computedStrokeWidth": "1.5px",
+      "winningRuleFill": "rgb(209, 210, 213)",
+      "winningRuleStylesheet": "inline"
+    },
+    "screenshot": "scripts/output/01-http-with-css.png"
+  },
+  {
+    "label": "02-http-missing-css",
+    "url": "http://localhost:9892/ (styles.css 404)",
+    "networkLog": [
+      {
+        "url": "http://localhost:9892/styles.css",
+        "status": 404,
+        "ok": false
+      },
+      {
+        "url": "https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,normal",
+        "status": 200,
+        "ok": true
+      }
+    ],
+    "stylesheetLinkHref": "https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,normal",
+    "stylesCssEntry": {
+      "href": "http://localhost:9892/styles.css",
+      "rules": 0
+    },
+    "stylesCssLoaded": false,
+    "st0": {
+      "computedFill": "rgb(209, 210, 213)",
+      "computedStroke": "rgb(255, 255, 255)",
+      "computedStrokeWidth": "1.5px",
+      "winningRuleFill": "rgb(209, 210, 213)",
+      "winningRuleStylesheet": "inline"
+    },
+    "screenshot": "scripts/output/02-http-missing-css.png"
+  },
+  {
+    "label": "03-file-protocol",
+    "url": "file:///workspace/index.html",
+    "networkLog": [
+      {
+        "url": "file:///workspace/styles.css",
+        "status": 200,
+        "ok": true
+      },
+      {
+        "url": "https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,normal",
+        "status": 200,
+        "ok": true
+      }
+    ],
+    "stylesheetLinkHref": "https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,normal",
+    "stylesCssEntry": {
+      "href": "file:///workspace/styles.css",
+      "rules": "blocked: Failed to read the 'cssRules' property from 'CSSStyleSheet': Cannot access rules"
+    },
+    "stylesCssLoaded": false,
+    "st0": {
+      "computedFill": "rgb(209, 210, 213)",
+      "computedStroke": "rgb(255, 255, 255)",
+      "computedStrokeWidth": "1.5px",
+      "winningRuleFill": "rgb(209, 210, 213)",
+      "winningRuleStylesheet": "inline"
+    },
+    "screenshot": "scripts/output/03-file-protocol.png"
+  },
+  {
+    "label": "04-file-offline",
+    "url": "file:///workspace/index.html (offline)",
+    "networkLog": [
+      {
+        "url": "file:///workspace/styles.css",
+        "status": 200,
+        "ok": true
+      }
+    ],
+    "stylesheetLinkHref": "https://fonts.googleapis.com/css?family=Roboto:300,400,500,600,700,normal",
+    "stylesCssEntry": {
+      "href": "file:///workspace/styles.css",
+      "rules": "blocked: Failed to read the 'cssRules' property from 'CSSStyleSheet': Cannot access rules"
+    },
+    "stylesCssLoaded": false,
+    "st0": {
+      "computedFill": "rgb(209, 210, 213)",
+      "computedStroke": "rgb(255, 255, 255)",
+      "computedStrokeWidth": "1.5px",
+      "winningRuleFill": "rgb(209, 210, 213)",
+      "winningRuleStylesheet": "inline"
+    },
+    "screenshot": "scripts/output/04-file-offline.png"
+  }
+]
