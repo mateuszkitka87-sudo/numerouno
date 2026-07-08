@@ -1,3 +1,14 @@
 node_modules/
-scripts/output/*.png
 package-lock.json
+scripts/output/*.png
+scripts/output/live-compare/
+scripts/output/css-cascade-investigation/
+scripts/output/wp-harness.html
+scripts/output/computed*.json
+scripts/output/computed*.md
+scripts/output/wp-*-audit.json
+scripts/output/wp-*-extract.json
+scripts/output/wp-matched-rules.json
+scripts/output/wp-precise-audit.json
+scripts/output/wp-full-extract.json
+scripts/output/styles-built.css

@@ -1,5 +1,6 @@
 import fs from 'fs';
 import https from 'https';
+import { cleanMapFragment } from './clean-map-fragment.mjs';
 
 function fetch(url) {
   return new Promise((resolve, reject) => {
@@ -14,17 +15,13 @@ function fetch(url) {
 function scopeSelector(selector) {
   const s = selector.trim();
   if (!s) return s;
-  if (s.startsWith('#interactive-map')) return s;
-  // comma-separated selector groups
   return s
     .split(',')
     .map((part) => {
       part = part.trim();
       if (part.startsWith('#interactive-map')) return part;
       if (part.startsWith('#map-container')) return `#interactive-map ${part}`;
-      if (part.startsWith('#ukraine') || part.startsWith('#bosnia') || part.startsWith('#poland') || part.startsWith('#switserland'))
-        return `#interactive-map ${part}`;
-      if (part.startsWith('#brokeragestripes') || part.startsWith('#exportstripes'))
+      if (/^#(ukraine|bosnia|poland|switserland|brokeragestripes|exportstripes)\b/.test(part))
         return `#interactive-map ${part}`;
       return `#interactive-map ${part}`;
     })
@@ -53,14 +50,70 @@ function protectSvgRules(cssText) {
   const svgProps = ['fill', 'stroke', 'stroke-width', 'stroke-miterlimit', 'fill-rule', 'clip-rule'];
   return cssText.replace(/([^{}]+)\{([^}]*)\}/g, (match, selector, body) => {
     const sel = selector.trim();
-    if (/\.st[0-9]/.test(sel) && !/circle|rect|path\.st2/.test(sel)) {
-      return match;
-    }
+    if (/\.st[0-9]/.test(sel) && !/circle|rect|path\.st2/.test(sel)) return match;
     const isSvgRule =
       /path|circle|rect|\.transit|\.brokerage|\.export|#map-container|#ukraine|#bosnia|#poland|#switserland/i.test(sel);
     if (!isSvgRule) return match;
     return `${selector}{${importantDecls(body, svgProps)}}`;
   });
+}
+
+function parseRules(css, source) {
+  const cleaned = css
+    .replace(/\/\*[\s\S]*?\*\//g, '')
+    .replace(/\.map-container\s*\{[^}]*\}/g, '')
+    .replace(/\.google-visualization-tooltip[^}]*\}/g, '');
+
+  const rules = [];
+  const ruleRegex = /(@media[^{]+)\{([\s\S]*?)\}|([^{}@]+)\{([^}]*)\}/g;
+  let m;
+  while ((m = ruleRegex.exec(cleaned)) !== null) {
+    if (m[1]) {
+      const media = m[1].trim();
+      const innerRegex = /([^{}]+)\{([^}]*)\}/g;
+      let im;
+      while ((im = innerRegex.exec(m[2])) !== null) {
+        const selector = im[1].trim();
+        if (!selector) continue;
+        rules.push({ media, selector, body: im[2].trim(), source });
+      }
+    } else if (m[3]) {
+      const selector = m[3].trim();
+      if (!selector) continue;
+      rules.push({ media: null, selector, body: m[4].trim(), source });
+    }
+  }
+  return rules;
+}
+
+function mergeRules(ruleLists) {
+  const merged = new Map();
+  for (const rules of ruleLists) {
+    for (const rule of rules) {
+      const scoped = scopeSelector(rule.selector);
+      const key = `${rule.media || ''}||${scoped}`;
+      merged.set(key, { ...rule, selector: scoped });
+    }
+  }
+  return [...merged.values()];
+}
+
+function rulesToCss(rules) {
+  const byMedia = new Map();
+  for (const rule of rules) {
+    const key = rule.media || '';
+    if (!byMedia.has(key)) byMedia.set(key, []);
+    byMedia.get(key).push(rule);
+  }
+
+  let css = '';
+  for (const [media, group] of byMedia) {
+    const blocks = group
+      .map((r) => `${r.selector} { ${r.body} }`)
+      .join('\n');
+    css += media ? `${media} {\n${blocks}\n}\n\n` : `${blocks}\n\n`;
+  }
+  return css.trim();
 }
 
 const SCSS_URL = 'https://ecustoms.sgs.com/wp-content/custom_codes/1243-scss-output.css?ver=278';
@@ -74,41 +127,37 @@ const vcMatch = vcPage.match(/<style data-type="vc_custom-css">([\s\S]*?)<\/styl
 if (!vcMatch) throw new Error('vc_custom-css not found');
 const vcBlock = vcMatch[1].trim();
 
-// Build rule blocks in WordPress cascade order, then scope every selector to #interactive-map.
-const rawBlocks = [
-  { source: '1243-scss-output.css', css: mapBlock },
-  { source: 'vc_custom-css', css: vcBlock },
-];
+const scssRules = parseRules(mapBlock, '1243-scss-output.css');
+const vcRules = parseRules(vcBlock, 'vc_custom-css');
+const mergedRules = mergeRules([scssRules, vcRules]);
 
-let mergedCss = '';
-for (const block of rawBlocks) {
-  const cleaned = block.css
-    .replace(/\/\*[\s\S]*?\*\//g, '')
-    .replace(/\.map-container\s*\{[^}]*\}/g, '') // use #interactive-map instead
-    .replace(/\.google-visualization-tooltip[^}]*\}/g, '');
+const ENHANCED_SELECTORS = new Set([
+  '#interactive-map',
+  '#interactive-map .info-text',
+  '#interactive-map .info-text h3',
+  '#interactive-map .info-text p',
+  '#interactive-map .button-map',
+  '#interactive-map .button-map i',
+  '#interactive-map circle.transit',
+  '#interactive-map .legend rect.transit',
+  '#interactive-map circle.st1.brokerage',
+  '#interactive-map .legend rect.brokerage',
+  '#interactive-map circle.st4.export',
+  '#interactive-map .legend rect.export',
+]);
 
-  const ruleRegex = /(@media[^{]+\{([\s\S]*?)\})|([^{}@]+)\{([^}]*)\}/g;
-  let m;
-  while ((m = ruleRegex.exec(cleaned)) !== null) {
-    if (m[1]) {
-      const media = m[1].match(/^@media[^{]+/)[0];
-      const inner = m[2];
-      let innerOut = '';
-      const innerRegex = /([^{}]+)\{([^}]*)\}/g;
-      let im;
-      while ((im = innerRegex.exec(inner)) !== null) {
-        innerOut += `${scopeSelector(im[1])} { ${im[2].trim()} }\n`;
-      }
-      mergedCss += `${media} {\n${innerOut}}\n\n`;
-    } else if (m[3]) {
-      const selector = m[3].trim();
-      if (!selector || selector.startsWith('@')) continue;
-      mergedCss += `${scopeSelector(selector)} { ${m[4].trim()} }\n`;
-    }
+const mapRules = mergedRules.filter((rule) => {
+  if (ENHANCED_SELECTORS.has(rule.selector)) return false;
+  if (/circle\.st1\.brokerage|circle\.st4\.export|rect\.brokerage|rect\.export/.test(rule.selector)) return false;
+  if (rule.media && /max-width:\s*1000px/.test(rule.media)) {
+    if (/\.info-text|\.legend-text/.test(rule.selector)) return false;
   }
-}
+  return true;
+});
 
-const scopedCss = `/* WPBakery Raw HTML — scoped to #interactive-map (auto-generated) */
+let mergedCss = rulesToCss(mapRules);
+
+const scopedCss = `/* WPBakery Raw HTML — scoped to #interactive-map */
 #interactive-map {
   position: relative !important;
   width: 100% !important;
@@ -137,7 +186,6 @@ const scopedCss = `/* WPBakery Raw HTML — scoped to #interactive-map (auto-gen
   overflow: hidden !important;
 }
 
-/* Neutralise The7/HTML legend styles on SVG <g class="legend"> */
 #interactive-map g.legend {
   border: none !important;
   padding: 0 !important;
@@ -152,7 +200,6 @@ const scopedCss = `/* WPBakery Raw HTML — scoped to #interactive-map (auto-gen
 
 ${protectSvgRules(mergedCss)}
 
-/* Service colours — after .st0-.st4 stroke rules; higher specificity for markers */
 #interactive-map circle.transit {
   fill: #ff6600 !important;
   stroke: #ffffff !important;
@@ -181,7 +228,6 @@ ${protectSvgRules(mergedCss)}
   stroke: #900C3F !important;
 }
 
-/* Popup + button (HTML inside #interactive-map) */
 #interactive-map .info-text {
   position: absolute !important;
   top: 400px !important;
@@ -243,29 +289,32 @@ ${protectSvgRules(mergedCss)}
 
 fs.writeFileSync('styles.css', scopedCss);
 
-// Map fragment from main (unchanged SVG, popups, script)
-const mainHtml = fs.readFileSync('index.html', 'utf8');
-let mapFragment;
+const fragmentSource = fs.existsSync('map.fragment.html')
+  ? fs.readFileSync('map.fragment.html', 'utf8')
+  : fs.readFileSync('index.html', 'utf8');
 
-const mainFromGit = await new Promise((resolve) => {
-  import('child_process').then(({ execFile }) => {
-    execFile('git', ['show', 'main:index.html'], (err, stdout) => resolve(err ? null : stdout));
-  });
-});
+const mapFragment = cleanMapFragment(fragmentSource);
+fs.writeFileSync('map.fragment.html', mapFragment);
 
-if (mainFromGit) {
-  mapFragment = mainFromGit.trim();
-} else {
-  const start = mainHtml.indexOf('<div id="interactive-map">');
-  const scriptStart = mainHtml.indexOf('<script', start);
-  const closeDiv = mainHtml.lastIndexOf('</div>', scriptStart);
-  const scriptEnd = mainHtml.indexOf('</script>', scriptStart) + '</script>'.length;
-  mapFragment = mainHtml.slice(start, closeDiv + '</div>'.length) + '\n\n' + mainHtml.slice(scriptStart, scriptEnd);
-}
-
-const wpEmbed = `<style id="interactive-map-styles">\n${scopedCss}\n</style>\n\n${mapFragment}\n`;
-
+const wpEmbed = `<style id="interactive-map-styles">\n${scopedCss}\n</style>\n\n${mapFragment}`;
 fs.writeFileSync('index.html', wpEmbed);
 fs.writeFileSync('scripts/output/wp-embed-scoped.css', scopedCss);
-console.log('Generated WPBakery embed: index.html', wpEmbed.length, 'bytes');
-console.log('Scoped CSS:', scopedCss.length, 'bytes');
+
+const ruleCount = (scopedCss.match(/\{/g) || []).length;
+const dupSelectors = (() => {
+  const seen = new Set();
+  const dups = [];
+  for (const line of scopedCss.split('\n')) {
+    const m = line.match(/^#interactive-map[^{]+\{/);
+    if (!m) continue;
+    const sel = m[0].replace(/\s*\{$/, '').trim();
+    if (seen.has(sel)) dups.push(sel);
+    seen.add(sel);
+  }
+  return dups;
+})();
+
+console.log('Generated index.html (%d bytes)', wpEmbed.length);
+console.log('Scoped CSS: %d bytes, ~%d rule blocks', scopedCss.length, ruleCount);
+console.log('Map fragment: map.fragment.html (%d bytes)', mapFragment.length);
+if (dupSelectors.length) console.warn('Duplicate selectors:', dupSelectors.length);

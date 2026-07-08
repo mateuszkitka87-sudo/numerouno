@@ -4,8 +4,7 @@
   "type": "module",
   "scripts": {
     "generate": "node scripts/generate-wp-embed.mjs",
-    "verify": "node scripts/generate-wp-embed.mjs && node scripts/verify-wp-embed.mjs",
-    "audit": "node scripts/audit-css.mjs"
+    "verify": "node scripts/generate-wp-embed.mjs && node scripts/verify-wp-embed.mjs"
   },
   "devDependencies": {
     "puppeteer": "^24.34.0"
