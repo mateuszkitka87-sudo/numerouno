@@ -1,0 +1,59 @@
+/* Premium location chips — filter elevation, white halo, no geometry changes */
+
+#interactive-map #map-container > g > g[id] > circle {
+  paint-order: stroke fill;
+  filter:
+    drop-shadow(0 0 0 5px rgba(255, 255, 255, 0.96))
+    drop-shadow(0 0 0 6px rgba(0, 0, 0, 0.035))
+    drop-shadow(0 1px 3px rgba(0, 0, 0, 0.07))
+    drop-shadow(0 4px 10px rgba(0, 0, 0, 0.05));
+  transition:
+    filter 280ms cubic-bezier(0.25, 0.1, 0.25, 1),
+    opacity 280ms cubic-bezier(0.25, 0.1, 0.25, 1) !important;
+}
+
+#interactive-map #map-container > g > g[id] > circle.transit {
+  stroke-width: 12px !important;
+}
+
+#interactive-map #map-container > g > g[id] > circle.brokerage,
+#interactive-map #map-container > g > g[id] > circle.export {
+  stroke-width: 8px !important;
+}
+
+#interactive-map #map-container > g > g[id] > g path.st2 {
+  filter: drop-shadow(0 0.5px 1px rgba(0, 0, 0, 0.12));
+  transition: filter 280ms cubic-bezier(0.25, 0.1, 0.25, 1), opacity 280ms cubic-bezier(0.25, 0.1, 0.25, 1) !important;
+}
+
+#interactive-map #map-container > g > g[id]:hover > circle {
+  filter:
+    drop-shadow(0 0 0 5px rgba(255, 255, 255, 1))
+    drop-shadow(0 0 0 6px rgba(0, 0, 0, 0.045))
+    drop-shadow(0 2px 5px rgba(0, 0, 0, 0.09))
+    drop-shadow(0 8px 18px rgba(0, 0, 0, 0.08))
+    brightness(1.04);
+}
+
+#interactive-map #map-container > g > g[id]:hover > g path.st2 {
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.16));
+}
+
+#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) > circle {
+  filter:
+    drop-shadow(0 0 0 4px rgba(255, 255, 255, 0.88))
+    drop-shadow(0 0 0 5px rgba(0, 0, 0, 0.025))
+    drop-shadow(0 1px 2px rgba(0, 0, 0, 0.04));
+  opacity: 0.72;
+}
+
+#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) > g path.st2 {
+  opacity: 0.65;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #interactive-map #map-container > g > g[id] > circle,
+  #interactive-map #map-container > g > g[id] > g path.st2 {
+    transition: none !important;
+  }
+}
