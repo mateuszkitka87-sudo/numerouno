@@ -48,17 +48,15 @@
 #interactive-map #map-container > g > g[id] circle {
   transition:
     fill var(--map-duration) var(--map-ease),
-    opacity var(--map-duration) var(--map-ease),
-    filter var(--map-duration) var(--map-ease) !important;
+    opacity var(--map-duration) var(--map-ease) !important;
 }
 
-#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) {
+#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) path {
   opacity: 0.55;
 }
 
-#interactive-map #map-container > g > g[id]:hover {
+#interactive-map #map-container > g > g[id]:hover path {
   opacity: 1;
-  filter: brightness(1.02);
 }
 
 #interactive-map #map-container > g > g[id] {
@@ -80,7 +78,7 @@
     transition: none !important;
   }
 
-  #interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) {
+  #interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) path {
     opacity: 0.72;
   }
 }
