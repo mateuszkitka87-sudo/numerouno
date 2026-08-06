@@ -1,0 +1,48 @@
+{
+  "previewUrl": "file:///workspace/preview.html",
+  "rest": {
+    "layout": {
+      "titleFontSize": "48px",
+      "titleVisible": true,
+      "cardBorderRadius": "22px",
+      "cardBoxShadow": "rgba(0, 0, 0, 0.04) 0px 1px 2px 0px, rgba(0, 0, 0, 0.06) 0px 8px 24px 0px, rgba(0, 0, 0, 0.04) 0px 24px 48px 0px"
+    },
+    "map": {
+      "st0": {
+        "fill": "rgb(209, 210, 213)",
+        "stroke": "rgb(255, 255, 255)"
+      },
+      "st2_brokerage": {
+        "fill": "rgb(255, 255, 255)",
+        "stroke": "rgb(255, 255, 255)",
+        "fontSize": "16px"
+      },
+      "circle_transit": {
+        "fill": "rgb(255, 102, 0)",
+        "opacity": "1"
+      },
+      "circle_brokerage": {
+        "fill": "rgb(63, 92, 104)",
+        "opacity": "1"
+      },
+      "legend_text": {
+        "fill": "rgb(0, 0, 0)"
+      },
+      "popup_nl_rest": {
+        "display": "none",
+        "backgroundColor": "rgb(255, 255, 255)"
+      }
+    }
+  },
+  "hover": {
+    "popupDisplay": "block",
+    "popupVisibility": "visible",
+    "popupBackground": "rgb(255, 255, 255)",
+    "popupH3": "Netherlands"
+  },
+  "afterLeave": {
+    "popupDisplay": "none"
+  },
+  "failures": [],
+  "passed": true
+}
