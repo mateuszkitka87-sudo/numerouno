@@ -123,6 +123,10 @@
   font-family: Roboto, Helvetica, Arial, Verdana, sans-serif !important;
 }
 
+#interactive-map .info-text .button-map {
+  pointer-events: all !important;
+}
+
 #interactive-map .button-map {
   pointer-events: all !important;
   padding: 8px 14px !important;
@@ -532,6 +536,15 @@
   font-size: 0.6875rem !important;
   vertical-align: 0.06em !important;
   opacity: 0.9;
+}
+
+#interactive-map .button-map__chevron {
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 0.875rem;
+  line-height: 1;
+  vertical-align: -0.05em;
+  opacity: 0.92;
 }
 
 @media (min-width: 1001px) {
@@ -2199,6 +2212,14 @@ jQuery(document).ready(function ($) {
 		return !pointerType || pointerType === 'mouse';
 	}
 
+	function ensureCta($popup, countryUrl) {
+		if (!countryUrl || $popup.find('.button-map').length) return;
+		$popup.append(
+			'<a href="' + countryUrl + '" target="_blank" rel="noopener noreferrer" class="button-map">' +
+			'Read more <span class="button-map__chevron" aria-hidden="true">›</span></a>'
+		);
+	}
+
 	function showPopup($popup) {
 		$popup.css('display', 'block');
 		$popup.removeClass('is-visible');
@@ -2333,7 +2354,9 @@ jQuery(document).ready(function ($) {
 		var countryName = $(this).data('name');
 		var countryUrl = $(this).data('url');
 		var countryType = $(this).data('type');
-		countryMeta[countryName] = countryType;
+		countryMeta[countryName] = countryType;
+		var $popup = $(popupClass + popupName);
+		ensureCta($popup, countryUrl);
 		var mapName = "#" + countryName;
 		var popupName = "[data-name='" + countryName + "']";
 		$(this).parent().find('svg ' + mapName + ' path').addClass(countryType);
@@ -2371,12 +2394,6 @@ jQuery(document).ready(function ($) {
 					console.log('No url given.');
 				}
 			});
-
-			if (!isDesktopLayout() && countryUrl) {
-				$('.info-text' + popupName).append('<a href="' + countryUrl +
-					'" target="_blank" class="button-map">Read more <i class="dt-icon-the7-arrow-0-41"></i></a>'
-				)
-			}
 
 		}
 	});

@@ -114,6 +114,15 @@
   opacity: 0.9;
 }
 
+#interactive-map .button-map__chevron {
+  display: inline-block;
+  margin-left: 5px;
+  font-size: 0.875rem;
+  line-height: 1;
+  vertical-align: -0.05em;
+  opacity: 0.92;
+}
+
 @media (min-width: 1001px) {
   #interactive-map .info-text.is-positioned {
     top: var(--popup-top) !important;

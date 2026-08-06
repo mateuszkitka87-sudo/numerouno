@@ -1457,6 +1457,14 @@ jQuery(document).ready(function ($) {
 		return !pointerType || pointerType === 'mouse';
 	}
 
+	function ensureCta($popup, countryUrl) {
+		if (!countryUrl || $popup.find('.button-map').length) return;
+		$popup.append(
+			'<a href="' + countryUrl + '" target="_blank" rel="noopener noreferrer" class="button-map">' +
+			'Read more <span class="button-map__chevron" aria-hidden="true">›</span></a>'
+		);
+	}
+
 	function showPopup($popup) {
 		$popup.css('display', 'block');
 		$popup.removeClass('is-visible');
@@ -1593,6 +1601,8 @@ jQuery(document).ready(function ($) {
 		var countryUrl = $(this).data('url');
 		var countryType = $(this).data('type');
 		countryMeta[countryName] = countryType;
+		var $popup = $(popupClass + popupName);
+		ensureCta($popup, countryUrl);
 
 		// Set data names
 		var mapName = "#" + countryName;
@@ -1640,12 +1650,6 @@ jQuery(document).ready(function ($) {
 					console.log('No url given.');
 				}
 			});
-
-			if (!isDesktopLayout() && countryUrl) {
-				$('.info-text' + popupName).append('<a href="' + countryUrl +
-					'" target="_blank" class="button-map">Read more <i class="dt-icon-the7-arrow-0-41"></i></a>'
-				)
-			}
 
 		}
 	});

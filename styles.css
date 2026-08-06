@@ -123,6 +123,10 @@
   font-family: Roboto, Helvetica, Arial, Verdana, sans-serif !important;
 }
 
+#interactive-map .info-text .button-map {
+  pointer-events: all !important;
+}
+
 #interactive-map .button-map {
   pointer-events: all !important;
   padding: 8px 14px !important;
