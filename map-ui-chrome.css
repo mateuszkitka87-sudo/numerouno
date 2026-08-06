@@ -93,6 +93,16 @@
   opacity: 0.9;
 }
 
+@media (min-width: 1001px) {
+  #interactive-map .info-text.is-positioned {
+    top: var(--popup-top) !important;
+    left: var(--popup-left) !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+}
+
 @media (max-width: 1000px) {
   #interactive-map .info-text {
     left: 50% !important;

@@ -1440,8 +1440,59 @@ Through our Italian offices, companies can initiate transit declarations from ke
 
 <script>
 jQuery(document).ready(function ($) {
-	// Itterate every info popup
 	var popupClass = '.info-text';
+	var $mapRoot = $('#interactive-map');
+	var desktopBreakpoint = 1000;
+	var popupPadding = 12;
+
+	function isDesktopLayout() {
+		return $(window).width() >= desktopBreakpoint;
+	}
+
+	function positionPopup($popup, $countryGroup) {
+		if (!isDesktopLayout()) {
+			$popup.removeClass('is-positioned');
+			return;
+		}
+
+		var mapEl = $mapRoot[0];
+		var countryEl = $countryGroup[0];
+		if (!mapEl || !countryEl) return;
+
+		var mapRect = mapEl.getBoundingClientRect();
+		var countryRect = countryEl.getBoundingClientRect();
+		var popupEl = $popup[0];
+		var wasVisible = $popup.is(':visible');
+
+		$popup.css({ visibility: 'hidden', display: 'block' });
+		var popupRect = popupEl.getBoundingClientRect();
+		if (!wasVisible) {
+			$popup.css({ display: 'none', visibility: '' });
+		}
+
+		var left = countryRect.right - mapRect.left + popupPadding;
+		var top = countryRect.top - mapRect.top + (countryRect.height / 2) - (popupRect.height / 2);
+
+		if (left + popupRect.width > mapRect.width - popupPadding) {
+			left = countryRect.left - mapRect.left - popupRect.width - popupPadding;
+		}
+
+		top = Math.max(popupPadding, Math.min(top, mapRect.height - popupRect.height - popupPadding));
+
+		if (left < popupPadding) {
+			left = countryRect.left - mapRect.left + (countryRect.width / 2) - (popupRect.width / 2);
+			left = Math.max(popupPadding, Math.min(left, mapRect.width - popupRect.width - popupPadding));
+			top = countryRect.bottom - mapRect.top + popupPadding;
+			if (top + popupRect.height > mapRect.height - popupPadding) {
+				top = countryRect.top - mapRect.top - popupRect.height - popupPadding;
+			}
+			top = Math.max(popupPadding, Math.min(top, mapRect.height - popupRect.height - popupPadding));
+		}
+
+		popupEl.style.setProperty('--popup-top', top + 'px');
+		popupEl.style.setProperty('--popup-left', left + 'px');
+		$popup.addClass('is-positioned');
+	}
 
 	$('.info-text').each(function () {
 		// Get data attributes
@@ -1469,7 +1520,9 @@ jQuery(document).ready(function ($) {
 
 			// On hover in if found SVG
 			svg.hover(function () {
-				$(popupClass + popupName).fadeIn('fast');
+				var $popup = $(popupClass + popupName);
+				positionPopup($popup, svg);
+				$popup.fadeIn('fast');
 
 				if (countryType == 'transit') {
 					$(this).find('path').css({

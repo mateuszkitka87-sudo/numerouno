@@ -513,6 +513,16 @@
   opacity: 0.9;
 }
 
+@media (min-width: 1001px) {
+  #interactive-map .info-text.is-positioned {
+    top: var(--popup-top) !important;
+    left: var(--popup-left) !important;
+    right: auto !important;
+    bottom: auto !important;
+    transform: none !important;
+  }
+}
+
 @media (max-width: 1000px) {
   #interactive-map .info-text {
     left: 50% !important;
@@ -2140,8 +2150,60 @@ Through our Italian offices, companies can initiate transit declarations from ke
 
 
 <script>
-jQuery(document).ready(function ($) {
+jQuery(document).ready(function ($) {
 	var popupClass = '.info-text';
+	var $mapRoot = $('#interactive-map');
+	var desktopBreakpoint = 1000;
+	var popupPadding = 12;
+
+	function isDesktopLayout() {
+		return $(window).width() >= desktopBreakpoint;
+	}
+
+	function positionPopup($popup, $countryGroup) {
+		if (!isDesktopLayout()) {
+			$popup.removeClass('is-positioned');
+			return;
+		}
+
+		var mapEl = $mapRoot[0];
+		var countryEl = $countryGroup[0];
+		if (!mapEl || !countryEl) return;
+
+		var mapRect = mapEl.getBoundingClientRect();
+		var countryRect = countryEl.getBoundingClientRect();
+		var popupEl = $popup[0];
+		var wasVisible = $popup.is(':visible');
+
+		$popup.css({ visibility: 'hidden', display: 'block' });
+		var popupRect = popupEl.getBoundingClientRect();
+		if (!wasVisible) {
+			$popup.css({ display: 'none', visibility: '' });
+		}
+
+		var left = countryRect.right - mapRect.left + popupPadding;
+		var top = countryRect.top - mapRect.top + (countryRect.height / 2) - (popupRect.height / 2);
+
+		if (left + popupRect.width > mapRect.width - popupPadding) {
+			left = countryRect.left - mapRect.left - popupRect.width - popupPadding;
+		}
+
+		top = Math.max(popupPadding, Math.min(top, mapRect.height - popupRect.height - popupPadding));
+
+		if (left < popupPadding) {
+			left = countryRect.left - mapRect.left + (countryRect.width / 2) - (popupRect.width / 2);
+			left = Math.max(popupPadding, Math.min(left, mapRect.width - popupRect.width - popupPadding));
+			top = countryRect.bottom - mapRect.top + popupPadding;
+			if (top + popupRect.height > mapRect.height - popupPadding) {
+				top = countryRect.top - mapRect.top - popupRect.height - popupPadding;
+			}
+			top = Math.max(popupPadding, Math.min(top, mapRect.height - popupRect.height - popupPadding));
+		}
+
+		popupEl.style.setProperty('--popup-top', top + 'px');
+		popupEl.style.setProperty('--popup-left', left + 'px');
+		$popup.addClass('is-positioned');
+	}
 
 	$('.info-text').each(function () {
 		var countryName = $(this).data('name');
@@ -2156,7 +2218,9 @@ jQuery(document).ready(function ($) {
 		if (countryType !== 'inactive') {
 			var svg = $(this).parent().find('svg ' + mapName);
 			svg.hover(function () {
-				$(popupClass + popupName).fadeIn('fast');
+				var $popup = $(popupClass + popupName);
+				positionPopup($popup, svg);
+				$popup.fadeIn('fast');
 
 				if (countryType == 'transit') {
 					$(this).find('path').css({
