@@ -175,12 +175,8 @@
   position: relative;
   z-index: 1;
   isolation: isolate;
-  padding: var(--space-5) var(--space-4) var(--space-6);
-  background: linear-gradient(
-    180deg,
-    rgba(245, 245, 247, 0.65) 0%,
-    rgba(255, 255, 255, 0) 22%
-  );
+  padding: var(--space-4) var(--space-3) var(--space-5);
+  background: transparent;
 }
 
 .map-page__card-inner #interactive-map {
@@ -241,11 +237,7 @@
 
   .map-page__card-inner {
     padding: var(--space-3) var(--space-2) var(--space-4);
-    background: linear-gradient(
-      180deg,
-      rgba(245, 245, 247, 0.5) 0%,
-      rgba(255, 255, 255, 0) 16%
-    );
+    background: transparent;
   }
 }
 
