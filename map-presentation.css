@@ -13,6 +13,7 @@
   border-radius: 0 !important;
   overflow: visible !important;
   background: #ffffff !important;
+  isolation: isolate;
 }
 
 .map-page__card-inner #interactive-map::before,

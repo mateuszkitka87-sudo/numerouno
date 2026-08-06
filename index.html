@@ -342,28 +342,27 @@
 }
 
 #interactive-map {
-  --ui-popup-radius: 20px;
+  --ui-popup-radius: 22px;
   --ui-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
   --ui-spring: cubic-bezier(0.32, 0.72, 0, 1);
-  --ui-duration: 380ms;
-  --ui-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --ui-duration: 300ms;
+  --ui-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, sans-serif;
   touch-action: manipulation;
 }
 
 #interactive-map .info-text {
+  z-index: 30 !important;
   border-radius: var(--ui-popup-radius) !important;
   border: none !important;
-  background: rgba(255, 255, 255, 0.82) !important;
-  backdrop-filter: blur(32px) saturate(190%) brightness(1.04) !important;
-  -webkit-backdrop-filter: blur(32px) saturate(190%) brightness(1.04) !important;
+  background: rgba(255, 255, 255, 0.78) !important;
+  backdrop-filter: blur(40px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.5),
     0 0 0 0.5px rgba(0, 0, 0, 0.04),
-    0 1px 2px rgba(0, 0, 0, 0.02),
-    0 16px 44px rgba(0, 0, 0, 0.08) !important;
-  padding: 18px 20px !important;
-  max-width: 328px !important;
+    0 8px 32px rgba(0, 0, 0, 0.08),
+    0 2px 8px rgba(0, 0, 0, 0.04) !important;
+  padding: 22px 24px 20px !important;
+  max-width: 320px !important;
   font-family: var(--ui-font) !important;
   opacity: 0;
   transition:
@@ -371,7 +370,6 @@
     transform var(--ui-duration) var(--ui-spring),
     filter var(--ui-duration) var(--ui-ease),
     box-shadow var(--ui-duration) var(--ui-ease) !important;
-  will-change: opacity, transform, filter;
 }
 
 #interactive-map .info-text.is-visible {
@@ -386,21 +384,18 @@
 
 #interactive-map .info-text.is-selected {
   box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    inset 0 0 0 0.5px rgba(255, 255, 255, 0.5),
-    0 0 0 0.5px rgba(0, 0, 0, 0.04),
-    0 1px 2px rgba(0, 0, 0, 0.02),
-    0 16px 44px rgba(0, 0, 0, 0.08),
-    0 0 0 2px rgba(202, 67, 0, 0.22) !important;
+    0 0 0 0.5px rgba(0, 0, 0, 0.05),
+    0 12px 40px rgba(0, 0, 0, 0.1),
+    0 2px 8px rgba(0, 0, 0, 0.04) !important;
 }
 
 #interactive-map .info-text h3 {
-  margin: 0 0 6px !important;
+  margin: 0 0 10px !important;
   font-family: var(--ui-font) !important;
-  font-size: 1.0625rem !important;
+  font-size: 1.125rem !important;
   font-weight: 600 !important;
-  line-height: 1.22 !important;
-  letter-spacing: -0.018em !important;
+  line-height: 1.25 !important;
+  letter-spacing: -0.022em !important;
   color: #1d1d1f !important;
 }
 
@@ -409,24 +404,22 @@
   font-family: var(--ui-font) !important;
   font-size: 0.875rem !important;
   font-weight: 400 !important;
-  line-height: 1.48 !important;
-  letter-spacing: -0.008em !important;
-  color: #86868b !important;
+  line-height: 1.55 !important;
+  letter-spacing: -0.006em !important;
+  color: #6e6e73 !important;
 }
 
 #interactive-map .button-map {
   border-radius: 980px !important;
-  padding: 9px 17px !important;
-  margin-top: 14px !important;
+  padding: 10px 18px !important;
+  margin-top: 18px !important;
   font-family: var(--ui-font) !important;
   font-size: 0.8125rem !important;
-  font-weight: 600 !important;
-  letter-spacing: -0.008em !important;
-  line-height: 1.35 !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.18),
-    0 1px 2px rgba(0, 0, 0, 0.06),
-    0 4px 10px rgba(202, 67, 0, 0.16) !important;
+  font-weight: 500 !important;
+  letter-spacing: -0.006em !important;
+  line-height: 1.3 !important;
+  background: #1d1d1f !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12) !important;
   transition:
     opacity var(--ui-duration) var(--ui-ease),
     filter var(--ui-duration) var(--ui-ease),
@@ -434,18 +427,12 @@
 }
 
 #interactive-map .button-map:hover {
-  filter: brightness(1.06) !important;
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.22),
-    0 2px 4px rgba(0, 0, 0, 0.07),
-    0 8px 20px rgba(202, 67, 0, 0.22) !important;
+  filter: brightness(1.08) !important;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.16) !important;
 }
 
 #interactive-map .button-map:active {
-  filter: brightness(0.96) !important;
-  box-shadow:
-    inset 0 1px 2px rgba(0, 0, 0, 0.12),
-    0 1px 2px rgba(0, 0, 0, 0.04) !important;
+  filter: brightness(0.94) !important;
 }
 
 #interactive-map .button-map i {
@@ -478,18 +465,13 @@
   #interactive-map .info-text {
     left: 50% !important;
     right: auto !important;
-    width: calc(100% - 32px) !important;
-    max-width: 400px !important;
+    width: calc(100% - 40px) !important;
+    max-width: 320px !important;
     top: auto !important;
-    bottom: 16px !important;
-    transform: translateX(-50%) translateY(10px) !important;
-    border-radius: 18px !important;
-    padding: 16px 18px !important;
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.92),
-      inset 0 0 0 0.5px rgba(255, 255, 255, 0.45),
-      0 0 0 0.5px rgba(0, 0, 0, 0.05),
-      0 4px 24px rgba(0, 0, 0, 0.1) !important;
+    bottom: 20px !important;
+    transform: translateX(-50%) translateY(8px) !important;
+    border-radius: 20px !important;
+    padding: 20px 22px 18px !important;
   }
 
   #interactive-map .info-text.is-visible {
@@ -499,14 +481,13 @@
 
 @media (max-width: 480px) {
   #interactive-map .info-text {
-    width: calc(100% - 24px) !important;
-    bottom: 12px !important;
-    border-radius: 16px !important;
-    padding: 14px 16px !important;
+    width: calc(100% - 32px) !important;
+    bottom: 16px !important;
+    padding: 18px 20px 16px !important;
   }
 
   #interactive-map .info-text h3 {
-    font-size: 1rem !important;
+    font-size: 1.0625rem !important;
   }
 
   #interactive-map .info-text p {
@@ -521,7 +502,7 @@
 }
 
 #interactive-map #map-container > g > g[id]:focus-visible {
-  outline: 2px solid rgba(202, 67, 0, 0.55);
+  outline: 2px solid rgba(29, 29, 31, 0.35);
   outline-offset: 3px;
 }
 
@@ -550,6 +531,7 @@
   border-radius: 0 !important;
   overflow: visible !important;
   background: #ffffff !important;
+  isolation: isolate;
 }
 
 .map-page__card-inner #interactive-map::before,
