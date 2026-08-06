@@ -620,6 +620,86 @@
     opacity: 0.72;
   }
 }
+
+#interactive-map g.legend {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+.map-page__stage {
+  position: relative;
+}
+
+.map-legend {
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 12;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  pointer-events: none;
+}
+
+.map-legend__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 5px 11px 5px 9px;
+  border-radius: 100px;
+  background: rgba(255, 255, 255, 0.92);
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.04);
+  font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, sans-serif;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  color: #6e6e73;
+  white-space: nowrap;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
+
+.map-legend__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+.map-legend__pill--transit .map-legend__dot {
+  background: #ff6600;
+}
+
+.map-legend__pill--brokerage .map-legend__dot {
+  background: #3f5c68;
+}
+
+.map-legend__pill--export .map-legend__dot {
+  background: #900c3f;
+}
+
+@media (max-width: 768px) {
+  .map-legend {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 16px;
+  }
+
+  .map-legend__pill {
+    font-size: 10px;
+    padding: 4px 9px 4px 8px;
+  }
+}
 </style>
 
 <div class="map-page">
@@ -632,9 +712,23 @@
       <p class="map-page__subtitle">Explore transit, brokerage, and export services across our network. Hover or tap a country to view details.</p>
     </header>
     <section class="map-page__card" aria-label="Interactive coverage map">
-      <div class="map-page__card-glow" aria-hidden="true"></div>
       <div class="map-page__card-inner">
-        <div id="interactive-map">
+        <div class="map-page__stage">
+          <nav class="map-legend" aria-label="Service types">
+            <span class="map-legend__pill map-legend__pill--transit">
+              <span class="map-legend__dot" aria-hidden="true"></span>
+              Transit
+            </span>
+            <span class="map-legend__pill map-legend__pill--brokerage">
+              <span class="map-legend__dot" aria-hidden="true"></span>
+              Transit + Brokerage
+            </span>
+            <span class="map-legend__pill map-legend__pill--export">
+              <span class="map-legend__dot" aria-hidden="true"></span>
+              Transit + Export
+            </span>
+          </nav>
+          <div id="interactive-map">
 
 <svg version="1.1"
 	 id="interactive-map-svg" xmlns:x="&ns_extend;" xmlns:i="&ns_ai;" xmlns:graph="&ns_graphs;" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns:cc="http://creativecommons.org/ns#" xmlns:svg="http://www.w3.org/2000/svg" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" inkscape:output_extension="org.inkscape.output.svg.inkscape" inkscape:version="0.46+pre4" sodipodi:docname="Blank_map_europe_no_borders.svg" sodipodi:version="0.32"
@@ -2070,6 +2164,7 @@ Through our Italian offices, companies can initiate transit declarations from ke
 </div>
 
 </div>
+        </div>
       </div>
     </section>
   </div>

@@ -28,6 +28,7 @@ export function buildProductionEmbed({ sanitize = true } = {}) {
   const layoutStyles = fs.readFileSync('page-layout.css', 'utf8');
   const uiChromeStyles = fs.readFileSync('map-ui-chrome.css', 'utf8');
   const presentationStyles = fs.readFileSync('map-presentation.css', 'utf8');
+  const legendStyles = fs.readFileSync('map-legend.css', 'utf8');
   const layoutWrapper = fs.readFileSync('page-layout.wrapper.html', 'utf8');
   const mapFragment = fs.readFileSync('map.fragment.html', 'utf8');
 
@@ -42,7 +43,7 @@ export function buildProductionEmbed({ sanitize = true } = {}) {
 
   const pageBody = layoutWrapper.replace('{{MAP}}', mapDiv);
 
-  let inlineCss = [mapStyles, layoutStyles, uiChromeStyles, presentationStyles]
+  let inlineCss = [mapStyles, layoutStyles, uiChromeStyles, presentationStyles, legendStyles]
     .map((s) => s.trim())
     .join('\n\n');
 
