@@ -173,7 +173,7 @@
   --ui-spring: cubic-bezier(0.32, 0.72, 0, 1);
   --ui-duration: 320ms;
   --ui-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, sans-serif;
-  --map-scale: 0.76;
+  --map-scale: 0.54;
   --space-2: 8px;
   --space-3: 12px;
   --space-4: 16px;
@@ -521,6 +521,7 @@
 .map-page__card-inner #interactive-map {
   --map-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
   --map-duration: 280ms;
+  --map-svg-width: 54%;
 
   position: relative !important;
   display: flex !important;
@@ -543,8 +544,8 @@
   position: relative !important;
   z-index: 1 !important;
   display: block !important;
-  width: 76% !important;
-  max-width: 76% !important;
+  width: var(--map-svg-width) !important;
+  max-width: var(--map-svg-width) !important;
   height: auto !important;
   margin-inline: auto !important;
   filter: none !important;
@@ -582,9 +583,8 @@
 }
 
 @media (max-width: 768px) {
-  .map-page__card-inner #interactive-map > svg {
-    width: 88% !important;
-    max-width: 88% !important;
+  .map-page__card-inner #interactive-map {
+    --map-svg-width: 72%;
   }
 }
 
