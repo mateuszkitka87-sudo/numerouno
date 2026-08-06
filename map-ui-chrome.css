@@ -23,13 +23,23 @@
   padding: 18px 20px !important;
   max-width: 328px !important;
   font-family: var(--ui-font) !important;
-  opacity: 1;
+  opacity: 0;
   transition:
     opacity var(--ui-duration) var(--ui-spring),
     transform var(--ui-duration) var(--ui-spring),
     filter var(--ui-duration) var(--ui-ease),
     box-shadow var(--ui-duration) var(--ui-ease) !important;
   will-change: opacity, transform, filter;
+}
+
+#interactive-map .info-text.is-visible {
+  opacity: 1 !important;
+}
+
+#interactive-map .info-text.is-measuring {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 #interactive-map .info-text.is-selected {
@@ -121,7 +131,7 @@
     max-width: 400px !important;
     top: auto !important;
     bottom: 16px !important;
-    transform: translateX(-50%) !important;
+    transform: translateX(-50%) translateY(10px) !important;
     border-radius: 18px !important;
     padding: 16px 18px !important;
     box-shadow:
@@ -129,6 +139,10 @@
       inset 0 0 0 0.5px rgba(255, 255, 255, 0.45),
       0 0 0 0.5px rgba(0, 0, 0, 0.05),
       0 4px 24px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  #interactive-map .info-text.is-visible {
+    transform: translateX(-50%) translateY(0) !important;
   }
 }
 

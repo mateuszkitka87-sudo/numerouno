@@ -443,13 +443,23 @@
   padding: 18px 20px !important;
   max-width: 328px !important;
   font-family: var(--ui-font) !important;
-  opacity: 1;
+  opacity: 0;
   transition:
     opacity var(--ui-duration) var(--ui-spring),
     transform var(--ui-duration) var(--ui-spring),
     filter var(--ui-duration) var(--ui-ease),
     box-shadow var(--ui-duration) var(--ui-ease) !important;
   will-change: opacity, transform, filter;
+}
+
+#interactive-map .info-text.is-visible {
+  opacity: 1 !important;
+}
+
+#interactive-map .info-text.is-measuring {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
 
 #interactive-map .info-text.is-selected {
@@ -541,7 +551,7 @@
     max-width: 400px !important;
     top: auto !important;
     bottom: 16px !important;
-    transform: translateX(-50%) !important;
+    transform: translateX(-50%) translateY(10px) !important;
     border-radius: 18px !important;
     padding: 16px 18px !important;
     box-shadow:
@@ -549,6 +559,10 @@
       inset 0 0 0 0.5px rgba(255, 255, 255, 0.45),
       0 0 0 0.5px rgba(0, 0, 0, 0.05),
       0 4px 24px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  #interactive-map .info-text.is-visible {
+    transform: translateX(-50%) translateY(0) !important;
   }
 }
 
@@ -2167,9 +2181,31 @@ jQuery(document).ready(function ($) {
 	var popupPadding = 12;
 	var selectedCountry = null;
 	var countryMeta = {};
+	var animMs = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 280;
 
 	function isDesktopLayout() {
 		return $(window).width() >= desktopBreakpoint;
+	}
+
+	function showPopup($popup) {
+		$popup.css('display', 'block');
+		$popup.removeClass('is-visible');
+		void $popup[0].offsetHeight;
+		$popup.addClass('is-visible');
+	}
+
+	function hidePopup($popup) {
+		if (!$popup.length || $popup.css('display') === 'none') return;
+		$popup.removeClass('is-visible');
+		if (!animMs) {
+			$popup.css('display', 'none');
+			return;
+		}
+		setTimeout(function () {
+			if (!$popup.hasClass('is-visible')) {
+				$popup.css('display', 'none');
+			}
+		}, animMs);
 	}
 
 	function positionPopup($popup, $countryGroup) {
@@ -2185,12 +2221,14 @@ jQuery(document).ready(function ($) {
 		var mapRect = mapEl.getBoundingClientRect();
 		var countryRect = countryEl.getBoundingClientRect();
 		var popupEl = $popup[0];
-		var wasVisible = $popup.is(':visible');
+		var wasVisible = $popup.hasClass('is-visible');
 
-		$popup.css({ visibility: 'hidden', display: 'block' });
+		$popup.addClass('is-measuring').css('display', 'block');
 		var popupRect = popupEl.getBoundingClientRect();
 		if (!wasVisible) {
-			$popup.css({ display: 'none', visibility: '' });
+			$popup.removeClass('is-measuring').css('display', 'none');
+		} else {
+			$popup.removeClass('is-measuring');
 		}
 
 		var left = countryRect.right - mapRect.left + popupPadding;
@@ -2247,7 +2285,8 @@ jQuery(document).ready(function ($) {
 		var type = countryMeta[name];
 		var $popup = $(popupClass + "[data-name='" + name + "']");
 		var $group = $mapRoot.find('svg #' + name);
-		$popup.removeClass('is-selected').fadeOut('fast');
+		$popup.removeClass('is-selected');
+		hidePopup($popup);
 		$group.removeAttr('data-selected');
 		applyDefaultFill($group, type);
 		selectedCountry = null;
@@ -2261,7 +2300,7 @@ jQuery(document).ready(function ($) {
 		$popup.addClass('is-selected');
 		$group.attr('data-selected', 'true');
 		positionPopup($popup, $group);
-		$popup.fadeIn('fast');
+		showPopup($popup);
 		applyHoverFill($group, countryMeta[countryName]);
 	}
 
@@ -2287,11 +2326,11 @@ jQuery(document).ready(function ($) {
 			svg.hover(function () {
 				var $popup = $(popupClass + popupName);
 				positionPopup($popup, svg);
-				$popup.fadeIn('fast');
+				showPopup($popup);
 				applyHoverFill($(this), countryType);
 			}, function () {
 				if (selectedCountry === countryName) return;
-				$(popupClass + popupName).fadeOut('fast');
+				hidePopup($(popupClass + popupName));
 				applyDefaultFill($(this), countryType);
 			});
 
