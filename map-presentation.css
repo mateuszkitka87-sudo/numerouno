@@ -4,13 +4,15 @@
   --map-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
   --map-duration: 280ms;
   --map-svg-width: 54%;
+  --map-gutter-x: 40px;
+  --map-gutter-y: 32px;
 
   position: relative !important;
   display: flex !important;
   justify-content: center !important;
   align-items: center !important;
   margin-inline: auto !important;
-  padding: 0 !important;
+  padding: var(--map-gutter-y) var(--map-gutter-x) !important;
   border-radius: 0 !important;
   overflow: visible !important;
   background: #ffffff !important;
@@ -67,6 +69,8 @@
 @media (max-width: 768px) {
   .map-page__card-inner #interactive-map {
     --map-svg-width: 72%;
+    --map-gutter-x: 20px;
+    --map-gutter-y: 24px;
   }
 }
 

@@ -51,8 +51,8 @@
 }
 
 .map-page__header {
-  max-width: 520px;
-  margin: 0 auto var(--space-12);
+  max-width: 480px;
+  margin: 0 auto var(--space-16);
   text-align: center;
 }
 
@@ -123,13 +123,14 @@
 .map-page__card-inner {
   position: relative;
   z-index: 1;
-  padding: var(--space-10) var(--space-8) var(--space-10);
+  padding: var(--space-16) var(--space-12);
   background: transparent;
 }
 
 .map-page__stage {
   position: relative;
   width: 100%;
+  max-width: 720px;
   margin-inline: auto;
 }
 
@@ -149,7 +150,7 @@
 
   .map-page__header {
     text-align: left;
-    margin-bottom: var(--space-8);
+    margin-bottom: var(--space-10);
   }
 
   .map-page__subtitle {
@@ -162,7 +163,17 @@
   }
 
   .map-page__card-inner {
-    padding: var(--space-6) var(--space-4) var(--space-8);
+    padding: var(--space-10) var(--space-5);
+  }
+
+  .map-page__stage {
+    max-width: none;
+  }
+
+  .map-page__card-inner #interactive-map {
+    --map-svg-width: 72%;
+    --map-gutter-x: 20px;
+    --map-gutter-y: 24px;
   }
 }
 
