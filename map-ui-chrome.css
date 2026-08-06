@@ -13,17 +13,18 @@
   z-index: 30 !important;
   border-radius: var(--ui-popup-radius) !important;
   border: none !important;
-  background: rgba(255, 255, 255, 0.78) !important;
+  background: rgba(255, 255, 255, 0.82) !important;
   backdrop-filter: blur(40px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
   box-shadow:
     0 0 0 0.5px rgba(0, 0, 0, 0.04),
     0 8px 32px rgba(0, 0, 0, 0.08),
     0 2px 8px rgba(0, 0, 0, 0.04) !important;
-  padding: 22px 24px 20px !important;
-  max-width: 320px !important;
+  padding: 20px 22px 18px !important;
+  max-width: 300px !important;
   font-family: var(--ui-font) !important;
   opacity: 0;
+  pointer-events: none;
   transition:
     opacity var(--ui-duration) var(--ui-spring),
     transform var(--ui-duration) var(--ui-spring),
@@ -117,6 +118,11 @@
     right: auto !important;
     bottom: auto !important;
     transform: none !important;
+    z-index: 30 !important;
+  }
+
+  #interactive-map .info-text.is-visible {
+    pointer-events: auto;
   }
 }
 

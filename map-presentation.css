@@ -4,8 +4,8 @@
   --map-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
   --map-duration: 280ms;
   --map-svg-width: 54%;
-  --map-gutter-x: 40px;
-  --map-gutter-y: 32px;
+  --map-gutter-x: 48px;
+  --map-gutter-y: 36px;
 
   position: relative !important;
   display: flex !important;
@@ -34,6 +34,7 @@
   margin-inline: auto !important;
   filter: none !important;
   transition: opacity var(--map-duration) var(--map-ease) !important;
+  flex-shrink: 0;
 }
 
 #interactive-map #map-container > g > g > path.st0,

@@ -289,6 +289,7 @@
   width: 100%;
   max-width: 720px;
   margin-inline: auto;
+  padding-top: var(--space-10);
 }
 
 .map-page__card-inner #interactive-map {
@@ -325,6 +326,7 @@
 
   .map-page__stage {
     max-width: none;
+    padding-top: 0;
   }
 
   .map-page__card-inner #interactive-map {
@@ -365,17 +367,18 @@
   z-index: 30 !important;
   border-radius: var(--ui-popup-radius) !important;
   border: none !important;
-  background: rgba(255, 255, 255, 0.78) !important;
+  background: rgba(255, 255, 255, 0.82) !important;
   backdrop-filter: blur(40px) saturate(180%) !important;
   -webkit-backdrop-filter: blur(40px) saturate(180%) !important;
   box-shadow:
     0 0 0 0.5px rgba(0, 0, 0, 0.04),
     0 8px 32px rgba(0, 0, 0, 0.08),
     0 2px 8px rgba(0, 0, 0, 0.04) !important;
-  padding: 22px 24px 20px !important;
-  max-width: 320px !important;
+  padding: 20px 22px 18px !important;
+  max-width: 300px !important;
   font-family: var(--ui-font) !important;
   opacity: 0;
+  pointer-events: none;
   transition:
     opacity var(--ui-duration) var(--ui-spring),
     transform var(--ui-duration) var(--ui-spring),
@@ -469,6 +472,11 @@
     right: auto !important;
     bottom: auto !important;
     transform: none !important;
+    z-index: 30 !important;
+  }
+
+  #interactive-map .info-text.is-visible {
+    pointer-events: auto;
   }
 }
 
@@ -533,8 +541,8 @@
   --map-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
   --map-duration: 280ms;
   --map-svg-width: 54%;
-  --map-gutter-x: 40px;
-  --map-gutter-y: 32px;
+  --map-gutter-x: 48px;
+  --map-gutter-y: 36px;
 
   position: relative !important;
   display: flex !important;
@@ -563,6 +571,7 @@
   margin-inline: auto !important;
   filter: none !important;
   transition: opacity var(--map-duration) var(--map-ease) !important;
+  flex-shrink: 0;
 }
 
 #interactive-map #map-container > g > g > path.st0,
@@ -620,10 +629,6 @@
   opacity: 0 !important;
   visibility: hidden !important;
   pointer-events: none !important;
-}
-
-.map-page__stage {
-  position: relative;
 }
 
 .map-legend {

@@ -6,10 +6,6 @@
   pointer-events: none !important;
 }
 
-.map-page__stage {
-  position: relative;
-}
-
 .map-legend {
   position: absolute;
   top: 0;
