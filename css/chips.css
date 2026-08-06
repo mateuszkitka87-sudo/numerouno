@@ -1,0 +1,60 @@
+/* Location chips — soft pastel capsules, no glow or heavy shadow */
+
+#interactive-map circle.transit,
+#interactive-map circle.st3.transit {
+  fill: var(--color-chip-transit) !important;
+  stroke: var(--color-chip-transit-stroke) !important;
+  stroke-width: 14px !important;
+}
+
+#interactive-map circle.brokerage,
+#interactive-map circle.st1.brokerage {
+  fill: var(--color-chip-brokerage) !important;
+  stroke: var(--color-chip-brokerage-stroke) !important;
+  stroke-width: 14px !important;
+}
+
+#interactive-map circle.export,
+#interactive-map circle.st4.export {
+  fill: var(--color-chip-export) !important;
+  stroke: var(--color-chip-export-stroke) !important;
+  stroke-width: 14px !important;
+}
+
+#interactive-map #map-container > g > g[id] > circle {
+  paint-order: stroke fill;
+  filter: none !important;
+  transition: opacity var(--duration) var(--ease-out), filter var(--duration) var(--ease-out) !important;
+}
+
+#interactive-map #map-container > g > g[id] > g path.st2 {
+  fill: var(--color-chip-brokerage-text) !important;
+  filter: none !important;
+  transition: opacity var(--duration) var(--ease-out) !important;
+}
+
+#interactive-map #map-container > g > g[id]:has(> circle.transit) > g path.st2 {
+  fill: var(--color-chip-transit-text) !important;
+}
+
+#interactive-map #map-container > g > g[id]:has(> circle.export) > g path.st2 {
+  fill: var(--color-chip-export-text) !important;
+}
+
+#interactive-map #map-container > g > g[id][data-selected] > circle,
+#interactive-map #map-container > g > g[id]:hover > circle {
+  opacity: 1;
+  filter: brightness(0.98) !important;
+}
+
+#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) > circle {
+  opacity: 0.55;
+}
+
+#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) > g path.st2 {
+  opacity: 0.5;
+}
+
+#interactive-map #map-container > g > g[id][data-selected] > g path.st2 {
+  fill: var(--color-text) !important;
+}

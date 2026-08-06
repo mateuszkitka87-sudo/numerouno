@@ -1,0 +1,51 @@
+/* Design tokens — Apple / Linear / Notion inspired */
+
+.coverage-app,
+.coverage-map {
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, sans-serif;
+
+  --color-bg: #ffffff;
+  --color-text: #1d1d1f;
+  --color-text-secondary: #6e6e73;
+  --color-text-tertiary: #aeaeb2;
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-subtle: rgba(0, 0, 0, 0.05);
+
+  --color-land: #ececee;
+  --color-land-stroke: #ffffff;
+
+  --color-chip-transit: #faeee3;
+  --color-chip-transit-stroke: #f3e0d0;
+  --color-chip-transit-text: #9a6b4a;
+
+  --color-chip-brokerage: #e8eef2;
+  --color-chip-brokerage-stroke: #dce4ea;
+  --color-chip-brokerage-text: #5c6b75;
+
+  --color-chip-export: #f2eaf0;
+  --color-chip-export-stroke: #e8dce6;
+  --color-chip-export-text: #7a5c6e;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --space-20: 80px;
+
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-pill: 100px;
+
+  --ease-out: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --duration: 240ms;
+
+  --map-svg-width: 36%;
+  --panel-width: 300px;
+}
