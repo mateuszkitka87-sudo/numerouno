@@ -159,36 +159,36 @@
   --ui-surface: #f5f5f7;
   --ui-text: #1d1d1f;
   --ui-text-secondary: #86868b;
-  --ui-text-tertiary: #6e6e73;
+  --ui-text-tertiary: #aeaeb2;
   --ui-accent: #ca4300;
-  --ui-accent-soft: rgba(202, 67, 0, 0.08);
-  --ui-line: rgba(0, 0, 0, 0.06);
+  --ui-accent-soft: rgba(202, 67, 0, 0.06);
   --ui-glass: #ffffff;
-  --ui-glass-border: rgba(0, 0, 0, 0.08);
-  --ui-radius-xl: 24px;
-  --ui-radius-lg: 20px;
-  --ui-radius-md: 12px;
-  --ui-shadow-soft:
-    0 0.5px 0 rgba(255, 255, 255, 0.9) inset,
-    0 1px 2px rgba(0, 0, 0, 0.03),
-    0 8px 24px rgba(0, 0, 0, 0.05),
-    0 24px 48px rgba(0, 0, 0, 0.04);
-  --ui-shadow-hover:
-    0 0.5px 0 rgba(255, 255, 255, 0.95) inset,
-    0 2px 6px rgba(0, 0, 0, 0.04),
-    0 16px 40px rgba(0, 0, 0, 0.08),
-    0 32px 64px rgba(0, 0, 0, 0.06);
+  --ui-radius-xl: 22px;
+  --ui-radius-lg: 18px;
+  --ui-light-top: rgba(255, 255, 255, 0.92);
+  --ui-light-edge: rgba(255, 255, 255, 0.45);
+  --ui-ambient: rgba(0, 0, 0, 0.028);
+  --ui-ambient-hover: rgba(0, 0, 0, 0.042);
   --ui-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
   --ui-spring: cubic-bezier(0.32, 0.72, 0, 1);
-  --ui-duration: 320ms;
+  --ui-duration: 380ms;
   --ui-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
 
   box-sizing: border-box !important;
   min-height: 100% !important;
-  padding: clamp(32px, 5vw, 64px) clamp(10px, 2.5vw, 20px) clamp(48px, 7vw, 80px) !important;
+  padding: var(--space-12) var(--space-4) var(--space-16) !important;
   background:
-    radial-gradient(ellipse 90% 60% at 50% -10%, rgba(202, 67, 0, 0.035), transparent 60%),
-    radial-gradient(ellipse 50% 40% at 100% 0%, rgba(0, 0, 0, 0.015), transparent 55%),
+    radial-gradient(ellipse 100% 80% at 50% -30%, rgba(255, 255, 255, 1), transparent 55%),
+    radial-gradient(ellipse 70% 50% at 50% 0%, rgba(202, 67, 0, 0.018), transparent 70%),
     var(--ui-bg) !important;
   font-family: var(--ui-font) !important;
   color: var(--ui-text) !important;
@@ -209,8 +209,8 @@
 }
 
 .map-page__header {
-  max-width: min(640px, 100%);
-  margin: 0 auto clamp(28px, 4vw, 44px);
+  max-width: min(600px, 100%);
+  margin: 0 auto var(--space-10);
   text-align: center;
   animation: map-page-enter var(--ui-duration) var(--ui-spring) both;
 }
@@ -219,24 +219,25 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  margin: 0 0 16px;
-  padding: 5px 12px;
+  margin: 0 0 var(--space-4);
+  padding: 4px var(--space-3);
   border-radius: 100px;
   background: var(--ui-accent-soft);
-  border: 0.5px solid rgba(202, 67, 0, 0.14);
+  border: none;
   font-size: 11px;
   font-weight: 600;
-  letter-spacing: 0.08em;
+  letter-spacing: 0.06em;
   text-transform: uppercase;
   color: var(--ui-accent);
+  opacity: 0.92;
   transition:
-    transform var(--ui-duration) var(--ui-spring),
-    box-shadow var(--ui-duration) var(--ui-ease);
+    opacity var(--ui-duration) var(--ui-ease),
+    filter var(--ui-duration) var(--ui-ease);
 }
 
 .map-page__badge:hover {
-  transform: scale(1.02);
-  box-shadow: 0 2px 10px rgba(202, 67, 0, 0.12);
+  opacity: 1;
+  filter: brightness(1.04);
 }
 
 .map-page__eyebrow {
@@ -245,27 +246,27 @@
 
 .wpb_raw_html .map-page__title,
 .map-page__title {
-  margin: 0 0 14px !important;
-  font-size: clamp(2.125rem, 4.8vw, 3.25rem) !important;
-  font-weight: 650 !important;
-  line-height: 1.08 !important;
-  letter-spacing: -0.035em !important;
+  margin: 0 0 var(--space-3) !important;
+  font-size: clamp(2rem, 4.5vw, 3rem) !important;
+  font-weight: 600 !important;
+  line-height: 1.07 !important;
+  letter-spacing: -0.032em !important;
   color: var(--ui-text) !important;
   text-transform: none !important;
   text-wrap: balance;
-  animation: map-page-enter calc(var(--ui-duration) * 1.1) var(--ui-spring) 40ms both;
+  animation: map-page-enter var(--ui-duration) var(--ui-spring) 50ms both;
 }
 
 .map-page__subtitle {
   margin: 0 auto;
-  max-width: 520px;
-  font-size: clamp(1rem, 1.9vw, 1.1875rem);
+  max-width: 480px;
+  font-size: clamp(0.9375rem, 1.75vw, 1.0625rem);
   font-weight: 400;
-  line-height: 1.47;
-  letter-spacing: -0.015em;
-  color: var(--ui-text-secondary);
+  line-height: 1.5;
+  letter-spacing: -0.011em;
+  color: var(--ui-text-tertiary);
   text-wrap: balance;
-  animation: map-page-enter calc(var(--ui-duration) * 1.1) var(--ui-spring) 80ms both;
+  animation: map-page-enter var(--ui-duration) var(--ui-spring) 100ms both;
 }
 
 .wpb_raw_html .map-page__card,
@@ -275,14 +276,18 @@
   position: relative !important;
   background: var(--ui-glass) !important;
   border-radius: var(--ui-radius-xl) !important;
-  border: 0.5px solid var(--ui-glass-border) !important;
-  box-shadow: var(--ui-shadow-soft) !important;
+  border: none !important;
+  box-shadow:
+    inset 0 1px 0 var(--ui-light-top),
+    inset 0 0 0 0.5px var(--ui-light-edge),
+    0 0 0 0.5px var(--ui-ambient),
+    0 1px 1px rgba(0, 0, 0, 0.02),
+    0 12px 36px rgba(0, 0, 0, 0.035) !important;
   overflow: hidden !important;
   transition:
     box-shadow var(--ui-duration) var(--ui-spring),
-    transform var(--ui-duration) var(--ui-spring),
-    border-color var(--ui-duration) var(--ui-ease);
-  animation: map-page-enter calc(var(--ui-duration) * 1.2) var(--ui-spring) 120ms both;
+    filter var(--ui-duration) var(--ui-ease) !important;
+  animation: map-page-enter var(--ui-duration) var(--ui-spring) 140ms both;
 }
 
 .map-page__card::before {
@@ -291,22 +296,44 @@
   inset: 0;
   border-radius: inherit;
   pointer-events: none;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.65);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(255, 255, 255, 0) 28%
+  );
+  z-index: 2;
+}
+
+.map-page__card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+  box-shadow: inset 0 -1px 0 rgba(0, 0, 0, 0.03);
   z-index: 2;
 }
 
 .map-page__card:hover {
-  box-shadow: var(--ui-shadow-hover);
-  transform: translateY(-1px);
-  border-color: rgba(0, 0, 0, 0.06);
+  filter: brightness(1.008);
+  box-shadow:
+    inset 0 1px 0 var(--ui-light-top),
+    inset 0 0 0 0.5px var(--ui-light-edge),
+    0 0 0 0.5px var(--ui-ambient-hover),
+    0 2px 4px rgba(0, 0, 0, 0.025),
+    0 20px 48px rgba(0, 0, 0, 0.048) !important;
 }
 
 .map-page__card-inner {
   position: relative;
   z-index: 1;
   isolation: isolate;
-  padding: clamp(16px, 2vw, 28px) clamp(12px, 1.8vw, 24px) clamp(20px, 2.5vw, 32px);
-  background: linear-gradient(180deg, var(--ui-surface) 0%, var(--ui-glass) 18%);
+  padding: var(--space-5) var(--space-4) var(--space-6);
+  background: linear-gradient(
+    180deg,
+    rgba(245, 245, 247, 0.65) 0%,
+    rgba(255, 255, 255, 0) 22%
+  );
 }
 
 .map-page__card-inner #interactive-map {
@@ -327,11 +354,11 @@
 @keyframes map-page-enter {
   from {
     opacity: 0;
-    transform: translateY(16px) scale(0.985);
+    transform: translateY(10px);
   }
   to {
     opacity: 1;
-    transform: translateY(0) scale(1);
+    transform: translateY(0);
   }
 }
 
@@ -344,12 +371,12 @@
 
 @media (max-width: 768px) {
   .map-page {
-    padding: 24px clamp(8px, 2vw, 14px) 40px !important;
+    padding: var(--space-8) var(--space-3) var(--space-10) !important;
   }
 
   .map-page__header {
     text-align: left;
-    margin-bottom: 22px;
+    margin-bottom: var(--space-6);
   }
 
   .map-page__subtitle {
@@ -362,23 +389,27 @@
   }
 
   .map-page__card:hover {
-    transform: none;
+    filter: none;
   }
 
   .map-page__card-inner {
-    padding: 12px 10px 16px;
-    background: linear-gradient(180deg, #f5f5f7 0%, #ffffff 14%);
+    padding: var(--space-3) var(--space-2) var(--space-4);
+    background: linear-gradient(
+      180deg,
+      rgba(245, 245, 247, 0.5) 0%,
+      rgba(255, 255, 255, 0) 16%
+    );
   }
 }
 
 @media (max-width: 480px) {
   .map-page__title {
-    letter-spacing: -0.028em !important;
-    font-size: 1.875rem !important;
+    letter-spacing: -0.026em !important;
+    font-size: 1.75rem !important;
   }
 
   .map-page__badge {
-    margin-bottom: 12px;
+    margin-bottom: var(--space-3);
   }
 }
 
@@ -393,124 +424,136 @@
   }
 
   .map-page__card:hover {
-    transform: none;
+    filter: none;
   }
 }
 
 #interactive-map {
-  --ui-popup-radius: 22px;
-  --ui-popup-shadow:
-    0 0.5px 0 rgba(255, 255, 255, 0.8) inset,
-    0 2px 8px rgba(0, 0, 0, 0.04),
-    0 12px 40px rgba(0, 0, 0, 0.1),
-    0 0 0 0.5px rgba(0, 0, 0, 0.06);
+  --ui-popup-radius: 20px;
   --ui-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
   --ui-spring: cubic-bezier(0.32, 0.72, 0, 1);
-  --ui-duration: 320ms;
+  --ui-duration: 380ms;
   --ui-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
 #interactive-map .info-text {
   border-radius: var(--ui-popup-radius) !important;
-  box-shadow: var(--ui-popup-shadow) !important;
-  background: rgba(255, 255, 255, 0.88) !important;
-  backdrop-filter: blur(28px) saturate(180%) !important;
-  -webkit-backdrop-filter: blur(28px) saturate(180%) !important;
-  border: 0.5px solid rgba(255, 255, 255, 0.72) !important;
-  padding: 20px 22px !important;
-  max-width: 340px !important;
+  border: none !important;
+  background: rgba(255, 255, 255, 0.82) !important;
+  backdrop-filter: blur(32px) saturate(190%) brightness(1.04) !important;
+  -webkit-backdrop-filter: blur(32px) saturate(190%) brightness(1.04) !important;
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 0 0 0.5px rgba(255, 255, 255, 0.5),
+    0 0 0 0.5px rgba(0, 0, 0, 0.04),
+    0 1px 2px rgba(0, 0, 0, 0.02),
+    0 16px 44px rgba(0, 0, 0, 0.08) !important;
+  padding: 18px 20px !important;
+  max-width: 328px !important;
   font-family: var(--ui-font) !important;
+  opacity: 1;
   transition:
-    opacity var(--ui-duration) var(--ui-ease),
+    opacity var(--ui-duration) var(--ui-spring),
     transform var(--ui-duration) var(--ui-spring),
+    filter var(--ui-duration) var(--ui-ease),
     box-shadow var(--ui-duration) var(--ui-ease) !important;
-  will-change: opacity, transform;
+  will-change: opacity, transform, filter;
 }
 
 #interactive-map .info-text h3 {
-  margin: 0 0 8px !important;
+  margin: 0 0 6px !important;
   font-family: var(--ui-font) !important;
-  font-size: 1.1875rem !important;
+  font-size: 1.0625rem !important;
   font-weight: 600 !important;
-  line-height: 1.2 !important;
-  letter-spacing: -0.022em !important;
+  line-height: 1.22 !important;
+  letter-spacing: -0.018em !important;
   color: #1d1d1f !important;
 }
 
 #interactive-map .info-text p {
   margin: 0 !important;
   font-family: var(--ui-font) !important;
-  font-size: 0.9375rem !important;
+  font-size: 0.875rem !important;
   font-weight: 400 !important;
-  line-height: 1.5 !important;
-  letter-spacing: -0.012em !important;
-  color: #6e6e73 !important;
+  line-height: 1.48 !important;
+  letter-spacing: -0.008em !important;
+  color: #86868b !important;
 }
 
 #interactive-map .button-map {
   border-radius: 980px !important;
-  padding: 10px 18px !important;
-  margin-top: 16px !important;
+  padding: 9px 17px !important;
+  margin-top: 14px !important;
   font-family: var(--ui-font) !important;
-  font-size: 0.875rem !important;
+  font-size: 0.8125rem !important;
   font-weight: 600 !important;
-  letter-spacing: -0.01em !important;
-  line-height: 1.3 !important;
+  letter-spacing: -0.008em !important;
+  line-height: 1.35 !important;
   box-shadow:
-    0 1px 2px rgba(0, 0, 0, 0.08),
-    0 4px 12px rgba(202, 67, 0, 0.22) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.18),
+    0 1px 2px rgba(0, 0, 0, 0.06),
+    0 4px 10px rgba(202, 67, 0, 0.16) !important;
   transition:
-    background-color var(--ui-duration) var(--ui-ease),
-    transform var(--ui-duration) var(--ui-spring),
-    box-shadow var(--ui-duration) var(--ui-ease) !important;
+    opacity var(--ui-duration) var(--ui-ease),
+    filter var(--ui-duration) var(--ui-ease),
+    box-shadow var(--ui-duration) var(--ui-spring) !important;
 }
 
 #interactive-map .button-map:hover {
-  transform: scale(1.02) !important;
+  filter: brightness(1.06) !important;
   box-shadow:
-    0 2px 4px rgba(0, 0, 0, 0.1),
-    0 6px 18px rgba(202, 67, 0, 0.3) !important;
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 2px 4px rgba(0, 0, 0, 0.07),
+    0 8px 20px rgba(202, 67, 0, 0.22) !important;
+}
+
+#interactive-map .button-map:active {
+  filter: brightness(0.96) !important;
+  box-shadow:
+    inset 0 1px 2px rgba(0, 0, 0, 0.12),
+    0 1px 2px rgba(0, 0, 0, 0.04) !important;
 }
 
 #interactive-map .button-map i {
-  margin-left: 6px !important;
-  font-size: 0.75rem !important;
-  vertical-align: 0.05em !important;
+  margin-left: 5px !important;
+  font-size: 0.6875rem !important;
+  vertical-align: 0.06em !important;
+  opacity: 0.9;
 }
 
 @media (max-width: 1000px) {
   #interactive-map .info-text {
     left: 50% !important;
     right: auto !important;
-    width: calc(100% - 28px) !important;
-    max-width: 420px !important;
+    width: calc(100% - 32px) !important;
+    max-width: 400px !important;
     top: auto !important;
-    bottom: 20px !important;
+    bottom: 16px !important;
     transform: translateX(-50%) !important;
-    border-radius: 20px !important;
-    padding: 18px 20px !important;
+    border-radius: 18px !important;
+    padding: 16px 18px !important;
     box-shadow:
-      0 0.5px 0 rgba(255, 255, 255, 0.85) inset,
-      0 -1px 0 rgba(0, 0, 0, 0.04),
-      0 8px 32px rgba(0, 0, 0, 0.14),
-      0 0 0 0.5px rgba(0, 0, 0, 0.06) !important;
+      inset 0 1px 0 rgba(255, 255, 255, 0.92),
+      inset 0 0 0 0.5px rgba(255, 255, 255, 0.45),
+      0 0 0 0.5px rgba(0, 0, 0, 0.05),
+      0 4px 24px rgba(0, 0, 0, 0.1) !important;
   }
 }
 
 @media (max-width: 480px) {
   #interactive-map .info-text {
-    width: calc(100% - 20px) !important;
-    bottom: 14px !important;
-    border-radius: 18px !important;
-    padding: 16px 18px !important;
+    width: calc(100% - 24px) !important;
+    bottom: 12px !important;
+    border-radius: 16px !important;
+    padding: 14px 16px !important;
   }
 
   #interactive-map .info-text h3 {
-    font-size: 1.0625rem !important;
+    font-size: 1rem !important;
   }
 
   #interactive-map .info-text p {
-    font-size: 0.875rem !important;
+    font-size: 0.8125rem !important;
   }
 }
 
@@ -520,8 +563,9 @@
     transition: none !important;
   }
 
-  #interactive-map .button-map:hover {
-    transform: none !important;
+  #interactive-map .button-map:hover,
+  #interactive-map .button-map:active {
+    filter: none !important;
   }
 }
 </style>
