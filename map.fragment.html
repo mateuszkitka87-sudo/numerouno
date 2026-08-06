@@ -1452,6 +1452,11 @@ jQuery(document).ready(function ($) {
 		return $(window).width() >= desktopBreakpoint;
 	}
 
+	function isPointerHoverEvent(e) {
+		var pointerType = e.originalEvent && e.originalEvent.pointerType;
+		return !pointerType || pointerType === 'mouse';
+	}
+
 	function showPopup($popup) {
 		$popup.css('display', 'block');
 		$popup.removeClass('is-visible');
@@ -1575,6 +1580,13 @@ jQuery(document).ready(function ($) {
 		}
 	});
 
+	$(window).on('resize orientationchange', function () {
+		if (!selectedCountry) return;
+		var $popup = $(popupClass + "[data-name='" + selectedCountry + "']");
+		var $group = $mapRoot.find('svg #' + selectedCountry);
+		positionPopup($popup, $group);
+	});
+
 	$('.info-text').each(function () {
 		// Get data attributes
 		var countryName = $(this).data('name');
@@ -1600,19 +1612,23 @@ jQuery(document).ready(function ($) {
 			// Find every svg with the country name
 			var svg = $(this).parent().find('svg ' + mapName);
 
-			// On hover in if found SVG
-			svg.hover(function () {
+			svg.on('mouseenter', function (e) {
+				if (!isPointerHoverEvent(e)) return;
 				var $popup = $(popupClass + popupName);
 				positionPopup($popup, svg);
 				showPopup($popup);
 				applyHoverFill($(this), countryType);
-			}, function () {
+			});
+
+			svg.on('mouseleave', function (e) {
+				if (!isPointerHoverEvent(e)) return;
 				if (selectedCountry === countryName) return;
 				hidePopup($(popupClass + popupName));
 				applyDefaultFill($(this), countryType);
 			});
 
 			svg.on('click', function (e) {
+				e.preventDefault();
 				e.stopPropagation();
 				var $popup = $(popupClass + popupName);
 				if (selectedCountry === countryName) {

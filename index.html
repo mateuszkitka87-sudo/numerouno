@@ -426,6 +426,7 @@
   --ui-spring: cubic-bezier(0.32, 0.72, 0, 1);
   --ui-duration: 380ms;
   --ui-font: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  touch-action: manipulation;
 }
 
 #interactive-map .info-text {
@@ -580,6 +581,12 @@
 
   #interactive-map .info-text p {
     font-size: 0.8125rem !important;
+  }
+}
+
+@media (hover: none) and (pointer: coarse) {
+  #interactive-map #map-container > g > g[id] {
+    -webkit-tap-highlight-color: transparent;
   }
 }
 
@@ -2187,6 +2194,11 @@ jQuery(document).ready(function ($) {
 		return $(window).width() >= desktopBreakpoint;
 	}
 
+	function isPointerHoverEvent(e) {
+		var pointerType = e.originalEvent && e.originalEvent.pointerType;
+		return !pointerType || pointerType === 'mouse';
+	}
+
 	function showPopup($popup) {
 		$popup.css('display', 'block');
 		$popup.removeClass('is-visible');
@@ -2310,6 +2322,13 @@ jQuery(document).ready(function ($) {
 		}
 	});
 
+	$(window).on('resize orientationchange', function () {
+		if (!selectedCountry) return;
+		var $popup = $(popupClass + "[data-name='" + selectedCountry + "']");
+		var $group = $mapRoot.find('svg #' + selectedCountry);
+		positionPopup($popup, $group);
+	});
+
 	$('.info-text').each(function () {
 		var countryName = $(this).data('name');
 		var countryUrl = $(this).data('url');
@@ -2322,19 +2341,25 @@ jQuery(document).ready(function ($) {
 			$(this).parent().find('svg ' + mapName + ' path').addClass('has_url');
 		}
 		if (countryType !== 'inactive') {
-			var svg = $(this).parent().find('svg ' + mapName);
-			svg.hover(function () {
+			var svg = $(this).parent().find('svg ' + mapName);
+
+			svg.on('mouseenter', function (e) {
+				if (!isPointerHoverEvent(e)) return;
 				var $popup = $(popupClass + popupName);
 				positionPopup($popup, svg);
 				showPopup($popup);
 				applyHoverFill($(this), countryType);
-			}, function () {
+			});
+
+			svg.on('mouseleave', function (e) {
+				if (!isPointerHoverEvent(e)) return;
 				if (selectedCountry === countryName) return;
 				hidePopup($(popupClass + popupName));
 				applyDefaultFill($(this), countryType);
 			});
 
 			svg.on('click', function (e) {
+				e.preventDefault();
 				e.stopPropagation();
 				var $popup = $(popupClass + popupName);
 				if (selectedCountry === countryName) {
