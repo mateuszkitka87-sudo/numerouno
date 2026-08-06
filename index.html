@@ -603,6 +603,11 @@
   }
 }
 
+#interactive-map #map-container > g > g[id]:focus-visible {
+  outline: 2px solid rgba(202, 67, 0, 0.55);
+  outline-offset: 3px;
+}
+
 @media (prefers-reduced-motion: reduce) {
   #interactive-map .info-text,
   #interactive-map .button-map {
@@ -2223,6 +2228,7 @@ jQuery(document).ready(function ($) {
 	function showPopup($popup) {
 		$popup.css('display', 'block');
 		$popup.removeClass('is-visible');
+		$popup.attr('aria-hidden', 'false');
 		void $popup[0].offsetHeight;
 		$popup.addClass('is-visible');
 	}
@@ -2230,6 +2236,7 @@ jQuery(document).ready(function ($) {
 	function hidePopup($popup) {
 		if (!$popup.length || $popup.css('display') === 'none') return;
 		$popup.removeClass('is-visible');
+		$popup.attr('aria-hidden', 'true');
 		if (!animMs) {
 			$popup.css('display', 'none');
 			return;
@@ -2320,7 +2327,7 @@ jQuery(document).ready(function ($) {
 		var $group = $mapRoot.find('svg #' + name);
 		$popup.removeClass('is-selected');
 		hidePopup($popup);
-		$group.removeAttr('data-selected');
+		$group.removeAttr('data-selected').attr('aria-expanded', 'false');
 		applyDefaultFill($group, type);
 		selectedCountry = null;
 	}
@@ -2331,11 +2338,17 @@ jQuery(document).ready(function ($) {
 		}
 		selectedCountry = countryName;
 		$popup.addClass('is-selected');
-		$group.attr('data-selected', 'true');
+		$group.attr({ 'data-selected': 'true', 'aria-expanded': 'true' });
 		positionPopup($popup, $group);
 		showPopup($popup);
 		applyHoverFill($group, countryMeta[countryName]);
 	}
+
+	$(document).on('keydown', function (e) {
+		if (e.key === 'Escape') {
+			deselectCountry();
+		}
+	});
 
 	$mapRoot.on('click', function (e) {
 		if (!$(e.target).closest('g[id]').length && !$(e.target).closest('.info-text').length) {
@@ -2354,17 +2367,35 @@ jQuery(document).ready(function ($) {
 		var countryName = $(this).data('name');
 		var countryUrl = $(this).data('url');
 		var countryType = $(this).data('type');
-		countryMeta[countryName] = countryType;
-		var $popup = $(popupClass + popupName);
-		ensureCta($popup, countryUrl);
+		countryMeta[countryName] = countryType;
 		var mapName = "#" + countryName;
-		var popupName = "[data-name='" + countryName + "']";
+		var popupName = "[data-name='" + countryName + "']";
+		var $popup = $(popupClass + popupName);
+		ensureCta($popup, countryUrl);
+		$popup.attr({ role: 'region', 'aria-hidden': 'true' });
 		$(this).parent().find('svg ' + mapName + ' path').addClass(countryType);
 		if (countryUrl) {
 			$(this).parent().find('svg ' + mapName + ' path').addClass('has_url');
 		}
 		if (countryType !== 'inactive') {
 			var svg = $(this).parent().find('svg ' + mapName);
+			var countryLabel = $popup.find('h3').first().text() || countryName;
+
+			svg.attr({
+				tabindex: 0,
+				role: 'button',
+				'aria-label': countryLabel,
+				'aria-expanded': 'false',
+				'aria-controls': 'popup-' + countryName
+			});
+			$popup.attr('id', 'popup-' + countryName);
+
+			svg.on('keydown', function (e) {
+				if (e.key === 'Enter' || e.key === ' ') {
+					e.preventDefault();
+					$(this).trigger('click');
+				}
+			});
 
 			svg.on('mouseenter', function (e) {
 				if (!isPointerHoverEvent(e)) return;
