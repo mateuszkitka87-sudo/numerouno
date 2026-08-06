@@ -1,0 +1,89 @@
+/* Map stage — crisp, minimal, no gradients or fog */
+
+.map-page__card-inner #interactive-map {
+  --map-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --map-duration: 280ms;
+  --map-svg-width: 54%;
+  --map-gutter-x: 48px;
+  --map-gutter-y: 36px;
+
+  position: relative !important;
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  margin-inline: auto !important;
+  padding: var(--map-gutter-y) var(--map-gutter-x) !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+  background: #ffffff !important;
+  isolation: isolate;
+}
+
+.map-page__card-inner #interactive-map::before,
+.map-page__card-inner #interactive-map::after {
+  display: none !important;
+}
+
+.map-page__card-inner #interactive-map > svg {
+  position: relative !important;
+  z-index: 1 !important;
+  display: block !important;
+  width: var(--map-svg-width) !important;
+  max-width: var(--map-svg-width) !important;
+  height: auto !important;
+  margin-inline: auto !important;
+  filter: none !important;
+  transition: opacity var(--map-duration) var(--map-ease) !important;
+  flex-shrink: 0;
+}
+
+#interactive-map #map-container > g > g > path.st0,
+#interactive-map #map-container > g > g > path.st1,
+#interactive-map #map-container > g > g > path.st5,
+#interactive-map #map-container > g > g > path.st6,
+#interactive-map #map-container > g > g > path.st7,
+#interactive-map #map-container > g > g > path.st8,
+#interactive-map #map-container > g > g > path.st9,
+#interactive-map #map-container > g > g > path.st10 {
+  transition: fill var(--map-duration) var(--map-ease), opacity var(--map-duration) var(--map-ease) !important;
+}
+
+#interactive-map #map-container > g > g[id] path,
+#interactive-map #map-container > g > g[id] circle {
+  transition:
+    fill var(--map-duration) var(--map-ease),
+    opacity var(--map-duration) var(--map-ease) !important;
+}
+
+#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) path {
+  opacity: 0.55;
+}
+
+#interactive-map #map-container > g > g[id]:hover path {
+  opacity: 1;
+}
+
+#interactive-map #map-container > g > g[id] {
+  cursor: pointer;
+}
+
+@media (max-width: 768px) {
+  .map-page__card-inner #interactive-map {
+    --map-svg-width: 72%;
+    --map-gutter-x: 20px;
+    --map-gutter-y: 24px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .map-page__card-inner #interactive-map > svg,
+  #interactive-map #map-container > g > g > path.st0,
+  #interactive-map #map-container > g > g[id] path,
+  #interactive-map #map-container > g > g[id] circle {
+    transition: none !important;
+  }
+
+  #interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) path {
+    opacity: 0.72;
+  }
+}
