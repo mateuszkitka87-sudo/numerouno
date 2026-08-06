@@ -1444,6 +1444,8 @@ jQuery(document).ready(function ($) {
 	var $mapRoot = $('#interactive-map');
 	var desktopBreakpoint = 1000;
 	var popupPadding = 12;
+	var selectedCountry = null;
+	var countryMeta = {};
 
 	function isDesktopLayout() {
 		return $(window).width() >= desktopBreakpoint;
@@ -1494,11 +1496,66 @@ jQuery(document).ready(function ($) {
 		$popup.addClass('is-positioned');
 	}
 
+	function applyHoverFill($group, type) {
+		if (type == 'transit') {
+			$group.find('path').css({ fill: '#ff8f1f' });
+		} else if (type == 'brokerage') {
+			$group.find('path').css({ fill: 'url(#brokeragestripeshover)' });
+		} else if (type == 'export') {
+			$group.find('path').css({ fill: 'url(#exportstripeshover)' });
+		} else {
+			$group.find('path').css({ fill: '#ff8f1f' });
+		}
+	}
+
+	function applyDefaultFill($group, type) {
+		if (type == 'transit') {
+			$group.find('path').css({ fill: '#ff6600' });
+		} else if (type == 'brokerage') {
+			$group.find('path').css({ fill: 'url(#brokeragestripes)' });
+		} else if (type == 'export') {
+			$group.find('path').css({ fill: 'url(#exportstripes)' });
+		} else {
+			$group.find('path').css({ fill: '#ff6600' });
+		}
+	}
+
+	function deselectCountry() {
+		if (!selectedCountry) return;
+		var name = selectedCountry;
+		var type = countryMeta[name];
+		var $popup = $(popupClass + "[data-name='" + name + "']");
+		var $group = $mapRoot.find('svg #' + name);
+		$popup.removeClass('is-selected').fadeOut('fast');
+		$group.removeAttr('data-selected');
+		applyDefaultFill($group, type);
+		selectedCountry = null;
+	}
+
+	function selectCountry(countryName, $popup, $group) {
+		if (selectedCountry && selectedCountry !== countryName) {
+			deselectCountry();
+		}
+		selectedCountry = countryName;
+		$popup.addClass('is-selected');
+		$group.attr('data-selected', 'true');
+		positionPopup($popup, $group);
+		$popup.fadeIn('fast');
+		applyHoverFill($group, countryMeta[countryName]);
+	}
+
+	$mapRoot.on('click', function (e) {
+		if (!$(e.target).closest('g[id]').length && !$(e.target).closest('.info-text').length) {
+			deselectCountry();
+		}
+	});
+
 	$('.info-text').each(function () {
 		// Get data attributes
 		var countryName = $(this).data('name');
 		var countryUrl = $(this).data('url');
 		var countryType = $(this).data('type');
+		countryMeta[countryName] = countryType;
 
 		// Set data names
 		var mapName = "#" + countryName;
@@ -1523,62 +1580,27 @@ jQuery(document).ready(function ($) {
 				var $popup = $(popupClass + popupName);
 				positionPopup($popup, svg);
 				$popup.fadeIn('fast');
-
-				if (countryType == 'transit') {
-					$(this).find('path').css({
-						'fill': '#ff8f1f',
-					});
-				} else if (countryType == 'brokerage') {
-					$(this).find('path').css({
-						'fill': 'url(#brokeragestripeshover)',
-					});
-				} else if (countryType == 'export') {
-					$(this).find('path').css({
-						'fill': 'url(#exportstripeshover)',
-					});
-				} else {
-					$(this).find('path').css({
-						'fill': '#ff8f1f',
-					});
-				}
-
-				// On hover out if found svg
+				applyHoverFill($(this), countryType);
 			}, function () {
+				if (selectedCountry === countryName) return;
 				$(popupClass + popupName).fadeOut('fast');
+				applyDefaultFill($(this), countryType);
+			});
 
-				if (countryType == 'transit') {
-					$(this).find('path').css({
-						'fill': '#ff6600',
-					});
-				} else if (countryType == 'brokerage') {
-					$(this).find('path').css({
-						'fill': 'url(#brokeragestripes)',
-					});
-				} else if (countryType == 'export') {
-					$(this).find('path').css({
-						'fill': 'url(#exportstripes)',
-					});
+			svg.on('click', function (e) {
+				e.stopPropagation();
+				var $popup = $(popupClass + popupName);
+				if (selectedCountry === countryName) {
+					deselectCountry();
 				} else {
-					$(this).find('path').css({
-						'fill': '#ff6600',
-					});
+					selectCountry(countryName, $popup, svg);
+				}
+				if (!countryUrl) {
+					console.log('No url given.');
 				}
 			});
 
-			function svgLink() {
-				svg.on('click', function () {
-					// Fool proof if mapurl is not shown
-					if (countryUrl) {
-						window.open(countryUrl);
-					} else {
-						console.log('No url given.');
-					}
-				});
-			}
-			// On click on found SVG
-			if ($(window).width() >= 1000) {
-				svgLink();
-			} else if (countryUrl) {
+			if (!isDesktopLayout() && countryUrl) {
 				$('.info-text' + popupName).append('<a href="' + countryUrl +
 					'" target="_blank" class="button-map">Read more <i class="dt-icon-the7-arrow-0-41"></i></a>'
 				)
