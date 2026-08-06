@@ -1,9 +1,9 @@
-<div id="interactive-map" class="coverage-map">
-<div class="coverage-map__canvas">
-<nav class="coverage-legend" aria-label="Service types">
-	<span class="coverage-legend__item coverage-legend__item--transit"><span class="coverage-legend__swatch" aria-hidden="true"></span>Transit</span>
-	<span class="coverage-legend__item coverage-legend__item--brokerage"><span class="coverage-legend__swatch" aria-hidden="true"></span>Transit + Brokerage</span>
-	<span class="coverage-legend__item coverage-legend__item--export"><span class="coverage-legend__swatch" aria-hidden="true"></span>Transit + Export</span>
+<div id="interactive-map" class="ec-map">
+<div class="ec-map__stage">
+<nav class="ec-legend" aria-label="Service types">
+	<span class="ec-legend__pill ec-legend__pill--transit"><span class="ec-legend__dot" aria-hidden="true"></span>Transit</span>
+	<span class="ec-legend__pill ec-legend__pill--brokerage"><span class="ec-legend__dot" aria-hidden="true"></span>Transit + Brokerage</span>
+	<span class="ec-legend__pill ec-legend__pill--export"><span class="ec-legend__dot" aria-hidden="true"></span>Transit + Export</span>
 </nav>
 <!-- Generator: Adobe Illustrator 26.5.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
 <svg version="1.1"
@@ -1178,10 +1178,10 @@
 </g>
 </svg>
 </div>
-<aside class="coverage-panel" aria-label="Country details">
-	<div class="coverage-panel__idle">
-		<h2 class="coverage-panel__title">Explore coverage</h2>
-		<p class="coverage-panel__hint">Hover or click a country on the map to view services and details.</p>
+<aside class="ec-detail-slot" aria-label="Country details">
+	<div class="ec-detail-idle">
+		<h2 class="ec-detail-idle__title">Explore coverage</h2>
+		<p class="ec-detail-idle__text">Select a country on the map to view services and details.</p>
 	</div>
 </aside>
 <!-- <div class="info-text" data-name="country name" data-url="ccountry link" data-type="type of country (inactive, transit, brokerage & export" style="display: none;">
@@ -1607,6 +1607,12 @@ jQuery(document).ready(function ($) {
 		if (!$(e.target).closest('g[id]').length && !$(e.target).closest('.info-text').length) {
 			deselectCountry();
 		}
+	});
+
+	$mapRoot.on('click', '.ec-detail-card__close', function (e) {
+		e.preventDefault();
+		e.stopPropagation();
+		deselectCountry();
 	});
 
 	$(window).on('resize orientationchange', function () {

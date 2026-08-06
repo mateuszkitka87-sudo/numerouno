@@ -1,0 +1,71 @@
+/* Country chips — soft pastel rounded capsules */
+
+#interactive-map circle.transit,
+#interactive-map circle.st3.transit {
+  fill: var(--ec-transit-bg) !important;
+  stroke: var(--ec-transit-border) !important;
+  stroke-width: 18px !important;
+}
+
+#interactive-map circle.brokerage,
+#interactive-map circle.st1.brokerage {
+  fill: var(--ec-brokerage-bg) !important;
+  stroke: var(--ec-brokerage-border) !important;
+  stroke-width: 18px !important;
+}
+
+#interactive-map circle.export,
+#interactive-map circle.st4.export {
+  fill: var(--ec-export-bg) !important;
+  stroke: var(--ec-export-border) !important;
+  stroke-width: 18px !important;
+}
+
+#interactive-map #map-container > g > g[id] > circle {
+  paint-order: stroke fill;
+  filter: none !important;
+  transform: scale(0.28);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity var(--ec-duration) var(--ec-ease), transform var(--ec-duration) var(--ec-ease) !important;
+}
+
+#interactive-map #map-container > g > g[id] > g path.st2 {
+  fill: var(--ec-brokerage-text) !important;
+  filter: none !important;
+  font-weight: 600;
+  transition: opacity var(--ec-duration) var(--ec-ease) !important;
+}
+
+#interactive-map #map-container > g > g[id]:has(> circle.transit) > g path.st2 {
+  fill: var(--ec-transit-text) !important;
+}
+
+#interactive-map #map-container > g > g[id]:has(> circle.export) > g path.st2 {
+  fill: var(--ec-export-text) !important;
+}
+
+#interactive-map #map-container > g > g[id][data-selected] > circle,
+#interactive-map #map-container > g > g[id]:hover > circle {
+  transform: scale(0.3);
+  opacity: 1;
+}
+
+#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) > circle {
+  opacity: 0.4;
+  transform: scale(0.26);
+}
+
+#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) > g path.st2 {
+  opacity: 0.45;
+}
+
+#interactive-map #map-container > g > g[id][data-selected] > g path.st2 {
+  fill: var(--ec-text) !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #interactive-map #map-container > g > g[id] > circle {
+    transition: opacity var(--ec-duration) var(--ec-ease) !important;
+  }
+}

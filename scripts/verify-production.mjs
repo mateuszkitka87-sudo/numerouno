@@ -52,13 +52,9 @@ async function probeMap(page) {
 
 async function stabilizeForScreenshot(page) {
   await page.evaluate(() => {
-    document.querySelector('.coverage-app__header')?.style.setProperty('display', 'none', 'important');
-    for (const sel of ['.coverage-app__header', '.coverage-app__title', '.coverage-app__lede', '.coverage-app__eyebrow']) {
-      document.querySelectorAll(sel).forEach((el) => {
-        el.style.animation = 'none';
-        el.style.transition = 'none';
-      });
-    }
+    document.querySelector('.ec-app__header, .ec-nav')?.style.setProperty('display', 'none', 'important');
+    document.querySelector('.ec-intro')?.style.setProperty('display', 'none', 'important');
+    document.querySelector('.ec-hint')?.style.setProperty('display', 'none', 'important');
   });
   await new Promise((r) => setTimeout(r, 300));
 }
@@ -141,24 +137,24 @@ async function run() {
   const prodPage = await browser.newPage();
   await prodPage.setViewport({ width: 1400, height: 900 });
   await prodPage.goto(productionUrl, { waitUntil: 'networkidle2', timeout: 60000 });
-  await prodPage.evaluate(() => document.querySelector('.coverage-app')?.scrollIntoView({ block: 'start' }));
+  await prodPage.evaluate(() => document.querySelector('.ec-app')?.scrollIntoView({ block: 'start' }));
   await new Promise((r) => setTimeout(r, 1200));
   await stabilizeForScreenshot(prodPage);
   const prodData = await probeMap(prodPage);
   const prodShot = await screenshotSvg(prodPage, 'production');
 
   const layout = await prodPage.evaluate(() => ({
-    hasCoverageApp: !!document.querySelector('.coverage-app'),
-    hasTitle: !!document.querySelector('.coverage-app__title')?.textContent,
-    hasPanel: !!document.querySelector('.coverage-panel'),
+    hasCoverageApp: !!document.querySelector('.ec-app'),
+    hasTitle: document.querySelector('.ec-intro__title')?.textContent?.trim() === 'Coverage',
+    hasPanel: !!document.querySelector('.ec-detail-slot'),
     hasCard: !!document.querySelector('.map-page__card'),
     embedStyleId: document.querySelector('#sgs-e-customs-map-embed') ? 'sgs-e-customs-map-embed' : null,
     externalStylesheets: [...document.querySelectorAll('link[rel=stylesheet]')].filter((l) => /map|layout|chrome/i.test(l.href)).length,
   }));
 
-  if (!layout.hasCoverageApp) failures.push('Missing .coverage-app wrapper');
-  if (!layout.hasTitle) failures.push('Missing section title');
-  if (!layout.hasPanel) failures.push('Missing coverage panel');
+  if (!layout.hasCoverageApp) failures.push('Missing .ec-app wrapper');
+  if (!layout.hasTitle) failures.push('Missing Coverage title');
+  if (!layout.hasPanel) failures.push('Missing detail panel');
   if (layout.hasCard) failures.push('Old card layout should not be present');
   if (layout.embedStyleId !== 'sgs-e-customs-map-embed') failures.push('Missing inline embed stylesheet');
 

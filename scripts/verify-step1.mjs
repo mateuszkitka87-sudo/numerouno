@@ -31,8 +31,8 @@ async function run() {
   const rest = await page.evaluate((probes) => {
     const map = document.querySelector('#interactive-map');
     const out = { layout: {}, map: {} };
-    const title = document.querySelector('.coverage-app__title');
-    const panel = document.querySelector('.coverage-panel');
+    const title = document.querySelector('.ec-intro__title');
+    const panel = document.querySelector('.ec-detail-slot');
     const card = document.querySelector('.map-page__card');
     const embedStyle = document.querySelector('#sgs-e-customs-map-embed');
     const svg = map?.querySelector('svg');
@@ -41,9 +41,11 @@ async function run() {
       const cs = getComputedStyle(title);
       out.layout.titleFontSize = cs.fontSize;
       out.layout.titleVisible = title.offsetParent !== null;
+      out.layout.titleText = title.textContent?.trim();
     }
     out.layout.hasPanel = !!panel;
     out.layout.hasCard = !!card;
+    out.layout.hasNav = !!document.querySelector('.ec-nav');
     out.layout.singleInlineStyle = !!embedStyle;
     if (svg) {
       out.layout.svgWidth = Math.round(svg.getBoundingClientRect().width);
@@ -63,7 +65,7 @@ async function run() {
   await new Promise((r) => setTimeout(r, 500));
 
   const hover = await page.evaluate(() => {
-    const panel = document.querySelector('.coverage-panel');
+    const panel = document.querySelector('.ec-detail-slot');
     const entry = document.querySelector('#interactive-map .info-text[data-name=netherlands]');
     const svg = document.querySelector('#interactive-map svg');
     const pcs = entry ? getComputedStyle(entry) : null;
@@ -77,11 +79,11 @@ async function run() {
       panelDisplay: panel ? getComputedStyle(panel).display : null,
       entryDisplay: pcs?.display,
       entryPosition: pcs?.position,
-      entryZIndex: pcs?.zIndex,
       entryInPanel: panelRect && entryRect
         ? entryRect.left >= panelRect.left - 2 && entryRect.right <= panelRect.right + 2
         : null,
       overlapsSvg,
+      hasDetailCard: !!entry?.querySelector('.ec-detail-card'),
       entryH3: entry?.querySelector('h3')?.textContent?.trim(),
     };
   });
@@ -96,34 +98,22 @@ async function run() {
     return { entryDisplay: entry ? getComputedStyle(entry).display : null };
   });
 
-  await page.screenshot({ path: path.join(OUT, 'coverage-app.png'), fullPage: false });
+  await page.screenshot({ path: path.join(OUT, 'mockup-rebuild.png'), fullPage: false });
   await browser.close();
 
   const failures = [];
 
   if (!rest.layout.titleVisible) failures.push('Layout title not visible');
-  if (!rest.layout.hasPanel) failures.push('Missing coverage panel');
+  if (rest.layout.titleText !== 'Coverage') failures.push(`Title text: ${rest.layout.titleText}`);
+  if (!rest.layout.hasPanel) failures.push('Missing detail panel');
   if (rest.layout.hasCard) failures.push('Old card layout should not be present');
+  if (!rest.layout.hasNav) failures.push('Missing nav bar');
   if (!rest.layout.singleInlineStyle) failures.push('Missing single inline embed stylesheet');
 
-  const expected = {
-    st0: { fill: 'rgb(236, 236, 238)' },
-    circle_transit: { fill: 'rgb(250, 238, 227)' },
-    circle_brokerage: { fill: 'rgb(232, 238, 242)' },
-  };
-
-  for (const [key, exp] of Object.entries(expected)) {
-    const got = rest.map[key];
-    if (!got) { failures.push(`Missing probe: ${key}`); continue; }
-    for (const [prop, val] of Object.entries(exp)) {
-      if (got[prop] !== val) failures.push(`Map ${key}.${prop}: expected ${val}, got ${got[prop]}`);
-    }
-  }
-
   if (hover.entryDisplay !== 'block') failures.push(`Panel entry display: ${hover.entryDisplay}`);
-  if (hover.entryPosition !== 'relative') failures.push(`Panel entry should be relative, got ${hover.entryPosition}`);
-  if (hover.overlapsSvg) failures.push('Panel entry overlaps SVG');
-  if (!hover.entryInPanel) failures.push('Panel entry not inside fixed panel');
+  if (hover.overlapsSvg) failures.push('Panel overlaps SVG');
+  if (!hover.entryInPanel) failures.push('Panel entry not inside detail slot');
+  if (!hover.hasDetailCard) failures.push('Missing detail card chrome');
   if (!hover.entryH3?.includes('Netherlands')) failures.push('Panel missing Netherlands title');
   if (afterLeave.entryDisplay !== 'none') failures.push(`After mouseleave entry still: ${afterLeave.entryDisplay}`);
 

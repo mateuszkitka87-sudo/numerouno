@@ -1,0 +1,59 @@
+/* Design tokens — mockup reference */
+
+.ec-app,
+.ec-map {
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, sans-serif;
+
+  --ec-bg: #ffffff;
+  --ec-text: #1d1d1f;
+  --ec-text-muted: #6e6e73;
+  --ec-text-soft: #86868b;
+  --ec-border: rgba(0, 0, 0, 0.08);
+  --ec-border-subtle: rgba(0, 0, 0, 0.05);
+
+  --ec-accent: #f26522;
+  --ec-land: #f2f2f2;
+  --ec-land-stroke: #ffffff;
+
+  /* ~12% tint pastels */
+  --ec-transit-bg: rgba(242, 101, 34, 0.12);
+  --ec-transit-border: rgba(242, 101, 34, 0.22);
+  --ec-transit-text: #8a5a3c;
+  --ec-transit-dot: #f26522;
+
+  --ec-brokerage-bg: rgba(74, 85, 104, 0.12);
+  --ec-brokerage-border: rgba(74, 85, 104, 0.2);
+  --ec-brokerage-text: #4a5568;
+  --ec-brokerage-dot: #4a5568;
+
+  --ec-export-bg: rgba(161, 30, 94, 0.12);
+  --ec-export-border: rgba(161, 30, 94, 0.2);
+  --ec-export-text: #7a4a62;
+  --ec-export-dot: #a11e5e;
+
+  --ec-space-1: 4px;
+  --ec-space-2: 8px;
+  --ec-space-3: 12px;
+  --ec-space-4: 16px;
+  --ec-space-5: 20px;
+  --ec-space-6: 24px;
+  --ec-space-8: 32px;
+  --ec-space-10: 40px;
+  --ec-space-12: 48px;
+  --ec-space-16: 64px;
+
+  --ec-radius-sm: 10px;
+  --ec-radius-md: 16px;
+  --ec-radius-lg: 20px;
+  --ec-radius-xl: 24px;
+  --ec-radius-pill: 100px;
+
+  --ec-shadow-card: 0 10px 40px rgba(0, 0, 0, 0.06), 0 2px 8px rgba(0, 0, 0, 0.04);
+  --ec-shadow-pill: 0 4px 16px rgba(0, 0, 0, 0.06);
+
+  --ec-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ec-duration: 240ms;
+
+  --ec-detail-width: 320px;
+  --ec-map-max: 252px;
+}
