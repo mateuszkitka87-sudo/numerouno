@@ -1,0 +1,109 @@
+/* App shell — embed section, no site chrome */
+
+.wpb_raw_html .ec-app,
+.ec-app {
+  box-sizing: border-box;
+  min-height: 0;
+  padding: var(--ec-space-6) var(--ec-space-8) var(--ec-space-12);
+  background: var(--ec-bg);
+  font-family: var(--font-sans);
+  font-weight: var(--ec-weight-body);
+  color: var(--ec-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+.ec-app *,
+.ec-app *::before,
+.ec-app *::after {
+  box-sizing: border-box;
+}
+
+.ec-workspace {
+  display: grid;
+  grid-template-columns: minmax(200px, 240px) minmax(0, 1fr) var(--ec-detail-width);
+  gap: var(--ec-space-8);
+  align-items: start;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.ec-intro {
+  grid-column: 1;
+  padding-top: var(--ec-space-5);
+}
+
+.ec-intro__label {
+  margin: 0 0 var(--ec-space-2);
+  font-size: 0.625rem;
+  font-weight: var(--ec-weight-title);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ec-accent);
+}
+
+.wpb_raw_html .ec-intro__title,
+.ec-intro__title {
+  margin: 0 0 var(--ec-space-2) !important;
+  font-size: clamp(2rem, 3vw, 2.625rem) !important;
+  font-weight: var(--ec-weight-title) !important;
+  line-height: 1.04 !important;
+  letter-spacing: -0.038em !important;
+  color: var(--ec-text) !important;
+  text-transform: none !important;
+}
+
+.ec-intro__subtitle {
+  margin: 0 0 var(--ec-space-5);
+  font-size: 1rem;
+  font-weight: var(--ec-weight-title);
+  letter-spacing: -0.016em;
+  line-height: 1.35;
+  color: var(--ec-text);
+}
+
+.ec-intro__body {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: var(--ec-weight-body);
+  line-height: 1.65;
+  letter-spacing: -0.006em;
+  color: var(--ec-text-muted);
+}
+
+.ec-hint {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--ec-space-2);
+  margin: var(--ec-space-10) auto 0;
+  max-width: 1280px;
+  font-size: 0.75rem;
+  font-weight: var(--ec-weight-body);
+  letter-spacing: -0.008em;
+  color: var(--ec-text-soft);
+}
+
+.ec-hint__icon {
+  font-size: 0.8125rem;
+  opacity: 0.35;
+}
+
+@media (max-width: 1024px) {
+  .ec-workspace {
+    grid-template-columns: 1fr;
+    gap: var(--ec-space-8);
+  }
+
+  .ec-intro {
+    grid-column: 1;
+  }
+}
+
+@media (max-width: 640px) {
+  .ec-app {
+    padding: var(--ec-space-5) var(--ec-space-4) var(--ec-space-10);
+  }
+}
