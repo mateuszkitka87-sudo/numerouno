@@ -1,0 +1,393 @@
+/* Detail panel — persistent shell, content-only transitions */
+
+.ec-detail-slot {
+  grid-column: 2;
+  grid-row: 1;
+  position: relative;
+  min-height: 380px;
+  background: var(--ec-surface-raised);
+  border: 1px solid var(--ec-border-subtle);
+  border-radius: var(--ec-radius-xl);
+  box-shadow: var(--ec-shadow-card);
+  overflow: hidden;
+}
+
+.ec-detail-idle {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 380px;
+  padding: var(--ec-space-10) var(--ec-space-6);
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  box-shadow: none;
+  transition:
+    opacity var(--ec-duration-interaction) var(--ec-ease-calm),
+    visibility var(--ec-duration-interaction) var(--ec-ease-calm);
+}
+
+.ec-detail-idle__title {
+  margin: 0 0 var(--ec-space-3);
+  font-size: 1.25rem;
+  font-weight: var(--ec-weight-title);
+  letter-spacing: -0.024em;
+  line-height: 1.2;
+  color: var(--ec-text);
+}
+
+.ec-detail-idle__text {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: var(--ec-weight-body);
+  line-height: 1.6;
+  letter-spacing: -0.006em;
+  color: var(--ec-text-muted);
+}
+
+.ec-map:has(> .info-text.is-visible) .ec-detail-idle,
+.ec-map:has(> .info-text.is-selected) .ec-detail-idle,
+.ec-map.ec-map--detail-open .ec-detail-idle {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+#interactive-map > .info-text {
+  grid-column: 2;
+  grid-row: 1;
+  align-self: start;
+  position: absolute !important;
+  inset: 0;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  transform: none !important;
+  z-index: 1;
+  display: none;
+  margin: 0;
+  padding: 0 !important;
+  max-width: none !important;
+  width: 100%;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transition:
+    opacity var(--ec-duration-interaction) var(--ec-ease-calm),
+    visibility var(--ec-duration-interaction) var(--ec-ease-calm) !important;
+}
+
+#interactive-map > .info-text.is-visible {
+  opacity: 1 !important;
+  visibility: visible !important;
+  pointer-events: auto;
+  z-index: 2;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: auto;
+}
+
+#interactive-map > .info-text.is-selected {
+  z-index: 3;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#interactive-map > .info-text.is-selected:not(.is-visible) {
+  z-index: 1;
+  pointer-events: none !important;
+}
+
+#interactive-map > .info-text.is-visible .ec-detail-card,
+#interactive-map > .info-text.is-selected .ec-detail-card {
+  transition: opacity var(--ec-duration-interaction) var(--ec-ease-calm);
+}
+
+#interactive-map > .info-text .ec-detail-card {
+  background: transparent;
+  border-radius: 0;
+  box-shadow: none;
+  border: none;
+}
+
+#interactive-map > .info-text .ec-detail-card__head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: var(--ec-space-4);
+  padding: var(--ec-space-8) var(--ec-space-6) var(--ec-space-4);
+}
+
+#interactive-map > .info-text h3 {
+  margin: 0 !important;
+  font-family: var(--font-sans) !important;
+  font-size: 1.5rem !important;
+  font-weight: var(--ec-weight-title) !important;
+  letter-spacing: -0.03em !important;
+  line-height: 1.1 !important;
+  color: var(--ec-text) !important;
+}
+
+#interactive-map > .info-text .ec-detail-card__close {
+  flex-shrink: 0;
+  width: 28px;
+  height: 28px;
+  margin: 2px 0 0;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--ec-text-soft);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+  transition:
+    opacity var(--ec-duration) var(--ec-ease),
+    filter var(--ec-duration) var(--ec-ease);
+}
+
+#interactive-map > .info-text .ec-detail-card__close:hover {
+  opacity: 0.72;
+  filter: brightness(0.94);
+}
+
+#interactive-map > .info-text .ec-detail-card__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--ec-space-2);
+  padding: 0 var(--ec-space-6) var(--ec-space-6);
+}
+
+#interactive-map > .info-text .ec-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: var(--ec-radius-chip);
+  font-size: 0.6875rem;
+  font-weight: var(--ec-weight-title);
+  letter-spacing: -0.014em;
+  line-height: 1.2;
+  box-shadow: var(--ec-shadow-chip);
+}
+
+#interactive-map > .info-text .ec-chip--transit {
+  background: var(--ec-transit-bg);
+  color: var(--ec-transit-text);
+  border: 1px solid var(--ec-transit-border);
+}
+
+#interactive-map > .info-text .ec-chip--brokerage {
+  background: var(--ec-brokerage-bg);
+  color: var(--ec-brokerage-text);
+  border: 1px solid var(--ec-brokerage-border);
+}
+
+#interactive-map > .info-text .ec-chip--export {
+  background: var(--ec-export-bg);
+  color: var(--ec-export-text);
+  border: 1px solid var(--ec-export-border);
+}
+
+#interactive-map > .info-text .ec-chip--type {
+  display: none;
+}
+
+#interactive-map > .info-text[data-type="transit"] .ec-chip--type-transit,
+#interactive-map > .info-text[data-type="brokerage"] .ec-chip--type-brokerage,
+#interactive-map > .info-text[data-type="export"] .ec-chip--type-export {
+  display: inline-flex;
+}
+
+#interactive-map > .info-text .ec-detail-card__body {
+  padding: 0 var(--ec-space-6) var(--ec-space-8);
+}
+
+#interactive-map > .info-text p {
+  margin: 0 !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.8125rem !important;
+  font-weight: var(--ec-weight-body) !important;
+  line-height: 1.65 !important;
+  letter-spacing: -0.006em !important;
+  color: var(--ec-text-muted) !important;
+}
+
+#interactive-map > .info-text .ec-detail-card__services {
+  display: flex;
+  flex-direction: column;
+  gap: var(--ec-space-2);
+  margin: var(--ec-space-2) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+#interactive-map > .info-text .ec-service {
+  display: none;
+  align-items: center;
+  gap: var(--ec-space-3);
+  padding: var(--ec-space-3) var(--ec-space-4);
+  margin: 0 var(--ec-space-2);
+  border-radius: var(--ec-radius-sm);
+  background: var(--ec-surface);
+  border: 1px solid var(--ec-border-subtle);
+  transition:
+    opacity var(--ec-duration) var(--ec-ease),
+    filter var(--ec-duration) var(--ec-ease),
+    box-shadow var(--ec-duration) var(--ec-ease);
+}
+
+#interactive-map > .info-text .ec-service:hover {
+  opacity: 0.96;
+  filter: brightness(0.995);
+}
+
+#interactive-map > .info-text[data-type="transit"] .ec-service--transit,
+#interactive-map > .info-text[data-type="brokerage"] .ec-service--brokerage,
+#interactive-map > .info-text[data-type="export"] .ec-service--export,
+#interactive-map > .info-text[data-type="inactive"] .ec-service--support {
+  display: flex;
+}
+
+#interactive-map > .info-text .ec-service__icon {
+  flex-shrink: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  font-size: 0.75rem;
+}
+
+#interactive-map > .info-text .ec-service--transit .ec-service__icon {
+  background: var(--ec-transit-bg);
+  color: var(--ec-transit-dot);
+}
+
+#interactive-map > .info-text .ec-service--brokerage .ec-service__icon {
+  background: var(--ec-brokerage-bg);
+  color: var(--ec-brokerage-dot);
+}
+
+#interactive-map > .info-text .ec-service--export .ec-service__icon {
+  background: var(--ec-export-bg);
+  color: var(--ec-export-dot);
+}
+
+#interactive-map > .info-text .ec-service--support .ec-service__icon {
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--ec-text-muted);
+}
+
+#interactive-map > .info-text .ec-service__text {
+  flex: 1;
+  min-width: 0;
+}
+
+#interactive-map > .info-text .ec-service__title {
+  display: block;
+  font-size: 0.8125rem;
+  font-weight: var(--ec-weight-title);
+  letter-spacing: -0.012em;
+  line-height: 1.3;
+  color: var(--ec-text);
+}
+
+#interactive-map > .info-text .ec-service__sub {
+  display: block;
+  font-size: 0.6875rem;
+  font-weight: var(--ec-weight-body);
+  letter-spacing: -0.004em;
+  line-height: 1.35;
+  color: var(--ec-text-soft);
+  margin-top: 2px;
+}
+
+#interactive-map > .info-text .ec-service__status {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+#interactive-map > .info-text .ec-service--transit .ec-service__status {
+  background: var(--ec-transit-dot);
+}
+
+#interactive-map > .info-text .ec-service--brokerage .ec-service__status {
+  background: var(--ec-brokerage-dot);
+}
+
+#interactive-map > .info-text .ec-service--export .ec-service__status {
+  background: var(--ec-export-dot);
+}
+
+#interactive-map > .info-text.is-measuring {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: none !important;
+}
+
+#interactive-map > .info-text > .button-map {
+  display: inline-flex !important;
+  align-items: center;
+  gap: 5px;
+  width: 100%;
+  padding: var(--ec-space-5) var(--ec-space-6) !important;
+  margin: var(--ec-space-2) 0 0 !important;
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  color: var(--ec-accent) !important;
+  font-family: var(--font-sans) !important;
+  font-size: 0.8125rem !important;
+  font-weight: var(--ec-weight-title) !important;
+  letter-spacing: -0.01em !important;
+  text-decoration: none !important;
+  box-shadow: none !important;
+  transition:
+    opacity var(--ec-duration) var(--ec-ease),
+    filter var(--ec-duration) var(--ec-ease) !important;
+}
+
+#interactive-map > .info-text > .button-map:hover {
+  opacity: 0.8;
+  filter: brightness(0.97);
+}
+
+@media (max-width: 1024px) {
+  .ec-detail-slot {
+    grid-column: 1;
+    min-height: 0;
+  }
+
+  .ec-detail-idle {
+    min-height: 200px;
+  }
+
+  #interactive-map > .info-text {
+    grid-column: 1;
+    position: relative !important;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #interactive-map > .info-text,
+  .ec-detail-idle,
+  #interactive-map > .info-text .ec-service {
+    transition: none !important;
+  }
+}

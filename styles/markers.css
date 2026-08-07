@@ -1,0 +1,85 @@
+/* Country chips — physical labels, calm interaction */
+
+#interactive-map circle.transit,
+#interactive-map circle.st3.transit {
+  fill: var(--ec-transit-bg) !important;
+  stroke: var(--ec-transit-border) !important;
+  stroke-width: 5px !important;
+}
+
+#interactive-map circle.brokerage,
+#interactive-map circle.st1.brokerage {
+  fill: var(--ec-brokerage-bg) !important;
+  stroke: var(--ec-brokerage-border) !important;
+  stroke-width: 5px !important;
+}
+
+#interactive-map circle.export,
+#interactive-map circle.st4.export {
+  fill: var(--ec-export-bg) !important;
+  stroke: var(--ec-export-border) !important;
+  stroke-width: 5px !important;
+}
+
+#interactive-map #map-container > g > g[id] > circle {
+  paint-order: stroke fill;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.03));
+  transform: scale(0.25);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition:
+    opacity var(--ec-duration-interaction) var(--ec-ease-calm),
+    fill var(--ec-duration-interaction) var(--ec-ease-calm),
+    stroke var(--ec-duration-interaction) var(--ec-ease-calm),
+    filter var(--ec-duration-interaction) var(--ec-ease-calm) !important;
+}
+
+#interactive-map #map-container > g > g[id] > g path.st2 {
+  fill: var(--ec-brokerage-text) !important;
+  filter: none !important;
+  opacity: 0.92;
+  transition:
+    opacity var(--ec-duration-interaction) var(--ec-ease-calm),
+    fill var(--ec-duration-interaction) var(--ec-ease-calm) !important;
+}
+
+#interactive-map #map-container > g > g[id]:has(> circle.transit) > g path.st2 {
+  fill: var(--ec-transit-text) !important;
+}
+
+#interactive-map #map-container > g > g[id]:has(> circle.export) > g path.st2 {
+  fill: var(--ec-export-text) !important;
+}
+
+#interactive-map #map-container > g > g[id]:hover > circle {
+  opacity: 1;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.04)) brightness(0.995);
+}
+
+#interactive-map #map-container > g > g[id][data-selected] > circle {
+  opacity: 1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05));
+}
+
+#interactive-map #map-container > g > g[id][data-selected] > g path.st2 {
+  fill: var(--ec-text) !important;
+  opacity: 1;
+}
+
+#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) > circle,
+#interactive-map #map-container > g:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) > circle {
+  opacity: 0.7;
+  filter: none;
+}
+
+#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) > g path.st2,
+#interactive-map #map-container > g:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) > g path.st2 {
+  opacity: 0.65;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #interactive-map #map-container > g > g[id] > circle,
+  #interactive-map #map-container > g > g[id] > g path.st2 {
+    transition: opacity var(--ec-duration-interaction) var(--ec-ease-calm) !important;
+  }
+}
