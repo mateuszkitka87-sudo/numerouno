@@ -46,6 +46,7 @@ async function run() {
     out.layout.hasPanel = !!panel;
     out.layout.hasCard = !!card;
     out.layout.hasNav = !!document.querySelector('.ec-nav');
+    out.layout.hasIntroLabel = document.querySelector('.ec-intro__label')?.textContent?.trim() === 'NETWORK';
     out.layout.singleInlineStyle = !!embedStyle;
     if (svg) {
       out.layout.svgWidth = Math.round(svg.getBoundingClientRect().width);
@@ -107,7 +108,8 @@ async function run() {
   if (rest.layout.titleText !== 'Coverage') failures.push(`Title text: ${rest.layout.titleText}`);
   if (!rest.layout.hasPanel) failures.push('Missing detail panel');
   if (rest.layout.hasCard) failures.push('Old card layout should not be present');
-  if (!rest.layout.hasNav) failures.push('Missing nav bar');
+  if (rest.layout.hasNav) failures.push('Site chrome nav should not be present in embed');
+  if (!rest.layout.hasIntroLabel) failures.push('Missing NETWORK intro label');
   if (!rest.layout.singleInlineStyle) failures.push('Missing single inline embed stylesheet');
 
   if (hover.entryDisplay !== 'block') failures.push(`Panel entry display: ${hover.entryDisplay}`);

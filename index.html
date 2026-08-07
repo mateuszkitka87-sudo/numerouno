@@ -70,7 +70,7 @@
 .wpb_raw_html .ec-app,
 .ec-app {
   box-sizing: border-box;
-  min-height: 100%;
+  min-height: 0;
   padding: var(--ec-space-6) var(--ec-space-8) var(--ec-space-12);
   background: var(--ec-bg);
   font-family: var(--font-sans);
@@ -86,120 +86,6 @@
 .ec-app *::before,
 .ec-app *::after {
   box-sizing: border-box;
-}
-
-.ec-nav {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: var(--ec-space-6);
-  max-width: 1280px;
-  margin: 0 auto var(--ec-space-12);
-  padding: 0 var(--ec-space-2);
-}
-
-.ec-nav__brand {
-  display: flex;
-  align-items: baseline;
-  gap: var(--ec-space-2);
-  flex-shrink: 0;
-}
-
-.ec-nav__logo {
-  font-size: 1.3125rem;
-  font-weight: var(--ec-weight-title);
-  letter-spacing: -0.02em;
-  font-family: Georgia, "Times New Roman", serif;
-}
-
-.ec-nav__product {
-  font-size: 0.75rem;
-  font-weight: var(--ec-weight-title);
-  letter-spacing: 0.08em;
-  color: var(--ec-text-muted);
-}
-
-.ec-nav__links {
-  display: flex;
-  align-items: center;
-  gap: var(--ec-space-8);
-  margin-left: auto;
-}
-
-.ec-nav__link {
-  font-size: 0.8125rem;
-  font-weight: var(--ec-weight-body);
-  color: var(--ec-text-muted);
-  text-decoration: none;
-  letter-spacing: -0.01em;
-  transition: opacity var(--ec-duration) var(--ec-ease);
-}
-
-.ec-nav__link:hover {
-  opacity: 0.72;
-}
-
-.ec-nav__actions {
-  display: flex;
-  align-items: center;
-  gap: var(--ec-space-4);
-  flex-shrink: 0;
-}
-
-.ec-nav__locale {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 6px 10px;
-  border: none;
-  border-radius: var(--ec-radius-sm);
-  background: transparent;
-  font-family: var(--font-sans);
-  font-size: 0.8125rem;
-  font-weight: var(--ec-weight-body);
-  letter-spacing: -0.01em;
-  color: var(--ec-text-muted);
-  cursor: pointer;
-  transition:
-    opacity var(--ec-duration) var(--ec-ease),
-    filter var(--ec-duration) var(--ec-ease);
-}
-
-.ec-nav__locale:hover {
-  opacity: 0.8;
-  filter: brightness(0.97);
-}
-
-.ec-nav__locale-icon {
-  font-size: 0.8125rem;
-  opacity: 0.65;
-}
-
-.ec-nav__chevron {
-  font-size: 0.5625rem;
-  opacity: 0.45;
-}
-
-.ec-nav__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 9px 17px;
-  border-radius: var(--ec-radius-pill);
-  background: var(--ec-accent);
-  color: #ffffff;
-  font-size: 0.8125rem;
-  font-weight: var(--ec-weight-title);
-  text-decoration: none;
-  letter-spacing: -0.012em;
-  transition:
-    opacity var(--ec-duration) var(--ec-ease),
-    filter var(--ec-duration) var(--ec-ease);
-}
-
-.ec-nav__cta:hover {
-  opacity: 0.92;
-  filter: brightness(0.97);
 }
 
 .ec-workspace {
@@ -273,10 +159,6 @@
 }
 
 @media (max-width: 1024px) {
-  .ec-nav__links {
-    display: none;
-  }
-
   .ec-workspace {
     grid-template-columns: 1fr;
     gap: var(--ec-space-8);
@@ -290,15 +172,6 @@
 @media (max-width: 640px) {
   .ec-app {
     padding: var(--ec-space-5) var(--ec-space-4) var(--ec-space-10);
-  }
-
-  .ec-nav {
-    margin-bottom: var(--ec-space-8);
-  }
-
-  .ec-nav__cta {
-    padding: 8px 14px;
-    font-size: 0.75rem;
   }
 }
 
@@ -1029,27 +902,6 @@
 </style>
 
 <div class="ec-app">
-  <header class="ec-nav" aria-label="Site">
-    <div class="ec-nav__brand">
-      <span class="ec-nav__logo">SGS</span>
-      <span class="ec-nav__product">E-CUSTOMS</span>
-    </div>
-    <nav class="ec-nav__links" aria-label="Primary">
-      <a class="ec-nav__link" href="#">Home</a>
-      <a class="ec-nav__link" href="#">Services</a>
-      <a class="ec-nav__link" href="#">TransitNet</a>
-      <a class="ec-nav__link" href="#">Contacts</a>
-    </nav>
-    <div class="ec-nav__actions">
-      <button type="button" class="ec-nav__locale" aria-label="Language">
-        <span class="ec-nav__locale-icon" aria-hidden="true">🌐</span>
-        EN
-        <span class="ec-nav__chevron" aria-hidden="true">▾</span>
-      </button>
-      <a class="ec-nav__cta" href="#">Newsletter <span aria-hidden="true">→</span></a>
-    </div>
-  </header>
-
   <div class="ec-workspace">
     <aside class="ec-intro">
       <p class="ec-intro__label">NETWORK</p>
