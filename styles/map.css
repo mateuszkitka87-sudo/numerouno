@@ -1,0 +1,193 @@
+/* Map — light illustration, generous whitespace */
+
+.ec-map {
+  grid-column: 2 / 4;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--ec-detail-width);
+  gap: var(--ec-space-12);
+  align-items: start;
+  position: relative;
+  width: 100%;
+}
+
+#interactive-map {
+  position: relative !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  font-family: var(--font-sans) !important;
+  font-size: 16px !important;
+  font-weight: var(--ec-weight-body) !important;
+  line-height: 1.5 !important;
+  color: var(--ec-text) !important;
+  background: transparent !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+#interactive-map *,
+#interactive-map *::before,
+#interactive-map *::after {
+  box-sizing: border-box !important;
+}
+
+.ec-map__stage {
+  grid-column: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 340px;
+  padding: var(--ec-space-16) var(--ec-space-8) var(--ec-space-12);
+}
+
+.ec-map__stage > svg {
+  display: block;
+  width: 100%;
+  max-width: var(--ec-map-max);
+  height: auto;
+  margin-inline: auto;
+  opacity: 0.96;
+}
+
+#interactive-map svg {
+  overflow: visible !important;
+}
+
+#interactive-map g.legend {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+#interactive-map .st0,
+#interactive-map .st5,
+#interactive-map .st6,
+#interactive-map .st7,
+#interactive-map .st8,
+#interactive-map .st9,
+#interactive-map .st10 {
+  fill: var(--ec-land) !important;
+  stroke: var(--ec-land-stroke) !important;
+  stroke-width: 0.5px !important;
+}
+
+#interactive-map path,
+#interactive-map g,
+#interactive-map circle {
+  transition:
+    fill var(--ec-duration-interaction) var(--ec-ease-calm),
+    opacity var(--ec-duration-interaction) var(--ec-ease-calm),
+    filter var(--ec-duration-interaction) var(--ec-ease-calm) !important;
+}
+
+#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) path,
+#interactive-map #map-container > g:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) path,
+#interactive-map #map-container > g:has(> g[id][data-selected]) > g[id]:not([data-selected]):not(:hover):not(.ec-country--hover) path {
+  opacity: 0.72;
+}
+
+#interactive-map #map-container > g > g[id]:hover path,
+#interactive-map #map-container > g > g[id].ec-country--hover path,
+#interactive-map #map-container > g > g[id][data-selected] path {
+  opacity: 1;
+}
+
+#interactive-map #map-container > g > g[id][data-selected] path {
+  filter: brightness(0.985);
+}
+
+#interactive-map #map-container > g > g[id] {
+  cursor: pointer;
+}
+
+#interactive-map #map-container > g > g[id]:focus-visible {
+  outline: 2px solid rgba(29, 29, 31, 0.14);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+/* Legend — Apple filter pills */
+.ec-legend {
+  position: absolute;
+  top: var(--ec-space-2);
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--ec-space-1);
+  margin: 0;
+  padding: 0;
+}
+
+.ec-legend__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px 4px 8px;
+  border-radius: var(--ec-radius-pill);
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: none;
+  font-size: 10px;
+  font-weight: var(--ec-weight-body);
+  letter-spacing: -0.008em;
+  color: var(--ec-text-soft);
+  white-space: nowrap;
+  transition:
+    opacity var(--ec-duration) var(--ec-ease),
+    background var(--ec-duration) var(--ec-ease),
+    border-color var(--ec-duration) var(--ec-ease);
+}
+
+.ec-legend__pill:hover {
+  background: rgba(255, 255, 255, 0.95);
+  border-color: rgba(0, 0, 0, 0.07);
+  color: var(--ec-text-muted);
+}
+
+.ec-legend__dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  opacity: 0.75;
+}
+
+.ec-legend__pill--transit .ec-legend__dot {
+  background: var(--ec-transit-dot);
+}
+
+.ec-legend__pill--brokerage .ec-legend__dot {
+  background: var(--ec-brokerage-dot);
+}
+
+.ec-legend__pill--export .ec-legend__dot {
+  background: var(--ec-export-dot);
+}
+
+@media (max-width: 1024px) {
+  .ec-map {
+    grid-column: 1;
+    grid-template-columns: 1fr;
+  }
+
+  .ec-map__stage {
+    min-height: 280px;
+    padding: var(--ec-space-16) var(--ec-space-4) var(--ec-space-10);
+  }
+
+  .ec-map__stage > svg {
+    max-width: min(72vw, 280px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #interactive-map path,
+  #interactive-map circle,
+  .ec-legend__pill {
+    transition: none !important;
+  }
+}
