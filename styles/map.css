@@ -1,10 +1,10 @@
-/* Map — light illustration, generous whitespace */
+/* Map — hero cartography beside detail panel */
 
 .ec-map {
   grid-column: 2 / 4;
   display: grid;
   grid-template-columns: minmax(0, 1fr) var(--ec-detail-width);
-  gap: var(--ec-space-12);
+  gap: var(--ec-space-4);
   align-items: start;
   position: relative;
   width: 100%;
@@ -35,10 +35,10 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  min-height: 340px;
-  padding: var(--ec-space-16) var(--ec-space-8) var(--ec-space-12);
+  align-items: flex-end;
+  justify-content: flex-start;
+  min-height: 0;
+  padding: 0 var(--ec-space-2) var(--ec-space-6) 0;
 }
 
 .ec-map__stage > svg {
@@ -46,7 +46,7 @@
   width: 100%;
   max-width: var(--ec-map-max);
   height: auto;
-  margin-inline: auto;
+  margin-inline: 0;
   opacity: 0.96;
 }
 
@@ -110,9 +110,10 @@
 /* Legend — Apple filter pills */
 .ec-legend {
   position: absolute;
-  top: var(--ec-space-2);
-  left: 50%;
-  transform: translateX(-50%);
+  top: 0;
+  right: 0;
+  left: auto;
+  transform: none;
   z-index: 4;
   display: flex;
   flex-wrap: wrap;
@@ -172,15 +173,24 @@
   .ec-map {
     grid-column: 1;
     grid-template-columns: 1fr;
+    gap: var(--ec-space-6);
   }
 
   .ec-map__stage {
-    min-height: 280px;
-    padding: var(--ec-space-16) var(--ec-space-4) var(--ec-space-10);
+    align-items: center;
+    padding: 0 0 var(--ec-space-4);
   }
 
   .ec-map__stage > svg {
-    max-width: min(72vw, 280px);
+    max-width: min(88vw, 400px);
+    margin-inline: auto;
+  }
+
+  .ec-legend {
+    top: var(--ec-space-2);
+    left: 50%;
+    right: auto;
+    transform: translateX(-50%);
   }
 }
 

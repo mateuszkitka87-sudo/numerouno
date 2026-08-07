@@ -24,7 +24,7 @@
 .ec-workspace {
   display: grid;
   grid-template-columns: minmax(200px, 240px) minmax(0, 1fr) var(--ec-detail-width);
-  gap: var(--ec-space-8) var(--ec-space-12);
+  gap: var(--ec-space-8);
   align-items: start;
   max-width: 1280px;
   margin: 0 auto;

@@ -63,8 +63,8 @@
   --ec-duration: 240ms;
   --ec-duration-interaction: 300ms;
 
-  --ec-detail-width: 320px;
-  --ec-map-max: 236px;
+  --ec-detail-width: 300px;
+  --ec-map-max: 400px;
 
   --ec-weight-title: 600;
   --ec-weight-body: 400;

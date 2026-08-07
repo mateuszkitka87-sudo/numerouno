@@ -4,7 +4,8 @@
   grid-column: 2;
   grid-row: 1;
   position: relative;
-  min-height: 380px;
+  min-height: 0;
+  align-self: start;
   background: var(--ec-surface-raised);
   border: 1px solid var(--ec-border-subtle);
   border-radius: var(--ec-radius-xl);
@@ -15,9 +16,9 @@
 .ec-detail-idle {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-height: 380px;
-  padding: var(--ec-space-10) var(--ec-space-6);
+  justify-content: flex-start;
+  min-height: 0;
+  padding: var(--ec-space-6) var(--ec-space-5);
   background: transparent;
   border: none;
   border-radius: 0;
@@ -124,7 +125,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: var(--ec-space-4);
-  padding: var(--ec-space-8) var(--ec-space-6) var(--ec-space-4);
+  padding: var(--ec-space-6) var(--ec-space-5) var(--ec-space-3);
 }
 
 #interactive-map > .info-text h3 {
@@ -209,7 +210,7 @@
 }
 
 #interactive-map > .info-text .ec-detail-card__body {
-  padding: 0 var(--ec-space-6) var(--ec-space-8);
+  padding: 0 var(--ec-space-5) var(--ec-space-6);
 }
 
 #interactive-map > .info-text p {
@@ -375,7 +376,7 @@
   }
 
   .ec-detail-idle {
-    min-height: 200px;
+    min-height: 0;
   }
 
   #interactive-map > .info-text {
