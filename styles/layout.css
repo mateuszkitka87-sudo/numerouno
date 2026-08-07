@@ -1,4 +1,4 @@
-/* App shell — typography and spacing polish */
+/* App shell — 8pt grid, unified typography rhythm */
 
 .wpb_raw_html .ec-app,
 .ec-app {
@@ -7,6 +7,7 @@
   padding: var(--ec-space-6) var(--ec-space-8) var(--ec-space-12);
   background: var(--ec-bg);
   font-family: var(--font-sans);
+  font-weight: var(--ec-weight-body);
   color: var(--ec-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -39,14 +40,14 @@
 
 .ec-nav__logo {
   font-size: 1.3125rem;
-  font-weight: 700;
+  font-weight: var(--ec-weight-title);
   letter-spacing: -0.02em;
   font-family: Georgia, "Times New Roman", serif;
 }
 
 .ec-nav__product {
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: var(--ec-weight-title);
   letter-spacing: 0.08em;
   color: var(--ec-text-muted);
 }
@@ -60,15 +61,15 @@
 
 .ec-nav__link {
   font-size: 0.8125rem;
-  font-weight: 500;
-  color: var(--ec-text);
+  font-weight: var(--ec-weight-body);
+  color: var(--ec-text-muted);
   text-decoration: none;
-  letter-spacing: -0.012em;
-  transition: color var(--ec-duration) var(--ec-ease);
+  letter-spacing: -0.01em;
+  transition: opacity var(--ec-duration) var(--ec-ease);
 }
 
 .ec-nav__link:hover {
-  color: var(--ec-accent);
+  opacity: 0.72;
 }
 
 .ec-nav__actions {
@@ -88,16 +89,18 @@
   background: transparent;
   font-family: var(--font-sans);
   font-size: 0.8125rem;
-  font-weight: 500;
+  font-weight: var(--ec-weight-body);
   letter-spacing: -0.01em;
   color: var(--ec-text-muted);
   cursor: pointer;
-  transition: background var(--ec-duration) var(--ec-ease), color var(--ec-duration) var(--ec-ease);
+  transition:
+    opacity var(--ec-duration) var(--ec-ease),
+    filter var(--ec-duration) var(--ec-ease);
 }
 
 .ec-nav__locale:hover {
-  background: rgba(0, 0, 0, 0.03);
-  color: var(--ec-text);
+  opacity: 0.8;
+  filter: brightness(0.97);
 }
 
 .ec-nav__locale-icon {
@@ -119,14 +122,17 @@
   background: var(--ec-accent);
   color: #ffffff;
   font-size: 0.8125rem;
-  font-weight: 600;
+  font-weight: var(--ec-weight-title);
   text-decoration: none;
   letter-spacing: -0.012em;
-  transition: opacity var(--ec-duration) var(--ec-ease), background var(--ec-duration) var(--ec-ease);
+  transition:
+    opacity var(--ec-duration) var(--ec-ease),
+    filter var(--ec-duration) var(--ec-ease);
 }
 
 .ec-nav__cta:hover {
   opacity: 0.92;
+  filter: brightness(0.97);
 }
 
 .ec-workspace {
@@ -144,9 +150,9 @@
 }
 
 .ec-intro__label {
-  margin: 0 0 10px;
+  margin: 0 0 var(--ec-space-2);
   font-size: 0.625rem;
-  font-weight: 600;
+  font-weight: var(--ec-weight-title);
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ec-accent);
@@ -154,9 +160,9 @@
 
 .wpb_raw_html .ec-intro__title,
 .ec-intro__title {
-  margin: 0 0 10px !important;
+  margin: 0 0 var(--ec-space-2) !important;
   font-size: clamp(2rem, 3vw, 2.625rem) !important;
-  font-weight: 700 !important;
+  font-weight: var(--ec-weight-title) !important;
   line-height: 1.04 !important;
   letter-spacing: -0.038em !important;
   color: var(--ec-text) !important;
@@ -166,8 +172,8 @@
 .ec-intro__subtitle {
   margin: 0 0 var(--ec-space-5);
   font-size: 1rem;
-  font-weight: 500;
-  letter-spacing: -0.018em;
+  font-weight: var(--ec-weight-title);
+  letter-spacing: -0.016em;
   line-height: 1.35;
   color: var(--ec-text);
 }
@@ -175,8 +181,9 @@
 .ec-intro__body {
   margin: 0;
   font-size: 0.8125rem;
-  line-height: 1.68;
-  letter-spacing: -0.008em;
+  font-weight: var(--ec-weight-body);
+  line-height: 1.65;
+  letter-spacing: -0.006em;
   color: var(--ec-text-muted);
 }
 
@@ -184,12 +191,12 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 7px;
+  gap: var(--ec-space-2);
   margin: var(--ec-space-10) auto 0;
   max-width: 1280px;
   font-size: 0.75rem;
-  font-weight: 400;
-  letter-spacing: -0.01em;
+  font-weight: var(--ec-weight-body);
+  letter-spacing: -0.008em;
   color: var(--ec-text-soft);
 }
 
