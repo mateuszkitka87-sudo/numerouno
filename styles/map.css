@@ -76,18 +76,25 @@
 #interactive-map g,
 #interactive-map circle {
   transition:
-    fill var(--ec-duration) var(--ec-ease),
-    opacity var(--ec-duration) var(--ec-ease) !important;
+    fill var(--ec-duration-interaction) var(--ec-ease-calm),
+    opacity var(--ec-duration-interaction) var(--ec-ease-calm),
+    filter var(--ec-duration-interaction) var(--ec-ease-calm) !important;
 }
 
-#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) path,
-#interactive-map #map-container > g:has(> g[id][data-selected]) > g[id]:not([data-selected]) path {
-  opacity: 0.58;
+#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) path,
+#interactive-map #map-container > g:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) path,
+#interactive-map #map-container > g:has(> g[id][data-selected]) > g[id]:not([data-selected]):not(:hover):not(.ec-country--hover) path {
+  opacity: 0.72;
 }
 
 #interactive-map #map-container > g > g[id]:hover path,
+#interactive-map #map-container > g > g[id].ec-country--hover path,
 #interactive-map #map-container > g > g[id][data-selected] path {
   opacity: 1;
+}
+
+#interactive-map #map-container > g > g[id][data-selected] path {
+  filter: brightness(0.985);
 }
 
 #interactive-map #map-container > g > g[id] {

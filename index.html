@@ -56,7 +56,9 @@
   --ec-shadow-elevated: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.03);
 
   --ec-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ec-ease-calm: cubic-bezier(0.33, 0, 0.2, 1);
   --ec-duration: 240ms;
+  --ec-duration-interaction: 300ms;
 
   --ec-detail-width: 320px;
   --ec-map-max: 236px;
@@ -376,18 +378,25 @@
 #interactive-map g,
 #interactive-map circle {
   transition:
-    fill var(--ec-duration) var(--ec-ease),
-    opacity var(--ec-duration) var(--ec-ease) !important;
+    fill var(--ec-duration-interaction) var(--ec-ease-calm),
+    opacity var(--ec-duration-interaction) var(--ec-ease-calm),
+    filter var(--ec-duration-interaction) var(--ec-ease-calm) !important;
 }
 
-#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) path,
-#interactive-map #map-container > g:has(> g[id][data-selected]) > g[id]:not([data-selected]) path {
-  opacity: 0.58;
+#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) path,
+#interactive-map #map-container > g:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) path,
+#interactive-map #map-container > g:has(> g[id][data-selected]) > g[id]:not([data-selected]):not(:hover):not(.ec-country--hover) path {
+  opacity: 0.72;
 }
 
 #interactive-map #map-container > g > g[id]:hover path,
+#interactive-map #map-container > g > g[id].ec-country--hover path,
 #interactive-map #map-container > g > g[id][data-selected] path {
   opacity: 1;
+}
+
+#interactive-map #map-container > g > g[id][data-selected] path {
+  filter: brightness(0.985);
 }
 
 #interactive-map #map-container > g > g[id] {
@@ -512,10 +521,10 @@
   transform-box: fill-box;
   transform-origin: center;
   transition:
-    opacity var(--ec-duration) var(--ec-ease),
-    fill var(--ec-duration) var(--ec-ease),
-    stroke var(--ec-duration) var(--ec-ease),
-    filter var(--ec-duration) var(--ec-ease) !important;
+    opacity var(--ec-duration-interaction) var(--ec-ease-calm),
+    fill var(--ec-duration-interaction) var(--ec-ease-calm),
+    stroke var(--ec-duration-interaction) var(--ec-ease-calm),
+    filter var(--ec-duration-interaction) var(--ec-ease-calm) !important;
 }
 
 #interactive-map #map-container > g > g[id] > g path.st2 {
@@ -523,8 +532,8 @@
   filter: none !important;
   opacity: 0.92;
   transition:
-    opacity var(--ec-duration) var(--ec-ease),
-    fill var(--ec-duration) var(--ec-ease) !important;
+    opacity var(--ec-duration-interaction) var(--ec-ease-calm),
+    fill var(--ec-duration-interaction) var(--ec-ease-calm) !important;
 }
 
 #interactive-map #map-container > g > g[id]:has(> circle.transit) > g path.st2 {
@@ -537,50 +546,12 @@
 
 #interactive-map #map-container > g > g[id]:hover > circle {
   opacity: 1;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05)) brightness(0.99);
-}
-
-#interactive-map #map-container > g > g[id]:hover > circle.transit {
-  fill: #fdf0e8 !important;
-  stroke: rgba(232, 93, 26, 0.2) !important;
-}
-
-#interactive-map #map-container > g > g[id]:hover > circle.brokerage {
-  fill: #eef1f4 !important;
-  stroke: rgba(74, 85, 104, 0.18) !important;
-}
-
-#interactive-map #map-container > g > g[id]:hover > circle.export {
-  fill: #f5edf1 !important;
-  stroke: rgba(161, 30, 94, 0.18) !important;
+  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.04)) brightness(0.995);
 }
 
 #interactive-map #map-container > g > g[id][data-selected] > circle {
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.06)) brightness(0.98);
-}
-
-#interactive-map #map-container > g > g[id][data-selected] > circle.transit {
-  fill: #fdf0e8 !important;
-  stroke: rgba(232, 93, 26, 0.22) !important;
-}
-
-#interactive-map #map-container > g > g[id][data-selected] > circle.brokerage {
-  fill: #eef1f4 !important;
-  stroke: rgba(74, 85, 104, 0.2) !important;
-}
-
-#interactive-map #map-container > g > g[id][data-selected] > circle.export {
-  fill: #f5edf1 !important;
-  stroke: rgba(161, 30, 94, 0.2) !important;
-}
-
-#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) > circle {
-  opacity: 0.48;
-  filter: none;
-}
-
-#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) > g path.st2 {
-  opacity: 0.42;
+  opacity: 1;
+  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05));
 }
 
 #interactive-map #map-container > g > g[id][data-selected] > g path.st2 {
@@ -588,10 +559,21 @@
   opacity: 1;
 }
 
+#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) > circle,
+#interactive-map #map-container > g:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) > circle {
+  opacity: 0.7;
+  filter: none;
+}
+
+#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) > g path.st2,
+#interactive-map #map-container > g:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) > g path.st2 {
+  opacity: 0.65;
+}
+
 @media (prefers-reduced-motion: reduce) {
   #interactive-map #map-container > g > g[id] > circle,
   #interactive-map #map-container > g > g[id] > g path.st2 {
-    transition: opacity var(--ec-duration) var(--ec-ease) !important;
+    transition: opacity var(--ec-duration-interaction) var(--ec-ease-calm) !important;
   }
 }
 
@@ -600,6 +582,11 @@
   grid-row: 1;
   position: relative;
   min-height: 380px;
+  background: var(--ec-surface-raised);
+  border: 1px solid var(--ec-border-subtle);
+  border-radius: var(--ec-radius-xl);
+  box-shadow: var(--ec-shadow-card);
+  overflow: hidden;
 }
 
 .ec-detail-idle {
@@ -608,11 +595,13 @@
   justify-content: center;
   min-height: 380px;
   padding: var(--ec-space-10) var(--ec-space-6);
-  background: var(--ec-surface);
-  border: 1px solid var(--ec-border-subtle);
-  border-radius: var(--ec-radius-xl);
+  background: transparent;
+  border: none;
+  border-radius: 0;
   box-shadow: none;
-  transition: opacity var(--ec-duration) var(--ec-ease);
+  transition:
+    opacity var(--ec-duration-interaction) var(--ec-ease-calm),
+    visibility var(--ec-duration-interaction) var(--ec-ease-calm);
 }
 
 .ec-detail-idle__title {
@@ -633,7 +622,9 @@
   color: var(--ec-text-muted);
 }
 
-.ec-map:has(> .info-text.is-visible) .ec-detail-idle {
+.ec-map:has(> .info-text.is-visible) .ec-detail-idle,
+.ec-map:has(> .info-text.is-selected) .ec-detail-idle,
+.ec-map.ec-map--detail-open .ec-detail-idle {
   opacity: 0;
   visibility: hidden;
   position: absolute;
@@ -652,7 +643,7 @@
   right: auto !important;
   bottom: auto !important;
   transform: none !important;
-  z-index: 3;
+  z-index: 1;
   display: none;
   margin: 0;
   padding: 0 !important;
@@ -664,22 +655,38 @@
   backdrop-filter: none !important;
   pointer-events: none;
   opacity: 0;
-  transition: opacity var(--ec-duration) var(--ec-ease) !important;
+  visibility: hidden;
+  transition:
+    opacity var(--ec-duration-interaction) var(--ec-ease-calm),
+    visibility var(--ec-duration-interaction) var(--ec-ease-calm) !important;
 }
 
 #interactive-map > .info-text.is-visible {
   opacity: 1 !important;
+  visibility: visible !important;
   pointer-events: auto;
-  background: var(--ec-surface-raised);
-  border-radius: var(--ec-radius-xl);
-  box-shadow: var(--ec-shadow-card);
-  border: 1px solid var(--ec-border-subtle);
-  overflow: hidden;
+  z-index: 2;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: auto;
 }
 
 #interactive-map > .info-text.is-selected {
-  border-color: var(--ec-hairline);
-  box-shadow: var(--ec-shadow-elevated);
+  z-index: 3;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#interactive-map > .info-text.is-selected:not(.is-visible) {
+  z-index: 1;
+  pointer-events: none !important;
+}
+
+#interactive-map > .info-text.is-visible .ec-detail-card,
+#interactive-map > .info-text.is-selected .ec-detail-card {
+  transition: opacity var(--ec-duration-interaction) var(--ec-ease-calm);
 }
 
 #interactive-map > .info-text .ec-detail-card {
@@ -817,9 +824,8 @@
 }
 
 #interactive-map > .info-text .ec-service:hover {
-  opacity: 0.94;
-  filter: brightness(0.99);
-  box-shadow: var(--ec-shadow-elevated);
+  opacity: 0.96;
+  filter: brightness(0.995);
 }
 
 #interactive-map > .info-text[data-type="transit"] .ec-service--transit,
@@ -4155,7 +4161,8 @@ jQuery(document).ready(function ($) {
 	var popupPadding = 12;
 	var selectedCountry = null;
 	var countryMeta = {};
-	var animMs = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 280;
+	var animMs = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 300;
+	var hoverPreviewCountry = null;
 
 	function isDesktopLayout() {
 		return $(window).width() >= desktopBreakpoint;
@@ -4174,27 +4181,70 @@ jQuery(document).ready(function ($) {
 		);
 	}
 
+	function updateDetailOpenState() {
+		var hasOpen = $mapRoot.find('.info-text.is-visible, .info-text.is-selected').filter(function () {
+			return $(this).css('display') !== 'none';
+		}).length > 0;
+		$mapRoot.toggleClass('ec-map--detail-open', hasOpen);
+	}
+
 	function showPopup($popup) {
+		var $current = $mapRoot.find('.info-text.is-visible').not($popup);
+
 		$popup.css('display', 'block');
-		$popup.removeClass('is-visible');
 		$popup.attr('aria-hidden', 'false');
-		void $popup[0].offsetHeight;
-		$popup.addClass('is-visible');
+
+		if ($current.length) {
+			$current.removeClass('is-visible');
+			setTimeout(function () {
+				if (!$current.hasClass('is-visible') && !$current.hasClass('is-selected')) {
+					$current.css('display', 'none');
+				}
+			}, animMs);
+		}
+
+		if (!$popup.hasClass('is-visible')) {
+			if (animMs) {
+				requestAnimationFrame(function () {
+					requestAnimationFrame(function () {
+						$popup.addClass('is-visible');
+					});
+				});
+			} else {
+				$popup.addClass('is-visible');
+			}
+		}
+
+		updateDetailOpenState();
 	}
 
 	function hidePopup($popup) {
 		if (!$popup.length || $popup.css('display') === 'none') return;
+		if ($popup.hasClass('is-selected')) return;
+
 		$popup.removeClass('is-visible');
 		$popup.attr('aria-hidden', 'true');
+
 		if (!animMs) {
 			$popup.css('display', 'none');
+			updateDetailOpenState();
 			return;
 		}
+
 		setTimeout(function () {
-			if (!$popup.hasClass('is-visible')) {
+			if (!$popup.hasClass('is-visible') && !$popup.hasClass('is-selected')) {
 				$popup.css('display', 'none');
 			}
+			updateDetailOpenState();
 		}, animMs);
+	}
+
+	function restoreSelectedPopup() {
+		if (!selectedCountry) return;
+		var $selectedPopup = $(popupClass + "[data-name='" + selectedCountry + "']");
+		if (!$selectedPopup.hasClass('is-visible')) {
+			showPopup($selectedPopup);
+		}
 	}
 
 	function positionPopup($popup, $countryGroup) {
@@ -4244,41 +4294,38 @@ jQuery(document).ready(function ($) {
 		$popup.addClass('is-positioned');
 	}
 
-	function applyHoverFill($group, type) {
-		if (type == 'transit') {
-			$group.find('path').css({ fill: '#ff8f1f' });
-		} else if (type == 'brokerage') {
-			$group.find('path').css({ fill: 'url(#brokeragestripeshover)' });
-		} else if (type == 'export') {
-			$group.find('path').css({ fill: 'url(#exportstripeshover)' });
-		} else {
-			$group.find('path').css({ fill: '#ff8f1f' });
+	function setCountryState($group, state) {
+		$group.removeClass('ec-country--hover');
+		$group.find('path').css({ fill: '' });
+
+		if (state === 'hover') {
+			$group.addClass('ec-country--hover');
 		}
 	}
 
-	function applyDefaultFill($group, type) {
-		if (type == 'transit') {
-			$group.find('path').css({ fill: '#ff6600' });
-		} else if (type == 'brokerage') {
-			$group.find('path').css({ fill: 'url(#brokeragestripes)' });
-		} else if (type == 'export') {
-			$group.find('path').css({ fill: 'url(#exportstripes)' });
-		} else {
-			$group.find('path').css({ fill: '#ff6600' });
+	function applyHoverFill($group) {
+		setCountryState($group, 'hover');
+	}
+
+	function applyDefaultFill($group) {
+		if ($group.attr('data-selected') === 'true') {
+			setCountryState($group, null);
+			return;
 		}
+		setCountryState($group, null);
 	}
 
 	function deselectCountry() {
 		if (!selectedCountry) return;
 		var name = selectedCountry;
-		var type = countryMeta[name];
 		var $popup = $(popupClass + "[data-name='" + name + "']");
 		var $group = $mapRoot.find('svg #' + name);
 		$popup.removeClass('is-selected');
 		hidePopup($popup);
 		$group.removeAttr('data-selected').attr('aria-expanded', 'false');
-		applyDefaultFill($group, type);
+		setCountryState($group, null);
 		selectedCountry = null;
+		updateDetailOpenState();
 	}
 
 	function selectCountry(countryName, $popup, $group) {
@@ -4286,11 +4333,12 @@ jQuery(document).ready(function ($) {
 			deselectCountry();
 		}
 		selectedCountry = countryName;
+		hoverPreviewCountry = null;
 		$popup.addClass('is-selected');
 		$group.attr({ 'data-selected': 'true', 'aria-expanded': 'true' });
 		positionPopup($popup, $group);
 		showPopup($popup);
-		applyHoverFill($group, countryMeta[countryName]);
+		setCountryState($group, null);
 	}
 
 	$(document).on('keydown', function (e) {
@@ -4355,16 +4403,30 @@ jQuery(document).ready(function ($) {
 			svg.on('mouseenter', function (e) {
 				if (!isPointerHoverEvent(e)) return;
 				var $popup = $(popupClass + popupName);
-				positionPopup($popup, svg);
+				var $group = $(this);
+
+				if (selectedCountry && selectedCountry !== countryName) {
+					var $selectedPopup = $(popupClass + "[data-name='" + selectedCountry + "']");
+					$selectedPopup.removeClass('is-visible');
+				}
+
+				hoverPreviewCountry = countryName;
+				positionPopup($popup, $group);
 				showPopup($popup);
-				applyHoverFill($(this), countryType);
+				setCountryState($group, 'hover');
 			});
 
 			svg.on('mouseleave', function (e) {
 				if (!isPointerHoverEvent(e)) return;
 				if (selectedCountry === countryName) return;
+
+				hoverPreviewCountry = null;
 				hidePopup($(popupClass + popupName));
-				applyDefaultFill($(this), countryType);
+				applyDefaultFill($(this));
+
+				if (selectedCountry) {
+					restoreSelectedPopup();
+				}
 			});
 
 			svg.on('click', function (e) {

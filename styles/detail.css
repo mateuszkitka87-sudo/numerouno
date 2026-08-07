@@ -1,10 +1,15 @@
-/* Detail panel — quiet, spacious, Apple hierarchy */
+/* Detail panel — persistent shell, content-only transitions */
 
 .ec-detail-slot {
   grid-column: 2;
   grid-row: 1;
   position: relative;
   min-height: 380px;
+  background: var(--ec-surface-raised);
+  border: 1px solid var(--ec-border-subtle);
+  border-radius: var(--ec-radius-xl);
+  box-shadow: var(--ec-shadow-card);
+  overflow: hidden;
 }
 
 .ec-detail-idle {
@@ -13,11 +18,13 @@
   justify-content: center;
   min-height: 380px;
   padding: var(--ec-space-10) var(--ec-space-6);
-  background: var(--ec-surface);
-  border: 1px solid var(--ec-border-subtle);
-  border-radius: var(--ec-radius-xl);
+  background: transparent;
+  border: none;
+  border-radius: 0;
   box-shadow: none;
-  transition: opacity var(--ec-duration) var(--ec-ease);
+  transition:
+    opacity var(--ec-duration-interaction) var(--ec-ease-calm),
+    visibility var(--ec-duration-interaction) var(--ec-ease-calm);
 }
 
 .ec-detail-idle__title {
@@ -38,7 +45,9 @@
   color: var(--ec-text-muted);
 }
 
-.ec-map:has(> .info-text.is-visible) .ec-detail-idle {
+.ec-map:has(> .info-text.is-visible) .ec-detail-idle,
+.ec-map:has(> .info-text.is-selected) .ec-detail-idle,
+.ec-map.ec-map--detail-open .ec-detail-idle {
   opacity: 0;
   visibility: hidden;
   position: absolute;
@@ -57,7 +66,7 @@
   right: auto !important;
   bottom: auto !important;
   transform: none !important;
-  z-index: 3;
+  z-index: 1;
   display: none;
   margin: 0;
   padding: 0 !important;
@@ -69,22 +78,38 @@
   backdrop-filter: none !important;
   pointer-events: none;
   opacity: 0;
-  transition: opacity var(--ec-duration) var(--ec-ease) !important;
+  visibility: hidden;
+  transition:
+    opacity var(--ec-duration-interaction) var(--ec-ease-calm),
+    visibility var(--ec-duration-interaction) var(--ec-ease-calm) !important;
 }
 
 #interactive-map > .info-text.is-visible {
   opacity: 1 !important;
+  visibility: visible !important;
   pointer-events: auto;
-  background: var(--ec-surface-raised);
-  border-radius: var(--ec-radius-xl);
-  box-shadow: var(--ec-shadow-card);
-  border: 1px solid var(--ec-border-subtle);
-  overflow: hidden;
+  z-index: 2;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  overflow: auto;
 }
 
 #interactive-map > .info-text.is-selected {
-  border-color: var(--ec-hairline);
-  box-shadow: var(--ec-shadow-elevated);
+  z-index: 3;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+#interactive-map > .info-text.is-selected:not(.is-visible) {
+  z-index: 1;
+  pointer-events: none !important;
+}
+
+#interactive-map > .info-text.is-visible .ec-detail-card,
+#interactive-map > .info-text.is-selected .ec-detail-card {
+  transition: opacity var(--ec-duration-interaction) var(--ec-ease-calm);
 }
 
 #interactive-map > .info-text .ec-detail-card {
@@ -222,9 +247,8 @@
 }
 
 #interactive-map > .info-text .ec-service:hover {
-  opacity: 0.94;
-  filter: brightness(0.99);
-  box-shadow: var(--ec-shadow-elevated);
+  opacity: 0.96;
+  filter: brightness(0.995);
 }
 
 #interactive-map > .info-text[data-type="transit"] .ec-service--transit,
