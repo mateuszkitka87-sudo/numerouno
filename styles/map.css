@@ -1,19 +1,19 @@
-/* Map — hero cartography beside detail panel */
+/* Map — hero + detail panel, always side by side */
 
 .ec-map {
-  grid-column: 2 / 4;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--ec-detail-width);
+  display: inline-grid;
+  grid-template-columns: var(--ec-map-max) var(--ec-detail-width);
   gap: var(--ec-space-4);
   align-items: start;
   position: relative;
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
 }
 
 #interactive-map {
   position: relative !important;
-  width: 100% !important;
-  max-width: none !important;
+  width: fit-content !important;
+  max-width: 100% !important;
   margin: 0 !important;
   font-family: var(--font-sans) !important;
   font-size: 16px !important;
@@ -32,21 +32,18 @@
 
 .ec-map__stage {
   grid-column: 1;
+  grid-row: 1;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-start;
-  min-height: 0;
-  padding: 0 var(--ec-space-2) var(--ec-space-6) 0;
+  width: var(--ec-map-max);
+  padding: 0;
 }
 
 .ec-map__stage > svg {
   display: block;
   width: 100%;
-  max-width: var(--ec-map-max);
+  max-width: 100%;
   height: auto;
-  margin-inline: 0;
+  margin: 0;
   opacity: 0.96;
 }
 
@@ -107,13 +104,11 @@
   border-radius: 4px;
 }
 
-/* Legend — Apple filter pills */
 .ec-legend {
   position: absolute;
-  top: 0;
-  right: 0;
-  left: auto;
-  transform: none;
+  top: var(--ec-space-2);
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 4;
   display: flex;
   flex-wrap: wrap;
@@ -167,31 +162,6 @@
 
 .ec-legend__pill--export .ec-legend__dot {
   background: var(--ec-export-dot);
-}
-
-@media (max-width: 1024px) {
-  .ec-map {
-    grid-column: 1;
-    grid-template-columns: 1fr;
-    gap: var(--ec-space-6);
-  }
-
-  .ec-map__stage {
-    align-items: center;
-    padding: 0 0 var(--ec-space-4);
-  }
-
-  .ec-map__stage > svg {
-    max-width: min(88vw, 400px);
-    margin-inline: auto;
-  }
-
-  .ec-legend {
-    top: var(--ec-space-2);
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

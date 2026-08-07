@@ -61,18 +61,17 @@
   grid-row: 1;
   align-self: start;
   position: absolute !important;
-  inset: 0;
-  top: auto !important;
-  left: auto !important;
-  right: auto !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
   bottom: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
   transform: none !important;
   z-index: 1;
   display: none;
   margin: 0;
   padding: 0 !important;
-  max-width: none !important;
-  width: 100%;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -367,22 +366,6 @@
 #interactive-map > .info-text > .button-map:hover {
   opacity: 0.8;
   filter: brightness(0.97);
-}
-
-@media (max-width: 1024px) {
-  .ec-detail-slot {
-    grid-column: 1;
-    min-height: 0;
-  }
-
-  .ec-detail-idle {
-    min-height: 0;
-  }
-
-  #interactive-map > .info-text {
-    grid-column: 1;
-    position: relative !important;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

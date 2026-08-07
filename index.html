@@ -61,7 +61,7 @@
   --ec-duration-interaction: 300ms;
 
   --ec-detail-width: 300px;
-  --ec-map-max: 400px;
+  --ec-map-max: 800px;
 
   --ec-weight-title: 600;
   --ec-weight-body: 400;
@@ -71,7 +71,7 @@
 .ec-app {
   box-sizing: border-box;
   min-height: 0;
-  padding: var(--ec-space-6) var(--ec-space-8) var(--ec-space-12);
+  padding: var(--ec-space-6) var(--ec-space-6) var(--ec-space-8);
   background: var(--ec-bg);
   font-family: var(--font-sans);
   font-weight: var(--ec-weight-body);
@@ -88,22 +88,17 @@
   box-sizing: border-box;
 }
 
-.ec-workspace {
-  display: grid;
-  grid-template-columns: minmax(200px, 240px) minmax(0, 1fr) var(--ec-detail-width);
-  gap: var(--ec-space-8);
-  align-items: start;
-  max-width: 1280px;
-  margin: 0 auto;
-}
-
 .ec-intro {
-  grid-column: 1;
-  padding-top: var(--ec-space-5);
+  display: flex;
+  flex-direction: column;
+  gap: var(--ec-space-1);
+  width: calc(var(--ec-map-max) + var(--ec-detail-width) + var(--ec-space-4));
+  max-width: 100%;
+  margin: 0 auto var(--ec-space-4);
 }
 
 .ec-intro__label {
-  margin: 0 0 var(--ec-space-2);
+  margin: 0;
   font-size: 0.625rem;
   font-weight: var(--ec-weight-title);
   letter-spacing: 0.14em;
@@ -113,82 +108,45 @@
 
 .wpb_raw_html .ec-intro__title,
 .ec-intro__title {
-  margin: 0 0 var(--ec-space-2) !important;
-  font-size: clamp(2rem, 3vw, 2.625rem) !important;
+  margin: 0 !important;
+  font-size: clamp(1.75rem, 2.5vw, 2.25rem) !important;
   font-weight: var(--ec-weight-title) !important;
-  line-height: 1.04 !important;
-  letter-spacing: -0.038em !important;
+  line-height: 1.05 !important;
+  letter-spacing: -0.034em !important;
   color: var(--ec-text) !important;
   text-transform: none !important;
 }
 
-.ec-intro__subtitle {
-  margin: 0 0 var(--ec-space-5);
-  font-size: 1rem;
-  font-weight: var(--ec-weight-title);
-  letter-spacing: -0.016em;
-  line-height: 1.35;
-  color: var(--ec-text);
+.ec-composition {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
 }
 
-.ec-intro__body {
-  margin: 0;
-  font-size: 0.8125rem;
-  font-weight: var(--ec-weight-body);
-  line-height: 1.65;
-  letter-spacing: -0.006em;
-  color: var(--ec-text-muted);
-}
-
-.ec-hint {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--ec-space-2);
-  margin: var(--ec-space-10) auto 0;
-  max-width: 1280px;
-  font-size: 0.75rem;
-  font-weight: var(--ec-weight-body);
-  letter-spacing: -0.008em;
-  color: var(--ec-text-soft);
-}
-
-.ec-hint__icon {
-  font-size: 0.8125rem;
-  opacity: 0.35;
-}
-
-@media (max-width: 1024px) {
-  .ec-workspace {
-    grid-template-columns: 1fr;
-    gap: var(--ec-space-8);
-  }
-
-  .ec-intro {
-    grid-column: 1;
-  }
+.ec-composition .ec-map {
+  margin-inline: auto;
 }
 
 @media (max-width: 640px) {
   .ec-app {
-    padding: var(--ec-space-5) var(--ec-space-4) var(--ec-space-10);
+    padding: var(--ec-space-4) var(--ec-space-4) var(--ec-space-6);
   }
 }
 
 .ec-map {
-  grid-column: 2 / 4;
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--ec-detail-width);
+  display: inline-grid;
+  grid-template-columns: var(--ec-map-max) var(--ec-detail-width);
   gap: var(--ec-space-4);
   align-items: start;
   position: relative;
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
 }
 
 #interactive-map {
   position: relative !important;
-  width: 100% !important;
-  max-width: none !important;
+  width: fit-content !important;
+  max-width: 100% !important;
   margin: 0 !important;
   font-family: var(--font-sans) !important;
   font-size: 16px !important;
@@ -207,21 +165,18 @@
 
 .ec-map__stage {
   grid-column: 1;
+  grid-row: 1;
   position: relative;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: flex-start;
-  min-height: 0;
-  padding: 0 var(--ec-space-2) var(--ec-space-6) 0;
+  width: var(--ec-map-max);
+  padding: 0;
 }
 
 .ec-map__stage > svg {
   display: block;
   width: 100%;
-  max-width: var(--ec-map-max);
+  max-width: 100%;
   height: auto;
-  margin-inline: 0;
+  margin: 0;
   opacity: 0.96;
 }
 
@@ -284,10 +239,9 @@
 
 .ec-legend {
   position: absolute;
-  top: 0;
-  right: 0;
-  left: auto;
-  transform: none;
+  top: var(--ec-space-2);
+  left: 50%;
+  transform: translateX(-50%);
   z-index: 4;
   display: flex;
   flex-wrap: wrap;
@@ -341,31 +295,6 @@
 
 .ec-legend__pill--export .ec-legend__dot {
   background: var(--ec-export-dot);
-}
-
-@media (max-width: 1024px) {
-  .ec-map {
-    grid-column: 1;
-    grid-template-columns: 1fr;
-    gap: var(--ec-space-6);
-  }
-
-  .ec-map__stage {
-    align-items: center;
-    padding: 0 0 var(--ec-space-4);
-  }
-
-  .ec-map__stage > svg {
-    max-width: min(88vw, 400px);
-    margin-inline: auto;
-  }
-
-  .ec-legend {
-    top: var(--ec-space-2);
-    left: 50%;
-    right: auto;
-    transform: translateX(-50%);
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -521,18 +450,17 @@
   grid-row: 1;
   align-self: start;
   position: absolute !important;
-  inset: 0;
-  top: auto !important;
-  left: auto !important;
-  right: auto !important;
+  top: 0 !important;
+  left: 0 !important;
+  right: 0 !important;
   bottom: auto !important;
+  width: 100% !important;
+  max-width: 100% !important;
   transform: none !important;
   z-index: 1;
   display: none;
   margin: 0;
   padding: 0 !important;
-  max-width: none !important;
-  width: 100%;
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
@@ -829,22 +757,6 @@
   filter: brightness(0.97);
 }
 
-@media (max-width: 1024px) {
-  .ec-detail-slot {
-    grid-column: 1;
-    min-height: 0;
-  }
-
-  .ec-detail-idle {
-    min-height: 0;
-  }
-
-  #interactive-map > .info-text {
-    grid-column: 1;
-    position: relative !important;
-  }
-}
-
 @media (prefers-reduced-motion: reduce) {
   #interactive-map > .info-text,
   .ec-detail-idle,
@@ -913,13 +825,12 @@
 </style>
 
 <div class="ec-app">
-  <div class="ec-workspace">
-    <aside class="ec-intro">
-      <p class="ec-intro__label">NETWORK</p>
-      <h1 class="ec-intro__title">Coverage</h1>
-      <p class="ec-intro__subtitle">Interactive customs network</p>
-      <p class="ec-intro__body">Explore transit, brokerage, and export services across our European network. Select a country to view available capabilities.</p>
-    </aside>
+  <header class="ec-intro">
+    <p class="ec-intro__label">NETWORK</p>
+    <h1 class="ec-intro__title">Coverage</h1>
+  </header>
+
+  <div class="ec-composition">
     <div id="interactive-map" class="ec-map">
 <div class="ec-map__stage">
 <nav class="ec-legend" aria-label="Service types">
@@ -2102,8 +2013,8 @@
 </div>
 <aside class="ec-detail-slot" aria-label="Country details">
 	<div class="ec-detail-idle">
-		<h2 class="ec-detail-idle__title">Explore coverage</h2>
-		<p class="ec-detail-idle__text">Select a country on the map to view services and details.</p>
+		<h2 class="ec-detail-idle__title">Details</h2>
+		<p class="ec-detail-idle__text">Select a country.</p>
 	</div>
 </aside>
 
@@ -4008,11 +3919,6 @@ Through our Italian offices, companies can initiate transit declarations from ke
 
 </div>
   </div>
-
-  <p class="ec-hint">
-    <span class="ec-hint__icon" aria-hidden="true">◎</span>
-    Hover or click on a country
-  </p>
 </div>
 
 
