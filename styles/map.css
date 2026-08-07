@@ -1,0 +1,183 @@
+/* Map stage — soft cartography, refined legend */
+
+.ec-map {
+  grid-column: 2 / 4;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--ec-detail-width);
+  gap: var(--ec-space-12);
+  align-items: start;
+  position: relative;
+  width: 100%;
+}
+
+#interactive-map {
+  position: relative !important;
+  width: 100% !important;
+  max-width: none !important;
+  margin: 0 !important;
+  font-family: var(--font-sans) !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  color: var(--ec-text) !important;
+  background: transparent !important;
+  -webkit-font-smoothing: antialiased;
+}
+
+#interactive-map *,
+#interactive-map *::before,
+#interactive-map *::after {
+  box-sizing: border-box !important;
+}
+
+.ec-map__stage {
+  grid-column: 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 320px;
+  padding: var(--ec-space-12) var(--ec-space-4) var(--ec-space-8);
+}
+
+.ec-map__stage > svg {
+  display: block;
+  width: 100%;
+  max-width: var(--ec-map-max);
+  height: auto;
+  margin-inline: auto;
+}
+
+#interactive-map svg {
+  overflow: visible !important;
+}
+
+#interactive-map g.legend {
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
+}
+
+#interactive-map .st0,
+#interactive-map .st5,
+#interactive-map .st6,
+#interactive-map .st7,
+#interactive-map .st8,
+#interactive-map .st9,
+#interactive-map .st10 {
+  fill: var(--ec-land) !important;
+  stroke: var(--ec-land-stroke) !important;
+  stroke-width: 0.75px !important;
+}
+
+#interactive-map path,
+#interactive-map g,
+#interactive-map circle {
+  transition:
+    fill var(--ec-duration) var(--ec-ease),
+    opacity var(--ec-duration) var(--ec-ease) !important;
+}
+
+#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) path,
+#interactive-map #map-container > g:has(> g[id][data-selected]) > g[id]:not([data-selected]) path {
+  opacity: 0.5;
+}
+
+#interactive-map #map-container > g > g[id]:hover path,
+#interactive-map #map-container > g > g[id][data-selected] path {
+  opacity: 1;
+}
+
+#interactive-map #map-container > g > g[id] {
+  cursor: pointer;
+}
+
+#interactive-map #map-container > g > g[id]:focus-visible {
+  outline: 2px solid rgba(29, 29, 31, 0.18);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.ec-legend {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 4;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+}
+
+.ec-legend__pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 6px 13px 6px 11px;
+  border-radius: var(--ec-radius-pill);
+  background: var(--ec-surface-raised);
+  border: 1px solid var(--ec-border-subtle);
+  box-shadow: var(--ec-shadow-pill);
+  font-size: 10.5px;
+  font-weight: 500;
+  letter-spacing: -0.012em;
+  color: var(--ec-text-muted);
+  white-space: nowrap;
+  transition:
+    border-color var(--ec-duration) var(--ec-ease),
+    background var(--ec-duration) var(--ec-ease),
+    color var(--ec-duration) var(--ec-ease);
+}
+
+.ec-legend__pill:hover {
+  background: var(--ec-surface);
+  border-color: var(--ec-border);
+  color: var(--ec-text);
+}
+
+.ec-legend__dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  flex-shrink: 0;
+  opacity: 0.85;
+}
+
+.ec-legend__pill--transit .ec-legend__dot {
+  background: var(--ec-transit-dot);
+}
+
+.ec-legend__pill--brokerage .ec-legend__dot {
+  background: var(--ec-brokerage-dot);
+}
+
+.ec-legend__pill--export .ec-legend__dot {
+  background: var(--ec-export-dot);
+}
+
+@media (max-width: 1024px) {
+  .ec-map {
+    grid-column: 1;
+    grid-template-columns: 1fr;
+  }
+
+  .ec-map__stage {
+    min-height: 260px;
+    padding-top: var(--ec-space-16);
+  }
+
+  .ec-map__stage > svg {
+    max-width: min(78vw, 320px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #interactive-map path,
+  #interactive-map circle,
+  .ec-legend__pill {
+    transition: none !important;
+  }
+}

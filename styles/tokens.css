@@ -1,0 +1,64 @@
+/* Design tokens — refined Apple palette */
+
+.ec-app,
+.ec-map {
+  --font-sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", Inter, sans-serif;
+
+  --ec-bg: #ffffff;
+  --ec-surface: #fbfbfd;
+  --ec-surface-raised: #ffffff;
+  --ec-text: #1d1d1f;
+  --ec-text-muted: #6e6e73;
+  --ec-text-soft: #86868b;
+  --ec-border: rgba(0, 0, 0, 0.07);
+  --ec-border-subtle: rgba(0, 0, 0, 0.04);
+  --ec-hairline: rgba(0, 0, 0, 0.06);
+
+  --ec-accent: #e85d1a;
+  --ec-land: #f5f5f7;
+  --ec-land-stroke: #ffffff;
+  --ec-land-hover: #efeff2;
+
+  /* ~10–12% tint pastels */
+  --ec-transit-bg: #fdf3ec;
+  --ec-transit-border: rgba(232, 93, 26, 0.18);
+  --ec-transit-text: #7a563f;
+  --ec-transit-dot: #e85d1a;
+
+  --ec-brokerage-bg: #f0f3f6;
+  --ec-brokerage-border: rgba(74, 85, 104, 0.16);
+  --ec-brokerage-text: #4f5d68;
+  --ec-brokerage-dot: #4a5568;
+
+  --ec-export-bg: #f7f0f4;
+  --ec-export-border: rgba(161, 30, 94, 0.16);
+  --ec-export-text: #6f4f61;
+  --ec-export-dot: #9a3a67;
+
+  --ec-space-1: 4px;
+  --ec-space-2: 8px;
+  --ec-space-3: 12px;
+  --ec-space-4: 16px;
+  --ec-space-5: 20px;
+  --ec-space-6: 24px;
+  --ec-space-8: 32px;
+  --ec-space-10: 40px;
+  --ec-space-12: 48px;
+  --ec-space-16: 64px;
+
+  --ec-radius-sm: 10px;
+  --ec-radius-md: 14px;
+  --ec-radius-lg: 18px;
+  --ec-radius-xl: 22px;
+  --ec-radius-pill: 100px;
+
+  --ec-shadow-card: 0 1px 2px rgba(0, 0, 0, 0.03), 0 12px 32px rgba(0, 0, 0, 0.05);
+  --ec-shadow-pill: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 12px rgba(0, 0, 0, 0.03);
+
+  --ec-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+  --ec-spring: cubic-bezier(0.32, 0.72, 0, 1);
+  --ec-duration: 260ms;
+
+  --ec-detail-width: 320px;
+  --ec-map-max: 252px;
+}
