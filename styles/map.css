@@ -1,4 +1,4 @@
-/* Map stage — center column, floating legend, muted land */
+/* Map stage — soft cartography, refined legend */
 
 .ec-map {
   grid-column: 2 / 4;
@@ -20,6 +20,7 @@
   line-height: 1.5 !important;
   color: var(--ec-text) !important;
   background: transparent !important;
+  -webkit-font-smoothing: antialiased;
 }
 
 #interactive-map *,
@@ -66,17 +67,25 @@
 #interactive-map .st10 {
   fill: var(--ec-land) !important;
   stroke: var(--ec-land-stroke) !important;
-  stroke-width: 1px !important;
+  stroke-width: 0.75px !important;
 }
 
 #interactive-map path,
 #interactive-map g,
 #interactive-map circle {
-  transition: fill var(--ec-duration) var(--ec-ease), opacity var(--ec-duration) var(--ec-ease) !important;
+  transition:
+    fill var(--ec-duration) var(--ec-ease),
+    opacity var(--ec-duration) var(--ec-ease) !important;
 }
 
-#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) path {
-  opacity: 0.45;
+#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover) path,
+#interactive-map #map-container > g:has(> g[id][data-selected]) > g[id]:not([data-selected]) path {
+  opacity: 0.5;
+}
+
+#interactive-map #map-container > g > g[id]:hover path,
+#interactive-map #map-container > g > g[id][data-selected] path {
+  opacity: 1;
 }
 
 #interactive-map #map-container > g > g[id] {
@@ -84,8 +93,9 @@
 }
 
 #interactive-map #map-container > g > g[id]:focus-visible {
-  outline: 2px solid rgba(29, 29, 31, 0.2);
-  outline-offset: 2px;
+  outline: 2px solid rgba(29, 29, 31, 0.18);
+  outline-offset: 3px;
+  border-radius: 4px;
 }
 
 .ec-legend {
@@ -97,7 +107,7 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: var(--ec-space-2);
+  gap: 6px;
   margin: 0;
   padding: 0;
 }
@@ -106,23 +116,34 @@
   display: inline-flex;
   align-items: center;
   gap: 7px;
-  padding: 7px 14px 7px 12px;
+  padding: 6px 13px 6px 11px;
   border-radius: var(--ec-radius-pill);
-  background: var(--ec-bg);
+  background: var(--ec-surface-raised);
   border: 1px solid var(--ec-border-subtle);
   box-shadow: var(--ec-shadow-pill);
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 500;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.012em;
   color: var(--ec-text-muted);
   white-space: nowrap;
+  transition:
+    border-color var(--ec-duration) var(--ec-ease),
+    background var(--ec-duration) var(--ec-ease),
+    color var(--ec-duration) var(--ec-ease);
+}
+
+.ec-legend__pill:hover {
+  background: var(--ec-surface);
+  border-color: var(--ec-border);
+  color: var(--ec-text);
 }
 
 .ec-legend__dot {
-  width: 8px;
-  height: 8px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   flex-shrink: 0;
+  opacity: 0.85;
 }
 
 .ec-legend__pill--transit .ec-legend__dot {
@@ -155,7 +176,8 @@
 
 @media (prefers-reduced-motion: reduce) {
   #interactive-map path,
-  #interactive-map circle {
+  #interactive-map circle,
+  .ec-legend__pill {
     transition: none !important;
   }
 }

@@ -1,4 +1,4 @@
-/* App shell — nav, intro column, workspace grid */
+/* App shell — typography and spacing polish */
 
 .wpb_raw_html .ec-app,
 .ec-app {
@@ -9,6 +9,9 @@
   font-family: var(--font-sans);
   color: var(--ec-text);
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
 }
 
 .ec-app *,
@@ -35,16 +38,16 @@
 }
 
 .ec-nav__logo {
-  font-size: 1.375rem;
+  font-size: 1.3125rem;
   font-weight: 700;
   letter-spacing: -0.02em;
   font-family: Georgia, "Times New Roman", serif;
 }
 
 .ec-nav__product {
-  font-size: 0.8125rem;
+  font-size: 0.75rem;
   font-weight: 600;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.08em;
   color: var(--ec-text-muted);
 }
 
@@ -56,11 +59,12 @@
 }
 
 .ec-nav__link {
-  font-size: 0.875rem;
+  font-size: 0.8125rem;
   font-weight: 500;
   color: var(--ec-text);
   text-decoration: none;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.012em;
+  transition: color var(--ec-duration) var(--ec-ease);
 }
 
 .ec-nav__link:hover {
@@ -80,41 +84,49 @@
   gap: 6px;
   padding: 6px 10px;
   border: none;
+  border-radius: var(--ec-radius-sm);
   background: transparent;
   font-family: var(--font-sans);
   font-size: 0.8125rem;
   font-weight: 500;
+  letter-spacing: -0.01em;
   color: var(--ec-text-muted);
   cursor: pointer;
+  transition: background var(--ec-duration) var(--ec-ease), color var(--ec-duration) var(--ec-ease);
+}
+
+.ec-nav__locale:hover {
+  background: rgba(0, 0, 0, 0.03);
+  color: var(--ec-text);
 }
 
 .ec-nav__locale-icon {
-  font-size: 0.875rem;
-  opacity: 0.7;
+  font-size: 0.8125rem;
+  opacity: 0.65;
 }
 
 .ec-nav__chevron {
-  font-size: 0.625rem;
-  opacity: 0.5;
+  font-size: 0.5625rem;
+  opacity: 0.45;
 }
 
 .ec-nav__cta {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 10px 18px;
+  padding: 9px 17px;
   border-radius: var(--ec-radius-pill);
   background: var(--ec-accent);
   color: #ffffff;
   font-size: 0.8125rem;
   font-weight: 600;
   text-decoration: none;
-  letter-spacing: -0.01em;
-  transition: filter var(--ec-duration) var(--ec-ease);
+  letter-spacing: -0.012em;
+  transition: opacity var(--ec-duration) var(--ec-ease), background var(--ec-duration) var(--ec-ease);
 }
 
 .ec-nav__cta:hover {
-  filter: brightness(1.06);
+  opacity: 0.92;
 }
 
 .ec-workspace {
@@ -128,42 +140,43 @@
 
 .ec-intro {
   grid-column: 1;
-  padding-top: var(--ec-space-4);
+  padding-top: var(--ec-space-5);
 }
 
 .ec-intro__label {
-  margin: 0 0 var(--ec-space-3);
-  font-size: 0.6875rem;
+  margin: 0 0 10px;
+  font-size: 0.625rem;
   font-weight: 600;
-  letter-spacing: 0.12em;
+  letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ec-accent);
 }
 
 .wpb_raw_html .ec-intro__title,
 .ec-intro__title {
-  margin: 0 0 var(--ec-space-3) !important;
-  font-size: clamp(2rem, 3vw, 2.75rem) !important;
+  margin: 0 0 10px !important;
+  font-size: clamp(2rem, 3vw, 2.625rem) !important;
   font-weight: 700 !important;
-  line-height: 1.05 !important;
-  letter-spacing: -0.035em !important;
+  line-height: 1.04 !important;
+  letter-spacing: -0.038em !important;
   color: var(--ec-text) !important;
   text-transform: none !important;
 }
 
 .ec-intro__subtitle {
   margin: 0 0 var(--ec-space-5);
-  font-size: 1.0625rem;
+  font-size: 1rem;
   font-weight: 500;
-  letter-spacing: -0.015em;
+  letter-spacing: -0.018em;
+  line-height: 1.35;
   color: var(--ec-text);
 }
 
 .ec-intro__body {
   margin: 0;
-  font-size: 0.875rem;
-  line-height: 1.65;
-  letter-spacing: -0.006em;
+  font-size: 0.8125rem;
+  line-height: 1.68;
+  letter-spacing: -0.008em;
   color: var(--ec-text-muted);
 }
 
@@ -171,17 +184,18 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: var(--ec-space-2);
+  gap: 7px;
   margin: var(--ec-space-10) auto 0;
   max-width: 1280px;
-  font-size: 0.8125rem;
-  color: var(--ec-text-soft);
+  font-size: 0.75rem;
+  font-weight: 400;
   letter-spacing: -0.01em;
+  color: var(--ec-text-soft);
 }
 
 .ec-hint__icon {
-  font-size: 0.875rem;
-  opacity: 0.45;
+  font-size: 0.8125rem;
+  opacity: 0.35;
 }
 
 @media (max-width: 1024px) {
