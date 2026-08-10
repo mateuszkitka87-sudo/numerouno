@@ -56,7 +56,7 @@
 }
 
 #interactive-map #map-container > g[id] > g {
-  transform: scale(1.45);
+  transform: scale(1.22);
   transform-box: fill-box;
   transform-origin: center;
   transition: opacity var(--ec-duration-interaction) var(--ec-ease-calm) !important;

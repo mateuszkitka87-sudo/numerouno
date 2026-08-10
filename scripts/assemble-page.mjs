@@ -74,15 +74,15 @@ const DETAIL_SERVICES = `
 </ul>`;
 
 function enhanceCountryChips(mapDiv) {
-  const chipH = 250;
-  const chipRx = 78;
+  const chipH = 210;
+  const chipRx = 66;
 
   return mapDiv.replace(
     /(<g id="(?!map-container)([a-z_]+)">\s*)(<circle\b[^>]*\bcx="([-\d.]+)"[^>]*\bcy="([-\d.]+)"[^>]*\/>)/gi,
     (_, gOpen, id, circleTag, cx, cy) => {
       const cxN = parseFloat(cx);
       const cyN = parseFloat(cy);
-      const chipW = id.length > 8 ? 360 : id.length > 6 ? 320 : 300;
+      const chipW = id.length > 8 ? 302 : id.length > 6 ? 269 : 252;
       const x = (cxN - chipW / 2).toFixed(1);
       const y = (cyN - chipH / 2).toFixed(1);
       const rect = `<rect class="ec-chip-bg" x="${x}" y="${y}" width="${chipW}" height="${chipH}" rx="${chipRx}" ry="${chipRx}"/>`;
