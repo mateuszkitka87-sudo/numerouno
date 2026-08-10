@@ -73,6 +73,24 @@ const DETAIL_SERVICES = `
   </li>
 </ul>`;
 
+function enhanceCountryChips(mapDiv) {
+  const chipH = 250;
+  const chipRx = 78;
+
+  return mapDiv.replace(
+    /(<g id="(?!map-container)([a-z_]+)">\s*)(<circle\b[^>]*\bcx="([-\d.]+)"[^>]*\bcy="([-\d.]+)"[^>]*\/>)/gi,
+    (_, gOpen, id, circleTag, cx, cy) => {
+      const cxN = parseFloat(cx);
+      const cyN = parseFloat(cy);
+      const chipW = id.length > 8 ? 360 : id.length > 6 ? 320 : 300;
+      const x = (cxN - chipW / 2).toFixed(1);
+      const y = (cyN - chipH / 2).toFixed(1);
+      const rect = `<rect class="ec-chip-bg" x="${x}" y="${y}" width="${chipW}" height="${chipH}" rx="${chipRx}" ry="${chipRx}"/>`;
+      return `${gOpen}${rect}\n\t\t\t${circleTag}`;
+    }
+  );
+}
+
 function wrapDetailCards(mapHtml) {
   return mapHtml.replace(
     /(<div class="info-text"[^>]*>)([\s\S]*?)(<\/div>)/g,
@@ -115,6 +133,7 @@ export function buildProductionEmbed({ sanitize = true } = {}) {
   }
 
   mapDiv = wrapDetailCards(mapDiv);
+  mapDiv = enhanceCountryChips(mapDiv);
 
   const pageBody = layoutWrapper.replace('{{MAP}}', mapDiv);
 

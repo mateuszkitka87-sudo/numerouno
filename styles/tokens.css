@@ -21,17 +21,20 @@
 
   /* Country chip pastels */
   --ec-transit-bg: #fcefe5;
-  --ec-transit-border: rgba(210, 120, 60, 0.22);
+  --ec-transit-bg-selected: #f8e5d6;
+  --ec-transit-border: rgba(190, 110, 55, 0.28);
   --ec-transit-text: #6b4423;
   --ec-transit-dot: #d97830;
 
   --ec-brokerage-bg: #eef2f4;
-  --ec-brokerage-border: rgba(74, 85, 104, 0.18);
+  --ec-brokerage-bg-selected: #e4eaee;
+  --ec-brokerage-border: rgba(74, 85, 104, 0.22);
   --ec-brokerage-text: #3d4a54;
   --ec-brokerage-dot: #4f5f6b;
 
   --ec-export-bg: #f5eaf1;
-  --ec-export-border: rgba(140, 70, 110, 0.18);
+  --ec-export-bg-selected: #efdee8;
+  --ec-export-border: rgba(120, 70, 95, 0.22);
   --ec-export-text: #5c3f4f;
   --ec-export-dot: #8a4a70;
 

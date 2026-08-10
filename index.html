@@ -19,17 +19,20 @@
   --ec-land-muted: #e8eaed;
 
   --ec-transit-bg: #fcefe5;
-  --ec-transit-border: rgba(210, 120, 60, 0.22);
+  --ec-transit-bg-selected: #f8e5d6;
+  --ec-transit-border: rgba(190, 110, 55, 0.28);
   --ec-transit-text: #6b4423;
   --ec-transit-dot: #d97830;
 
   --ec-brokerage-bg: #eef2f4;
-  --ec-brokerage-border: rgba(74, 85, 104, 0.18);
+  --ec-brokerage-bg-selected: #e4eaee;
+  --ec-brokerage-border: rgba(74, 85, 104, 0.22);
   --ec-brokerage-text: #3d4a54;
   --ec-brokerage-dot: #4f5f6b;
 
   --ec-export-bg: #f5eaf1;
-  --ec-export-border: rgba(140, 70, 110, 0.18);
+  --ec-export-bg-selected: #efdee8;
+  --ec-export-border: rgba(120, 70, 95, 0.22);
   --ec-export-text: #5c3f4f;
   --ec-export-dot: #8a4a70;
 
@@ -373,38 +376,66 @@
   }
 }
 
-#interactive-map circle.transit,
-#interactive-map circle.st3.transit {
-  fill: var(--ec-transit-bg) !important;
-  stroke: var(--ec-transit-border) !important;
-  stroke-width: 5px !important;
-}
-
-#interactive-map circle.brokerage,
-#interactive-map circle.st1.brokerage {
-  fill: var(--ec-brokerage-bg) !important;
-  stroke: var(--ec-brokerage-border) !important;
-  stroke-width: 5px !important;
-}
-
-#interactive-map circle.export,
-#interactive-map circle.st4.export {
-  fill: var(--ec-export-bg) !important;
-  stroke: var(--ec-export-border) !important;
-  stroke-width: 5px !important;
-}
-
 #interactive-map #map-container > g[id] > circle {
+  opacity: 0 !important;
+  fill: transparent !important;
+  stroke: transparent !important;
+  stroke-width: 0 !important;
+  transform: none !important;
+  pointer-events: none !important;
+}
+
+#interactive-map #map-container > g[id] > rect.ec-chip-bg {
   paint-order: stroke fill;
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
   filter: none;
-  transform: scale(0.25);
-  transform-box: fill-box;
-  transform-origin: center;
   opacity: 1;
   transition:
     opacity var(--ec-duration-interaction) var(--ec-ease-calm),
     fill var(--ec-duration-interaction) var(--ec-ease-calm),
-    stroke var(--ec-duration-interaction) var(--ec-ease-calm) !important;
+    stroke var(--ec-duration-interaction) var(--ec-ease-calm),
+    filter var(--ec-duration-interaction) var(--ec-ease-calm) !important;
+}
+
+#interactive-map #map-container > g[id]:has(> circle.transit) > rect.ec-chip-bg,
+#interactive-map #map-container > g[id]:has(> circle.st3.transit) > rect.ec-chip-bg {
+  fill: var(--ec-transit-bg) !important;
+  stroke: var(--ec-transit-border) !important;
+}
+
+#interactive-map #map-container > g[id]:has(> circle.brokerage) > rect.ec-chip-bg,
+#interactive-map #map-container > g[id]:has(> circle.st1.brokerage) > rect.ec-chip-bg {
+  fill: var(--ec-brokerage-bg) !important;
+  stroke: var(--ec-brokerage-border) !important;
+}
+
+#interactive-map #map-container > g[id]:has(> circle.export) > rect.ec-chip-bg,
+#interactive-map #map-container > g[id]:has(> circle.st4.export) > rect.ec-chip-bg {
+  fill: var(--ec-export-bg) !important;
+  stroke: var(--ec-export-border) !important;
+}
+
+#interactive-map #map-container > g[id][data-selected]:has(> circle.transit) > rect.ec-chip-bg,
+#interactive-map #map-container > g[id][data-selected]:has(> circle.st3.transit) > rect.ec-chip-bg {
+  fill: var(--ec-transit-bg-selected) !important;
+}
+
+#interactive-map #map-container > g[id][data-selected]:has(> circle.brokerage) > rect.ec-chip-bg,
+#interactive-map #map-container > g[id][data-selected]:has(> circle.st1.brokerage) > rect.ec-chip-bg {
+  fill: var(--ec-brokerage-bg-selected) !important;
+}
+
+#interactive-map #map-container > g[id][data-selected]:has(> circle.export) > rect.ec-chip-bg,
+#interactive-map #map-container > g[id][data-selected]:has(> circle.st4.export) > rect.ec-chip-bg {
+  fill: var(--ec-export-bg-selected) !important;
+}
+
+#interactive-map #map-container > g[id] > g {
+  transform: scale(1.45);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity var(--ec-duration-interaction) var(--ec-ease-calm) !important;
 }
 
 #interactive-map #map-container > g[id] > g path.st2,
@@ -423,42 +454,50 @@
     fill var(--ec-duration-interaction) var(--ec-ease-calm) !important;
 }
 
-#interactive-map #map-container > g[id]:has(> circle.transit) > g path.st2 {
+#interactive-map #map-container > g[id]:has(> circle.transit) > g path.st2,
+#interactive-map #map-container > g[id]:has(> circle.st3.transit) > g path.st2 {
   fill: var(--ec-transit-text) !important;
 }
 
-#interactive-map #map-container > g[id]:has(> circle.export) > g path.st2 {
+#interactive-map #map-container > g[id]:has(> circle.export) > g path.st2,
+#interactive-map #map-container > g[id]:has(> circle.st4.export) > g path.st2 {
   fill: var(--ec-export-text) !important;
 }
 
-#interactive-map #map-container > g[id]:hover > circle {
-  opacity: 1;
+#interactive-map #map-container > g[id]:hover > rect.ec-chip-bg {
+  filter: brightness(0.985);
+}
+
+#interactive-map #map-container > g[id]:hover > g {
+  opacity: 0.96;
+}
+
+#interactive-map #map-container > g[id][data-selected] > rect.ec-chip-bg {
   filter: none;
 }
 
-#interactive-map #map-container > g[id][data-selected] > circle {
+#interactive-map #map-container > g[id][data-selected] > g {
   opacity: 1;
-  filter: none;
 }
 
 #interactive-map #map-container > g[id][data-selected] > g path.st2 {
-  fill: var(--ec-text) !important;
   opacity: 1;
 }
 
-#interactive-map #map-container:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) > circle,
-#interactive-map #map-container:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) > circle {
-  opacity: 0.88;
+#interactive-map #map-container:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) > rect.ec-chip-bg,
+#interactive-map #map-container:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) > rect.ec-chip-bg {
+  opacity: 0.9;
   filter: none;
 }
 
-#interactive-map #map-container:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) > g path.st2,
-#interactive-map #map-container:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) > g path.st2 {
-  opacity: 0.88;
+#interactive-map #map-container:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) > g,
+#interactive-map #map-container:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) > g {
+  opacity: 0.9;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #interactive-map #map-container > g[id] > circle,
+  #interactive-map #map-container > g[id] > rect.ec-chip-bg,
+  #interactive-map #map-container > g[id] > g,
   #interactive-map #map-container > g[id] > g path.st2 {
     transition: opacity var(--ec-duration-interaction) var(--ec-ease-calm) !important;
   }
@@ -1824,6 +1863,7 @@
 			<path class="st0" d="M1947,3531.2c-5.9-0.8-11.3-1.3-11.3-1.3C1935.6,3529.9,1941.1,3530.4,1947,3531.2z"/>
 		</g>
 		<g id="ireland">
+			<rect class="ec-chip-bg" x="-860.1" y="-59.6" width="320" height="250" rx="78" ry="78"/>
 			<circle id="brokerage_00000050649623407195536440000009383231776546754951_" class="st1 brokerage" cx="-700.1" cy="65.4" r="141.7"/>
 			<g>
 				<path class="st2" d="M-723.8,94.6h-9.4V23.5h9.4V94.6z"/>
@@ -1831,6 +1871,7 @@
 			</g>
 		</g>
 		<g id="greece">
+			<rect class="ec-chip-bg" x="2768.8" y="2573.3" width="300" height="250" rx="78" ry="78"/>
 			<circle id="transit_00000171685667237848884810000017245449274442373536_" class="st3 transit" cx="2918.8" cy="2698.3" r="141.7"/>
 			<g>
 				<path class="st2" d="M2914.7,2718.2c-2.4,3.5-5.8,6-10.1,7.7s-9.3,2.6-15.1,2.6c-5.8,0-10.9-1.4-15.4-4.1
@@ -1843,6 +1884,7 @@
 			</g>
 		</g>
 		<g id="italy">
+			<rect class="ec-chip-bg" x="1557.6" y="2208.4" width="300" height="250" rx="78" ry="78"/>
 			<circle id="transit_00000167368948372590201070000013602176631409473179_" class="st1 brokerage" cx="1707.6" cy="2333.4" r="141.7"/>
 			<g>
 				<path class="st2" d="M1683.4,2362.6h-9.4v-71.1h9.4V2362.6z"/>
@@ -1850,6 +1892,7 @@
 			</g>
 		</g>
 		<g id="turkey">
+			<rect class="ec-chip-bg" x="4333.8" y="2451.0" width="300" height="250" rx="78" ry="78"/>
 			<circle id="transit_00000129203562783938849310000016675987452348936885_" class="st3 transit" cx="4483.8" cy="2576" r="141.7"/>
 			<g>
 				<path class="st2" d="M4480.5,2541.8h-22.9v63.4h-9.3v-63.4h-22.8v-7.7h55V2541.8z"/>
@@ -1859,6 +1902,7 @@
 			</g>
 		</g>
 		<g id="macedonia">
+			<rect class="ec-chip-bg" x="2743.9" y="2208.4" width="360" height="250" rx="78" ry="78"/>
 			<circle id="transit_00000121981465532812381950000011840703493420470954_" class="st3 transit" cx="2923.9" cy="2333.4" r="141.7"/>
 			<g>
 				<path class="st2" d="M2869.2,2291.5l23.2,58l23.2-58h12.2v71.1h-9.4v-27.7l0.9-29.9l-23.3,57.6h-7.2l-23.3-57.4l0.9,29.7v27.7
@@ -1867,6 +1911,7 @@
 			</g>
 		</g>
 		<g id="bulgaria">
+			<rect class="ec-chip-bg" x="3291.5" y="1966.6" width="320" height="250" rx="78" ry="78"/>
 			<circle id="transit_00000066493566841516583640000007376542573761286056_" class="st3 transit" cx="3451.5" cy="2091.6" r="141.7"/>
 			<g>
 				<path class="st2" d="M3394.6,2120.8v-71.1h23.2c7.7,0,13.5,1.6,17.4,4.8c3.9,3.2,5.8,7.9,5.8,14.2c0,3.3-0.9,6.3-2.8,8.8
@@ -1880,6 +1925,7 @@
 			</g>
 		</g>
 		<g id="serbia">
+			<rect class="ec-chip-bg" x="2627.1" y="1901.1" width="300" height="250" rx="78" ry="78"/>
 			<circle id="transit_00000121243319322617333490000010734391944370718362_" class="st3 transit" cx="2777.1" cy="2026.1" r="141.7"/>
 			<g>
 				<path class="st2" d="M2753.3,2026.5h-16.7v28.8h-9.4v-71.1h23.5c8,0,14.2,1.8,18.5,5.5c4.3,3.6,6.5,9,6.5,15.9
@@ -1894,6 +1940,7 @@
 			</g>
 		</g>
 		<g id="croatia">
+			<rect class="ec-chip-bg" x="2213.0" y="1751.9" width="320" height="250" rx="78" ry="78"/>
 			<circle id="transit_00000075154768202655935020000001817201887244445332_" class="st3 transit" cx="2373" cy="1876.9" r="141.7"/>
 			<g>
 				<path class="st2" d="M2369.5,1906.2h-9.4v-32.9h-35.8v32.9h-9.4v-71.1h9.4v30.6h35.8v-30.6h9.4V1906.2z"/>
@@ -1903,6 +1950,7 @@
 			</g>
 		</g>
 		<g id="slovakia">
+			<rect class="ec-chip-bg" x="2439.3" y="955.2" width="320" height="250" rx="78" ry="78"/>
 			<circle id="transit_00000060031416146487346490000000559444957500861351_" class="st3 transit" cx="2599.3" cy="1080.2" r="141.7"/>
 			<g>
 				<path class="st2" d="M2567.5,1077.7c-8-2.3-13.9-5.2-17.6-8.5s-5.5-7.5-5.5-12.5c0-5.6,2.2-10.2,6.7-13.9s10.3-5.5,17.5-5.5
@@ -1914,6 +1962,7 @@
 			</g>
 		</g>
 		<g id="romania">
+			<rect class="ec-chip-bg" x="3271.2" y="1411.4" width="320" height="250" rx="78" ry="78"/>
 			<circle id="transit_00000169533053396267431690000001430888098526129822_" class="st3 transit" cx="3431.2" cy="1536.4" r="141.7"/>
 			<g>
 				<path class="st2" d="M3400.3,1536.9h-16.7v28.8h-9.4v-71.1h23.5c8,0,14.2,1.8,18.5,5.5c4.3,3.6,6.5,9,6.5,15.9
@@ -1927,6 +1976,7 @@
 			</g>
 		</g>
 		<g id="hungary">
+			<rect class="ec-chip-bg" x="2444.3" y="1411.4" width="320" height="250" rx="78" ry="78"/>
 			<circle id="transit_00000148633710451330686550000002111584500966443408_" class="st3 transit" cx="2604.3" cy="1536.4" r="141.7"/>
 			<g>
 				<path class="st2" d="M2599.2,1565.6h-9.4v-32.9h-35.8v32.9h-9.4v-71.1h9.4v30.6h35.8v-30.6h9.4V1565.6z"/>
@@ -1936,6 +1986,7 @@
 			</g>
 		</g>
 		<g id="slovenia">
+			<rect class="ec-chip-bg" x="1823.2" y="1459.0" width="320" height="250" rx="78" ry="78"/>
 			<circle id="transit_00000125589497326857784070000004150104636877889176_" class="st3 transit" cx="1983.2" cy="1584" r="141.7"/>
 			<g>
 				<path class="st2" d="M1969.2,1581.5c-8-2.3-13.9-5.2-17.6-8.5s-5.5-7.5-5.5-12.5c0-5.6,2.2-10.2,6.7-13.9s10.3-5.5,17.5-5.5
@@ -1948,6 +1999,7 @@
 			</g>
 		</g>
 		<g id="lithuania">
+			<rect class="ec-chip-bg" x="2511.3" y="-186.3" width="360" height="250" rx="78" ry="78"/>
 			<circle id="transit_00000115510420766131761810000004531571062784286092_" class="st3 transit" cx="2691.3" cy="-61.3" r="141.7"/>
 			<g>
 				<path class="st2" d="M2659.9-39.7h33.7v7.7h-43.1v-71.1h9.4V-39.7z"/>
@@ -1955,6 +2007,7 @@
 			</g>
 		</g>
 		<g id="latvia">
+			<rect class="ec-chip-bg" x="2681.2" y="-587.1" width="300" height="250" rx="78" ry="78"/>
 			<circle id="transit_00000000199487326672343830000009219601083748522405_" class="st3 transit" cx="2831.2" cy="-462.1" r="141.7"/>
 			<g>
 				<path class="st2" d="M2794.4-440.5h33.7v7.7H2785v-71.1h9.4V-440.5z"/>
@@ -1962,6 +2015,7 @@
 			</g>
 		</g>
 		<g id="estonia">
+			<rect class="ec-chip-bg" x="2737.3" y="-982.4" width="320" height="250" rx="78" ry="78"/>
 			<circle id="transit_00000052824430257936236430000013775153624294962071_" class="st3 transit" cx="2897.3" cy="-857.4" r="141.7"/>
 			<g>
 				<path class="st2" d="M2888.9-861h-30.8v25.2h35.8v7.7h-45.2v-71.1h44.7v7.7h-35.3v22.9h30.8V-861z"/>
@@ -1970,6 +2024,7 @@
 		</g>
 		
 		<g id="switzerland">
+			<rect class="ec-chip-bg" x="965.6" y="1301.3" width="360" height="250" rx="78" ry="78"/>
 			<circle id="export" class="st3 transit" cx="1145.6" cy="1426.3" r="141.7"/>
 			<g>
 				<path class="st2" d="M1138,1433c-0.9,7.5-3.7,13.3-8.3,17.4c-4.7,4.1-10.9,6.1-18.6,6.1c-8.4,0-15.1-3-20.2-9
@@ -1980,6 +2035,7 @@
 			</g>
 		</g>
 		<g id="france">
+			<rect class="ec-chip-bg" x="250.4" y="1231.8" width="300" height="250" rx="78" ry="78"/>
 			<circle id="brokerage_00000048460368982572049090000003536698943528472985_" class="st3 transit" cx="400.4" cy="1356.8" r="141.7"/>
 			<g>
 				<path class="st2" d="M389.5,1354.7h-29.8v31.4h-9.4V1315h44v7.7h-34.7v24.4h29.8V1354.7z"/>
@@ -1989,6 +2045,7 @@
 			</g>
 		</g>
 		<g id="belgium">
+			<rect class="ec-chip-bg" x="493.4" y="757.2" width="320" height="250" rx="78" ry="78"/>
 			<circle id="brokerage_00000154401258556755061100000006636071773092233134_" class="st1 brokerage" cx="653.4" cy="882.2" r="141.7"/>
 			<g>
 				<path class="st2" d="M602.1,911.5v-71.1h23.2c7.7,0,13.5,1.6,17.4,4.8c3.9,3.2,5.8,7.9,5.8,14.2c0,3.3-0.9,6.3-2.8,8.8
@@ -1999,6 +2056,7 @@
 			</g>
 		</g>
 		<g id="netherlands">
+			<rect class="ec-chip-bg" x="681.6" y="437.6" width="360" height="250" rx="78" ry="78"/>
 			<circle id="brokerage_00000159430276936372989430000014338437980644288683_" class="st1 brokerage" cx="861.6" cy="562.6" r="141.7"/>
 			<g>
 				<path class="st2" d="M862,591.8h-9.4L816.7,537v54.8h-9.4v-71.1h9.4l35.9,55v-55h9.3V591.8z"/>
@@ -2006,6 +2064,7 @@
 			</g>
 		</g>
 		<g id="germany">
+			<rect class="ec-chip-bg" x="1423.6" y="505.1" width="320" height="250" rx="78" ry="78"/>
 			<circle id="brokerage_00000179626066775019132660000001960746480308340129_" class="st1 brokerage" cx="1583.6" cy="630.1" r="141.7"/>
 			<g>
 				<path class="st2" d="M1530.6,659.3v-71.1h20.1c6.2,0,11.7,1.4,16.4,4.1c4.8,2.7,8.4,6.6,11,11.7c2.6,5,3.9,10.8,3.9,17.4v4.5
@@ -2015,6 +2074,7 @@
 			</g>
 		</g>
 		<g id="britain">
+			<rect class="ec-chip-bg" x="-137.7" y="247.6" width="320" height="250" rx="78" ry="78"/>
 			<circle id="brokerage" class="st1 brokerage" cx="22.3" cy="372.6" r="141.7"/>
 			<g>
 				<path class="st2" d="M16.8,330.7V379c0,6.7-2.1,12.2-6.3,16.5c-4.2,4.3-9.9,6.7-17,7.2l-2.5,0.1c-7.8,0-14-2.1-18.6-6.3
@@ -2024,6 +2084,7 @@
 			</g>
 		</g>
 		<g id="poland">
+			<rect class="ec-chip-bg" x="2102.5" y="304.1" width="300" height="250" rx="78" ry="78"/>
 			<circle id="export_00000113348955104351307930000002735948928571541935_" class="st4 export" cx="2252.5" cy="429.1" r="141.7"/>
 			<g>
 				<path class="st2" d="M2211.7,430.5v27.8h-9.4v-71.1h26.2c7.8,0,13.9,2,18.3,6c4.4,4,6.6,9.2,6.6,15.8c0,6.9-2.2,12.2-6.5,15.9
@@ -2033,6 +2094,7 @@
 			</g>
 		</g>
 		<g id="ukraine">
+			<rect class="ec-chip-bg" x="3983.1" y="269.9" width="320" height="250" rx="78" ry="78"/>
 			<circle id="transit_00000036225768034847541100000011444889278097649596_" class="st3 transit" cx="4143.1" cy="394.9" r="141.7"/>
 			<g>
 				<path class="st2" d="M4134.1,358.8v48.3c0,6.7-2.1,12.2-6.3,16.5c-4.2,4.3-9.9,6.7-17,7.2l-2.5,0.1c-7.8,0-14-2.1-18.6-6.3
@@ -2043,6 +2105,7 @@
 			</g>
 		</g>
 		<g id="moldova">
+			<rect class="ec-chip-bg" x="3602.3" y="717.9" width="320" height="250" rx="78" ry="78"/>
 			<circle id="transit_00000043416226028674532680000012978203373232182703_" class="st3 transit" cx="3762.3" cy="842.9" r="141.7"/>
 			<g>
 				<path class="st2" d="M3705.1,807.3l23.2,58l23.2-58h12.2v71.1h-9.4v-27.7l0.9-29.9l-23.3,57.6h-7.2l-23.3-57.4l0.9,29.7v27.7
@@ -2053,6 +2116,7 @@
 			</g>
 		</g>
 		<g id="belarus">
+			<rect class="ec-chip-bg" x="3247.3" y="-6.5" width="320" height="250" rx="78" ry="78"/>
 			<circle id="transit" class="st3 transit" cx="3407.3" cy="118.5" r="141.7"/>
 			<g>
 				<path class="st2" d="M3354.7,147.7V76.6h23.2c7.7,0,13.5,1.6,17.4,4.8c3.9,3.2,5.8,7.9,5.8,14.2c0,3.3-0.9,6.3-2.8,8.8
