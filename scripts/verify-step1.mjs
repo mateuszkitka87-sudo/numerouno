@@ -106,6 +106,55 @@ async function run() {
     return { entryDisplay: entry ? getComputedStyle(entry).display : null };
   });
 
+  const stabilityBefore = await page.evaluate(() => {
+    const pick = (sel) => {
+      const r = document.querySelector(sel).getBoundingClientRect();
+      return { x: +r.x.toFixed(2), y: +r.y.toFixed(2), width: +r.width.toFixed(2), height: +r.height.toFixed(2) };
+    };
+    return {
+      map: pick('#interactive-map'),
+      svg: pick('#interactive-map svg'),
+      workspace: pick('.ec-workspace'),
+    };
+  });
+
+  const hoverCountries = ['france', 'germany', 'poland'];
+  const stabilityDuring = [];
+  for (const country of hoverCountries) {
+    await page.evaluate((c) => {
+      window.jQuery('#interactive-map #' + c).trigger('mouseenter');
+    }, country);
+    await new Promise((r) => setTimeout(r, 120));
+    const snap = await page.evaluate(() => {
+      const pick = (sel) => {
+        const r = document.querySelector(sel).getBoundingClientRect();
+        return { x: +r.x.toFixed(2), y: +r.y.toFixed(2), width: +r.width.toFixed(2), height: +r.height.toFixed(2) };
+      };
+      return {
+        map: pick('#interactive-map'),
+        svg: pick('#interactive-map svg'),
+        workspace: pick('.ec-workspace'),
+      };
+    });
+    stabilityDuring.push({ country, ...snap });
+    await page.evaluate((c) => {
+      window.jQuery('#interactive-map #' + c).trigger('mouseleave');
+    }, country);
+    await new Promise((r) => setTimeout(r, 120));
+  }
+
+  const stabilityAfter = await page.evaluate(() => {
+    const pick = (sel) => {
+      const r = document.querySelector(sel).getBoundingClientRect();
+      return { x: +r.x.toFixed(2), y: +r.y.toFixed(2), width: +r.width.toFixed(2), height: +r.height.toFixed(2) };
+    };
+    return {
+      map: pick('#interactive-map'),
+      svg: pick('#interactive-map svg'),
+      workspace: pick('.ec-workspace'),
+    };
+  });
+
   await page.screenshot({ path: path.join(OUT, 'mockup-rebuild.png'), fullPage: false });
   await browser.close();
 
@@ -125,11 +174,18 @@ async function run() {
   if (hover.entryTop !== 72) failures.push(`Panel top: ${hover.entryTop} (expected 72)`);
   if (hover.entryLeft !== 24) failures.push(`Panel left: ${hover.entryLeft} (expected 24)`);
   if (hover.entryWidth !== 300) failures.push(`Panel width: ${hover.entryWidth} (expected 300)`);
+
+  const sameRect = (a, b) => a.x === b.x && a.y === b.y && a.width === b.width && a.height === b.height;
+  const mapStable = stabilityDuring.every(
+    (d) => sameRect(d.map, stabilityBefore.map) && sameRect(d.svg, stabilityBefore.svg) && sameRect(d.workspace, stabilityBefore.workspace)
+  ) && sameRect(stabilityAfter.map, stabilityBefore.map) && sameRect(stabilityAfter.svg, stabilityBefore.svg);
+
+  if (!mapStable) failures.push('Map/SVG/workspace rects shifted during country hover');
   if (!hover.hasDetailCard) failures.push('Missing detail card chrome');
   if (!hover.entryH3?.includes('Netherlands')) failures.push('Panel missing Netherlands title');
   if (afterLeave.entryDisplay !== 'none') failures.push(`After mouseleave entry still: ${afterLeave.entryDisplay}`);
 
-  const report = { embedUrl, rest, hover, afterLeave, failures, passed: failures.length === 0 };
+  const report = { embedUrl, rest, hover, afterLeave, stabilityBefore, stabilityDuring, stabilityAfter, failures, passed: failures.length === 0 };
   fs.writeFileSync(path.join(OUT, 'ui-verify-report.json'), JSON.stringify(report, null, 2));
 
   console.log('Layout:', rest.layout);

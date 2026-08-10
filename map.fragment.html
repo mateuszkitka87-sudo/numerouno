@@ -1541,49 +1541,12 @@ jQuery(document).ready(function ($) {
 
 	function positionPopup($popup, $countryGroup) {
 		if (!isDesktopLayout()) {
-			$popup.removeClass('is-positioned');
+			$popup.removeClass('is-positioned is-measuring');
 			return;
 		}
 
-		var mapEl = $mapRoot[0];
-		var countryEl = $countryGroup[0];
-		if (!mapEl || !countryEl) return;
-
-		var mapRect = mapEl.getBoundingClientRect();
-		var countryRect = countryEl.getBoundingClientRect();
-		var popupEl = $popup[0];
-		var wasVisible = $popup.hasClass('is-visible');
-
-		$popup.addClass('is-measuring').css('display', 'block');
-		var popupRect = popupEl.getBoundingClientRect();
-		if (!wasVisible) {
-			$popup.removeClass('is-measuring').css('display', 'none');
-		} else {
-			$popup.removeClass('is-measuring');
-		}
-
-		var left = countryRect.right - mapRect.left + popupPadding;
-		var top = countryRect.top - mapRect.top + (countryRect.height / 2) - (popupRect.height / 2);
-
-		if (left + popupRect.width > mapRect.width - popupPadding) {
-			left = countryRect.left - mapRect.left - popupRect.width - popupPadding;
-		}
-
-		top = Math.max(popupPadding, Math.min(top, mapRect.height - popupRect.height - popupPadding));
-
-		if (left < popupPadding) {
-			left = countryRect.left - mapRect.left + (countryRect.width / 2) - (popupRect.width / 2);
-			left = Math.max(popupPadding, Math.min(left, mapRect.width - popupRect.width - popupPadding));
-			top = countryRect.bottom - mapRect.top + popupPadding;
-			if (top + popupRect.height > mapRect.height - popupPadding) {
-				top = countryRect.top - mapRect.top - popupRect.height - popupPadding;
-			}
-			top = Math.max(popupPadding, Math.min(top, mapRect.height - popupRect.height - popupPadding));
-		}
-
-		popupEl.style.setProperty('--popup-top', top + 'px');
-		popupEl.style.setProperty('--popup-left', left + 'px');
-		$popup.addClass('is-positioned');
+		// Panel position is CSS-driven; skip display:block measurement that can affect grid row sizing.
+		$popup.removeClass('is-positioned is-measuring');
 	}
 
 	function setCountryState($group, state) {

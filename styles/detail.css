@@ -6,8 +6,6 @@
   left: 0 !important;
   right: auto !important;
   bottom: auto !important;
-  grid-column: 1 !important;
-  grid-row: 1 !important;
   width: var(--ec-detail-width) !important;
   max-width: var(--ec-detail-width) !important;
   margin: 0 !important;
