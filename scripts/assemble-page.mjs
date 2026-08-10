@@ -29,8 +29,22 @@ const CSS_FILES = [
   'styles/hooks.css',
 ];
 
+const DETAIL_CHIPS = `
+<div class="ec-detail-card__chips">
+  <span class="ec-chip ec-chip--transit">Transit</span>
+  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
+  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
+  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
+</div>`;
+
+function stripDetailServices(mapHtml) {
+  return mapHtml.replace(/<ul class="ec-detail-card__services">[\s\S]*?<\/ul>\s*/gi, '');
+}
+
 function wrapDetailCards(mapHtml) {
-  return mapHtml.replace(
+  const cleaned = stripDetailServices(mapHtml);
+
+  return cleaned.replace(
     /(<div class="info-text"[^>]*>)([\s\S]*?)(<\/div>)/g,
     (_, open, inner, close) => {
       if (inner.includes('ec-detail-card')) return open + inner + close;
@@ -44,6 +58,7 @@ function wrapDetailCards(mapHtml) {
         open +
         `<div class="ec-detail-card">
 <div class="ec-detail-card__head">${h3}<button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
+${DETAIL_CHIPS}
 <div class="ec-detail-card__body">${p}</div>
 </div>` +
         close
@@ -87,6 +102,7 @@ export function buildProductionEmbed({ sanitize = true } = {}) {
   }
 
   mapDiv = wrapDetailCards(mapDiv);
+  mapDiv = stripDetailServices(mapDiv);
   mapDiv = enhanceCountryChips(mapDiv);
 
   const pageBody = layoutWrapper.replace('{{MAP}}', mapDiv);

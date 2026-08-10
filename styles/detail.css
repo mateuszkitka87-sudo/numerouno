@@ -135,6 +135,59 @@
   opacity: 0.65;
 }
 
+#interactive-map > .info-text .ec-detail-card__chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  padding: 0 24px 16px 28px;
+}
+
+#interactive-map > .info-text .ec-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 5px 11px;
+  border-radius: var(--ec-radius-chip);
+  font-size: 0.6875rem;
+  font-weight: var(--ec-weight-title);
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  box-shadow: none;
+}
+
+#interactive-map > .info-text .ec-chip--transit {
+  background: var(--ec-transit-bg);
+  color: var(--ec-transit-text);
+  border: 1px solid var(--ec-transit-border);
+}
+
+#interactive-map > .info-text .ec-chip--brokerage {
+  background: var(--ec-brokerage-bg);
+  color: var(--ec-brokerage-text);
+  border: 1px solid var(--ec-brokerage-border);
+}
+
+#interactive-map > .info-text .ec-chip--export {
+  background: var(--ec-export-bg);
+  color: var(--ec-export-text);
+  border: 1px solid var(--ec-export-border);
+}
+
+#interactive-map > .info-text .ec-chip--type {
+  display: none;
+}
+
+#interactive-map > .info-text[data-type="transit"] .ec-chip--type-transit,
+#interactive-map > .info-text[data-type="brokerage"] .ec-chip--type-brokerage,
+#interactive-map > .info-text[data-type="export"] .ec-chip--type-export {
+  display: inline-flex;
+}
+
+#interactive-map > .info-text .ec-detail-card__services,
+#interactive-map > .info-text .ec-service {
+  display: none !important;
+}
+
 #interactive-map > .info-text .ec-detail-card__body {
   padding: 0 24px 24px 28px;
 }
