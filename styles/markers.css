@@ -1,0 +1,128 @@
+/* Country chips — soft Apple Maps-style capsules */
+
+#interactive-map #map-container > g[id] > circle {
+  opacity: 0 !important;
+  fill: transparent !important;
+  stroke: transparent !important;
+  stroke-width: 0 !important;
+  transform: none !important;
+  pointer-events: none !important;
+}
+
+#interactive-map #map-container > g[id] > rect.ec-chip-bg {
+  paint-order: stroke fill;
+  stroke-width: 1px;
+  vector-effect: non-scaling-stroke;
+  filter: none;
+  opacity: 1;
+  transition:
+    opacity var(--ec-duration-interaction) var(--ec-ease-calm),
+    fill var(--ec-duration-interaction) var(--ec-ease-calm),
+    stroke var(--ec-duration-interaction) var(--ec-ease-calm),
+    filter var(--ec-duration-interaction) var(--ec-ease-calm) !important;
+}
+
+#interactive-map #map-container > g[id]:has(> circle.transit) > rect.ec-chip-bg,
+#interactive-map #map-container > g[id]:has(> circle.st3.transit) > rect.ec-chip-bg {
+  fill: var(--ec-transit-bg) !important;
+  stroke: var(--ec-transit-border) !important;
+}
+
+#interactive-map #map-container > g[id]:has(> circle.brokerage) > rect.ec-chip-bg,
+#interactive-map #map-container > g[id]:has(> circle.st1.brokerage) > rect.ec-chip-bg {
+  fill: var(--ec-brokerage-bg) !important;
+  stroke: var(--ec-brokerage-border) !important;
+}
+
+#interactive-map #map-container > g[id]:has(> circle.export) > rect.ec-chip-bg,
+#interactive-map #map-container > g[id]:has(> circle.st4.export) > rect.ec-chip-bg {
+  fill: var(--ec-export-bg) !important;
+  stroke: var(--ec-export-border) !important;
+}
+
+#interactive-map #map-container > g[id][data-selected]:has(> circle.transit) > rect.ec-chip-bg,
+#interactive-map #map-container > g[id][data-selected]:has(> circle.st3.transit) > rect.ec-chip-bg {
+  fill: var(--ec-transit-bg-selected) !important;
+}
+
+#interactive-map #map-container > g[id][data-selected]:has(> circle.brokerage) > rect.ec-chip-bg,
+#interactive-map #map-container > g[id][data-selected]:has(> circle.st1.brokerage) > rect.ec-chip-bg {
+  fill: var(--ec-brokerage-bg-selected) !important;
+}
+
+#interactive-map #map-container > g[id][data-selected]:has(> circle.export) > rect.ec-chip-bg,
+#interactive-map #map-container > g[id][data-selected]:has(> circle.st4.export) > rect.ec-chip-bg {
+  fill: var(--ec-export-bg-selected) !important;
+}
+
+#interactive-map #map-container > g[id] > g {
+  transform: scale(1.22);
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: opacity var(--ec-duration-interaction) var(--ec-ease-calm) !important;
+}
+
+#interactive-map #map-container > g[id] > g path.st2,
+#interactive-map #map-container > g[id] > g path.st2.brokerage,
+#interactive-map #map-container > g[id] > g path.st2.transit,
+#interactive-map #map-container > g[id] > g path.st2.export {
+  fill: var(--ec-brokerage-text) !important;
+  filter: none !important;
+  opacity: 1;
+  font-family: var(--font-sans) !important;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  transition:
+    opacity var(--ec-duration-interaction) var(--ec-ease-calm),
+    fill var(--ec-duration-interaction) var(--ec-ease-calm) !important;
+}
+
+#interactive-map #map-container > g[id]:has(> circle.transit) > g path.st2,
+#interactive-map #map-container > g[id]:has(> circle.st3.transit) > g path.st2 {
+  fill: var(--ec-transit-text) !important;
+}
+
+#interactive-map #map-container > g[id]:has(> circle.export) > g path.st2,
+#interactive-map #map-container > g[id]:has(> circle.st4.export) > g path.st2 {
+  fill: var(--ec-export-text) !important;
+}
+
+#interactive-map #map-container > g[id]:hover > rect.ec-chip-bg {
+  filter: brightness(0.985);
+}
+
+#interactive-map #map-container > g[id]:hover > g {
+  opacity: 0.96;
+}
+
+#interactive-map #map-container > g[id][data-selected] > rect.ec-chip-bg {
+  filter: none;
+}
+
+#interactive-map #map-container > g[id][data-selected] > g {
+  opacity: 1;
+}
+
+#interactive-map #map-container > g[id][data-selected] > g path.st2 {
+  opacity: 1;
+}
+
+#interactive-map #map-container:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) > rect.ec-chip-bg,
+#interactive-map #map-container:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) > rect.ec-chip-bg {
+  opacity: 0.9;
+  filter: none;
+}
+
+#interactive-map #map-container:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) > g,
+#interactive-map #map-container:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) > g {
+  opacity: 0.9;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  #interactive-map #map-container > g[id] > rect.ec-chip-bg,
+  #interactive-map #map-container > g[id] > g,
+  #interactive-map #map-container > g[id] > g path.st2 {
+    transition: opacity var(--ec-duration-interaction) var(--ec-ease-calm) !important;
+  }
+}

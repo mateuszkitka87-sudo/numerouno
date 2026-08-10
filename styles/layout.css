@@ -1,0 +1,99 @@
+/* App shell — three-part reference composition */
+
+.wpb_raw_html .ec-app,
+.ec-app {
+  box-sizing: border-box;
+  min-height: 0;
+  padding: var(--ec-space-8) var(--ec-space-6) var(--ec-space-10);
+  background: var(--ec-bg);
+  font-family: var(--font-sans);
+  font-weight: var(--ec-weight-body);
+  color: var(--ec-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+.ec-app *,
+.ec-app *::before,
+.ec-app *::after {
+  box-sizing: border-box;
+}
+
+.ec-workspace {
+  display: grid;
+  grid-template-columns:
+    var(--ec-intro-width)
+    minmax(0, 1fr)
+    var(--ec-detail-width);
+  column-gap: var(--ec-map-panel-gap);
+  row-gap: var(--ec-space-8);
+  align-items: start;
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+}
+
+.ec-intro {
+  grid-column: 1;
+  align-self: start;
+  padding-top: var(--ec-space-10);
+  max-width: var(--ec-intro-width);
+}
+
+.ec-intro__label {
+  margin: 0 0 var(--ec-space-2);
+  font-size: 0.625rem;
+  font-weight: var(--ec-weight-title);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ec-accent);
+}
+
+.wpb_raw_html .ec-intro__title,
+.ec-intro__title {
+  margin: 0 0 var(--ec-space-2) !important;
+  font-size: clamp(2rem, 3vw, 2.625rem) !important;
+  font-weight: var(--ec-weight-title) !important;
+  line-height: 1.04 !important;
+  letter-spacing: -0.038em !important;
+  color: var(--ec-text) !important;
+  text-transform: none !important;
+}
+
+.ec-intro__subtitle {
+  margin: 0 0 var(--ec-space-4);
+  font-size: 1rem;
+  font-weight: var(--ec-weight-title);
+  letter-spacing: -0.016em;
+  line-height: 1.35;
+  color: var(--ec-text);
+}
+
+.ec-intro__body {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: var(--ec-weight-body);
+  line-height: 1.6;
+  letter-spacing: -0.006em;
+  color: var(--ec-text-muted);
+}
+
+@media (max-width: 720px) {
+  .ec-workspace {
+    grid-template-columns: 1fr;
+    gap: var(--ec-space-6);
+  }
+
+  .ec-intro {
+    max-width: none;
+    padding-top: 0;
+  }
+}
+
+@media (max-width: 640px) {
+  .ec-app {
+    padding: var(--ec-space-4) var(--ec-space-4) var(--ec-space-8);
+  }
+}

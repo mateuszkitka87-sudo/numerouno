@@ -1,0 +1,29 @@
+/* JavaScript-required map class hooks */
+
+#interactive-map .has_url {
+  cursor: pointer;
+}
+
+#interactive-map .st0,
+#interactive-map .st1,
+#interactive-map .st2,
+#interactive-map .st3,
+#interactive-map .st4 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+}
+
+#interactive-map #brokeragestripes line,
+#interactive-map #exportstripes line {
+  transform: rotate(270deg);
+}
+
+#interactive-map g.legend {
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#interactive-map .info-text .button-map {
+  pointer-events: all !important;
+}
