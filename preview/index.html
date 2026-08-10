@@ -84,8 +84,10 @@
   --ec-duration: 240ms;
   --ec-duration-interaction: 300ms;
 
+  --ec-intro-width: 290px;
   --ec-detail-width: 310px;
-  --ec-map-width: clamp(640px, 56vw, 860px);
+  --ec-map-width: min(760px, 100%);
+  --ec-map-panel-gap: 28px;
 
   --ec-weight-title: 600;
   --ec-weight-body: 400;
@@ -114,16 +116,28 @@
 
 .ec-workspace {
   display: grid;
-  grid-template-columns: 220px minmax(0, 1fr);
-  gap: var(--ec-space-8);
-  align-items: start;
+  grid-template-columns:
+    var(--ec-intro-width)
+    minmax(0, var(--ec-map-width))
+    var(--ec-detail-width);
+  column-gap: var(--ec-map-panel-gap);
+  row-gap: var(--ec-space-8);
+  align-items: center;
   width: 100%;
-  max-width: min(100%, 1540px);
+  max-width: min(
+    100%,
+    calc(
+      var(--ec-intro-width) + var(--ec-map-panel-gap) +
+      var(--ec-map-width) + var(--ec-map-panel-gap) +
+      var(--ec-detail-width)
+    )
+  );
   margin: 0 auto;
 }
 
 .ec-intro {
   grid-column: 1;
+  align-self: start;
   padding-top: var(--ec-space-10);
   max-width: 24ch;
 }
@@ -185,22 +199,19 @@
 }
 
 .ec-map {
-  grid-column: 2;
+  grid-column: 2 / span 2;
   display: grid;
-  grid-template-columns: var(--ec-map-width) var(--ec-detail-width);
-  gap: var(--ec-space-6);
+  grid-template-columns: subgrid;
   align-items: center;
-  justify-content: start;
   position: relative;
-  width: fit-content;
-  max-width: 100%;
+  width: 100%;
   min-width: 0;
   margin-top: var(--ec-space-10);
 }
 
 #interactive-map {
   position: relative !important;
-  width: fit-content !important;
+  width: 100% !important;
   max-width: 100% !important;
   margin: 0 !important;
   font-family: var(--font-sans) !important;
@@ -222,12 +233,15 @@
   grid-column: 1;
   grid-row: 1;
   position: relative;
-  width: var(--ec-map-width);
-  max-width: 100%;
+  width: 100%;
+  max-width: var(--ec-map-width);
+  min-width: 0;
+  justify-self: center;
   padding: var(--ec-space-10) 0 0;
   background: transparent;
   border: none;
   box-shadow: none;
+  overflow: clip;
 }
 
 .ec-map__stage > svg {
@@ -240,7 +254,7 @@
 }
 
 #interactive-map svg {
-  overflow: visible !important;
+  overflow: hidden !important;
 }
 
 #interactive-map g.legend {
@@ -358,18 +372,42 @@
   background: var(--ec-export-dot);
 }
 
+@supports not (grid-template-columns: subgrid) {
+  .ec-workspace {
+    grid-template-columns: var(--ec-intro-width) minmax(0, 1fr);
+  }
+
+  .ec-map {
+    grid-column: 2;
+    grid-template-columns: minmax(0, var(--ec-map-width)) var(--ec-detail-width);
+    column-gap: var(--ec-map-panel-gap);
+    max-width: calc(var(--ec-map-width) + var(--ec-map-panel-gap) + var(--ec-detail-width));
+  }
+}
+
 @media (max-width: 720px) {
+  .ec-workspace {
+    grid-template-columns: 1fr;
+  }
+
   .ec-map {
     grid-column: 1;
     grid-template-columns: 1fr;
     gap: var(--ec-space-6);
     margin-top: 0;
     width: 100%;
+    max-width: 100%;
   }
 
   .ec-map__stage {
     width: 100%;
+    max-width: 100%;
     padding-top: var(--ec-space-8);
+    overflow: visible;
+  }
+
+  #interactive-map svg {
+    overflow: visible !important;
   }
 }
 
@@ -470,8 +508,11 @@
   grid-column: 2;
   grid-row: 1;
   position: relative;
+  width: 100%;
+  min-width: 0;
   min-height: 0;
   align-self: center;
+  justify-self: stretch;
   background: var(--ec-surface-raised);
   border: 1px solid var(--ec-border-subtle);
   border-radius: var(--ec-radius-xl);
@@ -526,15 +567,15 @@
   grid-column: 2;
   grid-row: 1;
   align-self: start;
-  position: absolute !important;
-  top: 0 !important;
-  left: 0 !important;
-  right: 0 !important;
+  position: relative !important;
+  top: auto !important;
+  left: auto !important;
+  right: auto !important;
   bottom: auto !important;
   width: 100% !important;
   max-width: 100% !important;
   transform: none !important;
-  z-index: 1;
+  z-index: 2;
   display: none;
   margin: 0;
   padding: 0 !important;
@@ -852,6 +893,8 @@
     right: auto !important;
     width: 100% !important;
   }
+}
+
 @media (prefers-reduced-motion: reduce) {
   #interactive-map > .info-text,
   .ec-detail-idle,
