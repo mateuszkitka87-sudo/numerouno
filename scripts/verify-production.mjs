@@ -146,7 +146,7 @@ async function run() {
   const layout = await prodPage.evaluate(() => ({
     hasCoverageApp: !!document.querySelector('.ec-app'),
     hasTitle: document.querySelector('.ec-intro__title')?.textContent?.trim() === 'Coverage',
-    hasPanel: !!document.querySelector('.ec-detail-slot'),
+    hasDetailBox: !!document.querySelector('#interactive-map .info-text .ec-detail-card'),
     hasCard: !!document.querySelector('.map-page__card'),
     embedStyleId: document.querySelector('#sgs-e-customs-map-embed') ? 'sgs-e-customs-map-embed' : null,
     externalStylesheets: [...document.querySelectorAll('link[rel=stylesheet]')].filter((l) => /map|layout|chrome/i.test(l.href)).length,
@@ -154,7 +154,7 @@ async function run() {
 
   if (!layout.hasCoverageApp) failures.push('Missing .ec-app wrapper');
   if (!layout.hasTitle) failures.push('Missing Coverage title');
-  if (!layout.hasPanel) failures.push('Missing detail panel');
+  if (!layout.hasDetailBox) failures.push('Missing country detail box');
   if (layout.hasCard) failures.push('Old card layout should not be present');
   if (layout.embedStyleId !== 'sgs-e-customs-map-embed') failures.push('Missing inline embed stylesheet');
 

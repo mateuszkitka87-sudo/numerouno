@@ -32,7 +32,6 @@ async function run() {
     const map = document.querySelector('#interactive-map');
     const out = { layout: {}, map: {} };
     const title = document.querySelector('.ec-intro__title');
-    const panel = document.querySelector('.ec-detail-slot');
     const card = document.querySelector('.map-page__card');
     const embedStyle = document.querySelector('#sgs-e-customs-map-embed');
     const svg = map?.querySelector('svg');
@@ -43,7 +42,6 @@ async function run() {
       out.layout.titleVisible = title.offsetParent !== null;
       out.layout.titleText = title.textContent?.trim();
     }
-    out.layout.hasPanel = !!panel;
     out.layout.hasCard = !!card;
     out.layout.hasNav = !!document.querySelector('.ec-nav');
     out.layout.hasIntroLabel = document.querySelector('.ec-intro__label')?.textContent?.trim() === 'NETWORK';
@@ -66,24 +64,23 @@ async function run() {
   await new Promise((r) => setTimeout(r, 500));
 
   const hover = await page.evaluate(() => {
-    const panel = document.querySelector('.ec-detail-slot');
+    const title = document.querySelector('.ec-intro__title');
     const entry = document.querySelector('#interactive-map .info-text[data-name=netherlands]');
-    const svg = document.querySelector('#interactive-map svg');
+    const mapStage = document.querySelector('.ec-map__stage');
     const pcs = entry ? getComputedStyle(entry) : null;
-    const panelRect = panel?.getBoundingClientRect();
+    const titleRect = title?.getBoundingClientRect();
     const entryRect = entry?.getBoundingClientRect();
-    const svgRect = svg?.getBoundingClientRect();
-    const overlapsSvg = entryRect && svgRect
-      ? !(entryRect.right < svgRect.left || entryRect.left > svgRect.right || entryRect.bottom < svgRect.top || entryRect.top > svgRect.bottom)
-      : null;
+    const mapRect = mapStage?.getBoundingClientRect();
     return {
-      panelDisplay: panel ? getComputedStyle(panel).display : null,
       entryDisplay: pcs?.display,
       entryPosition: pcs?.position,
-      entryInPanel: panelRect && entryRect
-        ? entryRect.left >= panelRect.left - 2 && entryRect.right <= panelRect.right + 2
+      alignedWithCoverage: titleRect && entryRect
+        ? Math.abs(entryRect.left - titleRect.left) <= 2
         : null,
-      overlapsSvg,
+      leftOfMap: mapRect && entryRect
+        ? entryRect.right <= mapRect.right
+        : null,
+      entryTop: entryRect ? Math.round(entryRect.top) : null,
       hasDetailCard: !!entry?.querySelector('.ec-detail-card'),
       entryH3: entry?.querySelector('h3')?.textContent?.trim(),
     };
@@ -106,15 +103,14 @@ async function run() {
 
   if (!rest.layout.titleVisible) failures.push('Layout title not visible');
   if (rest.layout.titleText !== 'Coverage') failures.push(`Title text: ${rest.layout.titleText}`);
-  if (!rest.layout.hasPanel) failures.push('Missing detail panel');
   if (rest.layout.hasCard) failures.push('Old card layout should not be present');
   if (rest.layout.hasNav) failures.push('Site chrome nav should not be present in embed');
   if (!rest.layout.hasIntroLabel) failures.push('Missing NETWORK intro label');
   if (!rest.layout.singleInlineStyle) failures.push('Missing single inline embed stylesheet');
 
   if (hover.entryDisplay !== 'block') failures.push(`Panel entry display: ${hover.entryDisplay}`);
-  if (hover.overlapsSvg) failures.push('Panel overlaps SVG');
-  if (!hover.entryInPanel) failures.push('Panel entry not inside detail slot');
+  if (!hover.alignedWithCoverage) failures.push('Panel not aligned with Coverage title');
+  if (!hover.leftOfMap) failures.push('Panel not in left column area');
   if (!hover.hasDetailCard) failures.push('Missing detail card chrome');
   if (!hover.entryH3?.includes('Netherlands')) failures.push('Panel missing Netherlands title');
   if (afterLeave.entryDisplay !== 'none') failures.push(`After mouseleave entry still: ${afterLeave.entryDisplay}`);
