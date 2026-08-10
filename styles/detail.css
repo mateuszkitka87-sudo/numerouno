@@ -5,7 +5,7 @@
   grid-row: 1;
   position: relative;
   min-height: 0;
-  align-self: start;
+  align-self: center;
   background: var(--ec-surface-raised);
   border: 1px solid var(--ec-border-subtle);
   border-radius: var(--ec-radius-xl);

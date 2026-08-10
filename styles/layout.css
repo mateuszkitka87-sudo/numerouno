@@ -4,7 +4,7 @@
 .ec-app {
   box-sizing: border-box;
   min-height: 0;
-  padding: var(--ec-space-6) var(--ec-space-8) var(--ec-space-10);
+  padding: var(--ec-space-8) var(--ec-space-6) var(--ec-space-10);
   background: var(--ec-bg);
   font-family: var(--font-sans);
   font-weight: var(--ec-weight-body);
@@ -23,17 +23,18 @@
 
 .ec-workspace {
   display: grid;
-  grid-template-columns: minmax(200px, 23%) minmax(0, 1fr);
+  grid-template-columns: 220px minmax(0, 1fr);
   gap: var(--ec-space-8);
   align-items: start;
-  max-width: 1280px;
+  width: 100%;
+  max-width: min(100%, 1540px);
   margin: 0 auto;
 }
 
 .ec-intro {
   grid-column: 1;
-  padding-top: var(--ec-space-2);
-  max-width: 28ch;
+  padding-top: var(--ec-space-10);
+  max-width: 24ch;
 }
 
 .ec-intro__label {
@@ -82,6 +83,7 @@
 
   .ec-intro {
     max-width: none;
+    padding-top: 0;
   }
 }
 

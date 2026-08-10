@@ -64,6 +64,7 @@
   --ec-duration-interaction: 300ms;
 
   --ec-detail-width: 310px;
+  --ec-map-width: clamp(640px, 56vw, 860px);
 
   --ec-weight-title: 600;
   --ec-weight-body: 400;

@@ -1,20 +1,23 @@
-/* Map — center hero, open white surface, legend above */
+/* Map — large center hero, legend above, vertically balanced with panel */
 
 .ec-map {
   grid-column: 2;
   display: grid;
-  grid-template-columns: minmax(0, 1fr) var(--ec-detail-width);
+  grid-template-columns: var(--ec-map-width) var(--ec-detail-width);
   gap: var(--ec-space-6);
-  align-items: start;
+  align-items: center;
+  justify-content: start;
   position: relative;
-  width: 100%;
+  width: fit-content;
+  max-width: 100%;
   min-width: 0;
+  margin-top: var(--ec-space-10);
 }
 
 #interactive-map {
   position: relative !important;
-  width: 100% !important;
-  max-width: none !important;
+  width: fit-content !important;
+  max-width: 100% !important;
   margin: 0 !important;
   font-family: var(--font-sans) !important;
   font-size: 16px !important;
@@ -35,7 +38,8 @@
   grid-column: 1;
   grid-row: 1;
   position: relative;
-  min-width: 0;
+  width: var(--ec-map-width);
+  max-width: 100%;
   padding: var(--ec-space-10) 0 0;
   background: transparent;
   border: none;
@@ -175,9 +179,12 @@
     grid-column: 1;
     grid-template-columns: 1fr;
     gap: var(--ec-space-6);
+    margin-top: 0;
+    width: 100%;
   }
 
   .ec-map__stage {
+    width: 100%;
     padding-top: var(--ec-space-8);
   }
 }
