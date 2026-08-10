@@ -283,29 +283,29 @@
   flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   margin: 0;
-  padding: 7px 9px;
+  padding: 8px 10px;
   width: max-content;
   max-width: calc(100% - 24px);
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 14px;
+  border-radius: 16px;
   box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.04),
-    0 4px 14px rgba(0, 0, 0, 0.06);
+    0 6px 18px rgba(0, 0, 0, 0.07);
 }
 
 .ec-legend__pill {
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  padding: 7px 13px 7px 10px;
+  gap: 7px;
+  padding: 8px 14px 8px 11px;
   border-radius: var(--ec-radius-pill);
   background: #ffffff;
   border: 1px solid transparent;
   box-shadow: none;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: var(--ec-weight-title);
   letter-spacing: -0.008em;
   color: var(--ec-text-muted);
@@ -590,10 +590,38 @@
 #interactive-map > .info-text .ec-detail-card {
   display: flex;
   flex-direction: column;
+  position: relative;
   background: transparent;
   border-radius: 0;
   box-shadow: none;
   border: none;
+}
+
+#interactive-map > .info-text .ec-detail-card::before {
+  content: "";
+  position: absolute;
+  top: 16px;
+  bottom: 16px;
+  left: 0;
+  width: 3px;
+  border-radius: 0 2px 2px 0;
+  background: var(--ec-text-soft);
+  opacity: 0.35;
+}
+
+#interactive-map > .info-text[data-type="transit"] .ec-detail-card::before {
+  background: var(--ec-transit-dot);
+  opacity: 0.85;
+}
+
+#interactive-map > .info-text[data-type="brokerage"] .ec-detail-card::before {
+  background: #3a6c96;
+  opacity: 0.9;
+}
+
+#interactive-map > .info-text[data-type="export"] .ec-detail-card::before {
+  background: var(--ec-export-dot);
+  opacity: 0.85;
 }
 
 #interactive-map > .info-text .ec-detail-card__head {
@@ -601,7 +629,7 @@
   align-items: flex-start;
   justify-content: space-between;
   gap: 12px;
-  padding: 24px 24px 12px;
+  padding: 24px 24px 12px 28px;
 }
 
 #interactive-map > .info-text h3 {
@@ -634,56 +662,8 @@
   opacity: 0.65;
 }
 
-#interactive-map > .info-text .ec-detail-card__chips {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  padding: 0 24px 16px;
-}
-
-#interactive-map > .info-text .ec-chip {
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  padding: 5px 11px;
-  border-radius: var(--ec-radius-chip);
-  font-size: 0.6875rem;
-  font-weight: var(--ec-weight-title);
-  letter-spacing: -0.01em;
-  line-height: 1.2;
-  box-shadow: none;
-}
-
-#interactive-map > .info-text .ec-chip--transit {
-  background: var(--ec-transit-bg);
-  color: var(--ec-transit-text);
-  border: 1px solid var(--ec-transit-border);
-}
-
-#interactive-map > .info-text .ec-chip--brokerage {
-  background: var(--ec-brokerage-bg);
-  color: var(--ec-brokerage-text);
-  border: 1px solid var(--ec-brokerage-border);
-}
-
-#interactive-map > .info-text .ec-chip--export {
-  background: var(--ec-export-bg);
-  color: var(--ec-export-text);
-  border: 1px solid var(--ec-export-border);
-}
-
-#interactive-map > .info-text .ec-chip--type {
-  display: none;
-}
-
-#interactive-map > .info-text[data-type="transit"] .ec-chip--type-transit,
-#interactive-map > .info-text[data-type="brokerage"] .ec-chip--type-brokerage,
-#interactive-map > .info-text[data-type="export"] .ec-chip--type-export {
-  display: inline-flex;
-}
-
 #interactive-map > .info-text .ec-detail-card__body {
-  padding: 0 24px 16px;
+  padding: 0 24px 24px 28px;
 }
 
 #interactive-map > .info-text p {
@@ -695,116 +675,6 @@
   line-height: 1.6 !important;
   letter-spacing: -0.006em !important;
   color: var(--ec-text-muted) !important;
-}
-
-#interactive-map > .info-text .ec-detail-card__services {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  margin: 0;
-  padding: 0 16px 8px;
-  list-style: none;
-}
-
-#interactive-map > .info-text .ec-service {
-  display: none;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  margin: 0;
-  border-radius: 12px;
-  background: rgba(0, 0, 0, 0.02);
-  border: none;
-  transition: opacity var(--ec-duration) var(--ec-ease);
-}
-
-#interactive-map > .info-text .ec-service:hover {
-  opacity: 0.92;
-}
-
-#interactive-map > .info-text .ec-service--transit,
-#interactive-map > .info-text .ec-service--export,
-#interactive-map > .info-text .ec-service--support {
-  display: flex;
-}
-
-#interactive-map > .info-text .ec-service__icon {
-  flex-shrink: 0;
-  width: 32px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 10px;
-  font-size: 0.75rem;
-}
-
-#interactive-map > .info-text .ec-service--transit .ec-service__icon {
-  background: var(--ec-transit-bg);
-  color: var(--ec-transit-dot);
-}
-
-#interactive-map > .info-text .ec-service--brokerage .ec-service__icon {
-  background: var(--ec-brokerage-bg);
-  color: var(--ec-brokerage-dot);
-}
-
-#interactive-map > .info-text .ec-service--export .ec-service__icon {
-  background: var(--ec-export-bg);
-  color: var(--ec-export-dot);
-}
-
-#interactive-map > .info-text .ec-service--support .ec-service__icon {
-  background: rgba(0, 0, 0, 0.03);
-  color: var(--ec-text-muted);
-}
-
-#interactive-map > .info-text .ec-service__text {
-  flex: 1;
-  min-width: 0;
-}
-
-#interactive-map > .info-text .ec-service__title {
-  display: block;
-  font-size: 0.8125rem;
-  font-weight: var(--ec-weight-title);
-  letter-spacing: -0.012em;
-  line-height: 1.3;
-  color: var(--ec-text);
-}
-
-#interactive-map > .info-text .ec-service__sub {
-  display: block;
-  font-size: 0.6875rem;
-  font-weight: var(--ec-weight-body);
-  letter-spacing: -0.004em;
-  line-height: 1.4;
-  color: var(--ec-text-soft);
-  margin-top: 2px;
-}
-
-#interactive-map > .info-text .ec-service__status {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  flex-shrink: 0;
-  opacity: 0.8;
-}
-
-#interactive-map > .info-text .ec-service--transit .ec-service__status {
-  background: var(--ec-transit-dot);
-}
-
-#interactive-map > .info-text .ec-service--brokerage .ec-service__status {
-  background: var(--ec-brokerage-dot);
-}
-
-#interactive-map > .info-text .ec-service--export .ec-service__status {
-  background: var(--ec-export-dot);
-}
-
-#interactive-map > .info-text .ec-service--support .ec-service__status {
-  background: var(--ec-brokerage-dot);
 }
 
 #interactive-map > .info-text.is-measuring {
@@ -824,7 +694,7 @@
   justify-content: center;
   gap: 6px;
   width: 100%;
-  padding: 16px 24px !important;
+  padding: 16px 24px 16px 28px !important;
   margin: 0 !important;
   background: rgba(0, 0, 0, 0.02) !important;
   border: none !important;
@@ -853,8 +723,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #interactive-map > .info-text,
-  #interactive-map > .info-text .ec-service {
+  #interactive-map > .info-text {
     transition: none !important;
   }
 }
@@ -893,8 +762,6 @@
     <aside class="ec-intro">
       <p class="ec-intro__label">NETWORK</p>
       <h1 class="ec-intro__title">Coverage</h1>
-      <p class="ec-intro__subtitle">Interactive customs network</p>
-      <p class="ec-intro__body">Explore transit, brokerage, and export services across our European network. Select a country to view available capabilities.</p>
     </aside>
     <div id="interactive-map" class="ec-map">
 <div class="ec-map__stage">
@@ -2105,1900 +1972,262 @@
 
 <div class="info-text" data-name="netherlands" data-url="" data-type="brokerage" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Netherlands</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS in the Netherlands is AEO accredited. SGS offers a full brokerage service which includes export, import,
 		transit declarations and automation solution. SGS as Holder of the Procedure and Authorised Consignor offers
 		transit from authorized locations as well as the main terminal hubs located within Rotterdam port. We are
 		also connected to PortBase.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="belgium" data-url="" data-type="brokerage" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Belgium</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS in Belgium is AEO accredited. SGS offers a full brokerage service which includes export, import, transit
 		declarations and automation. SGS as Holder of the Procedure and Authorised Consignor offers transit from
 		authorized locations as well as the main terminal hubs located within Zeebrugge and Antwerp ports.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="britain" data-url="" data-type="brokerage" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>United Kingdom</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS offers a full customs brokerage service in the UK which includes export, import, transit declarations and
 		automation via SGS’s eGTA customs software solution. SGS as Holder of the Procedure and Authorised Consignor
 		offers transit from numerous authorized locations. Export data is automatically reused to generate a
 		Transit. On client’s request, we can affix our customs approved seals for Transit starting from our
 		logistics hub of Ashford or specific client’s location. We also cover IPAFFS, GVMS, French and Irish ENS and
 		CHED requirements.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="ireland" data-url="" data-type="export" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Ireland</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS as Holder of the Procedure and Authorised Consignor in Ireland offers transit with all security data
 		requirements under simplified procedure from customs offices including Dublin and Rosslare ports. Transits
 		submitted from Ireland and France via the UK land bridge also cover GVMS and ENS requirements. Irish Export
 		Declarations – standalone or combined with transits are available through TransitNet. CHED services are also
 		available.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="france" data-url="" data-type="brokerage" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>France</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>In France, SGS offers a complex transit solution. Acting as Holder of the Procedure and Authorised Consignor,
 		SGS offers transit under the simplified procedure from important locations such as Sète in the south of
 		France and in Calais to support the Brexit business. SGS has established its own support office in Sète
 		which provides a complete range of customs services including Export and Import.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="germany" data-url="" data-type="brokerage" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Germany</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS can offer companies a complete customs brokerage service including export, import and transit. SGS is an
 		approved Authorised Consignor in Germany which means transits can be started under the simplified procedure
 		from authorized locations including the application of customs approved seals. Transits can also be started
 		from the main logistics ports of Hamburg and Bremerhaven.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="spain" data-url="" data-type="inactive" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Spain</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS in Spain is AEO accredited. SGS offers a unique transit solution which meets the needs of Spanish customs
 		including the application of customs approved SGS seals to all trucks which travel under SGS transit. This
 		also includes the ability to open transits from the logistics hubs of La Jonquera and Algeciras. </p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="poland" data-url="" data-type="export" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Poland</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS in Poland are AEO accredited. SGS offers an integrated export and transit service in which SGS as an
 		approved Authorised Consignor can open transit declarations from authorized locations under the simplified
 		procedure. SGS provides a comprehensive 24/7 service for block trains transporting Chinese goods to the main
 		rail hubs in the EU. SGS also has a support office in Woskrzenice, strategically located on the main road
 		close to the border of Belarus which supports companies transiting from the EU into Customs Union (Belarus,
 		Russia Kazahstan) – EPI and Certificates.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="switzerland" data-url="" data-type="export" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Switzerland</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS from Switzerland offer a complete outbound customs solution which includes transit and export
 		declarations and the reuse of export MRNs. Companies can avail of SGS’s transit solution as well as the
 		package of an export declaration and a transit declaration. Export and transit declarations can be open from
 		locations throughout Switzerland including Basel, Kreuzlingen and Geneva (Vallard).</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="italy" data-url="" data-type="transit" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Italy</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS offers companies comprehensive brokerage solutions in Italy. Our core services include customs brokerage, consulting, training, AEO certification, VAT services, and classification.
 Through our Italian offices, companies can initiate transit declarations from key ports and logistics hubs in Italy, including Trieste, Fernetti, and Ancona.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="belarus" data-url="" data-type="transit" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Belarus</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS in Belarus offers companies a unique customs solution which gives companies access to the Euro Asian
 		Economic Union (EAEU). SGS provides a customs service in Belarus which includes providing
 		EPI service along with SGS guarantee (certificates) from all the major entry points of Belarus. SGS offers
 		EAEU clients a full T1 transit service for destinations throughout the EU.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="lithuania" data-url="" data-type="transit" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Lithuania</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS in Lithuania offers transit declarations from all the main border crossing points including the border
 		crossing points of Medininkų and Šalčininkai from Belarus as well as transit declarations from important
 		locations including Vilnius, Kaunas and the border of Kaliningrad from Panemunės.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="latvia" data-url="" data-type="transit" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Latvia</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS in Latvia offers transit declarations from all the main border crossing points including the border
 		crossing points of Luhamaa and Grebņeva from Russia as well as transit declarations from important locations
 		including Riga and the port of Riga.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="estonia" data-url="" data-type="transit" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Estonia</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS from Estonia offers transit declarations from all the main border crossing points including the border
 		crossing points of Terehova and Narva from Russia as well as transit declarations from important locations
 		throughout Estonia including Tallinn.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="slovenia" data-url="" data-type="transit" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Slovenia</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS offers companies transit solution from the main locations such as the city of Ljubljana Through
 		cooperation with approved SGS partners, transit declarations can be started from the Port of Koper for goods
 		travelling by road or rail. </p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="croatia" data-url="" data-type="transit" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Croatia</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS offers full transit service on the Croatian territory including from Rijeka port. We have a support
 		office operating 24/7 in Ježevo located just after Zagreb on the main highway to Serbia and Turkey . Transit
 		declarations can be created and started from this office or other important logistic hubs including the port
 		of Rijeka and the border crossing area of Batrovci into and out of Serbia.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="slovakia" data-url="" data-type="transit" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Slovakia</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS from Slovakia offers transit declarations from all the main border crossing points including the border
 		crossing points of Vyšné Nemecké and Ubl’a from the Ukraine as well as transit declarations from important
 		locations throughout Slovakia including Bratislava.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="hungary" data-url="" data-type="transit" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Hungary</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS from Hungary offers companies a transit solution throughout Hungary including the main logistics hub of
 		Trimex offering companies a transit service for rail and road movements. Transit is also possible from the
 		important Hungarian border points of Beregsurányi Határátkelőhely, Tiszabecsi Határátkelőhely and Záhony
 		from the Ukraine as well as from Röszke and Tompa from Serbia.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="serbia" data-url="" data-type="transit" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Serbia</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS from Serbia offers companies a full transit solution throughout Serbia including from important border
 		locations such as Horgoš at the border with Hungary, from Batrovci at the border with Croatia and from Vatin
 		at the border with Romania. Transit is also possible from all major cities including Belgrade.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="macedonia" data-url="" data-type="transit" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Macedonia (North)</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS from Macedonia offers a transit solution from all the major exit points of Macedonia including Tabanovce
 		at the border of Serbia, Delchevo at the border of Bulgaria and Bogorodica located at the border of Greece.
 		Transit is also possible from locations such as Skopje and Kumanovo.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="moldova" data-url="" data-type="transit" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Moldova</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS in Moldova has a brokerage license and offers companies a transit solution throughout the country
 		including from Albita border to destinations such as Kishinev or as a transit on the way to Ukraine and the
 		Euro Asian Economic Union (EAEU). </p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="greece" data-url="" data-type="transit" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Greece</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS from Greece with the help of partners, offers companies a transit solution starting from locations
 		including Piraeus, Thessaloniki, Kilkis, Kipon and several other locations on route to Turkey and through
 		the Balkans. </p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="bulgaria" data-url="" data-type="transit" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Bulgaria</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS offers full transit services. We also have a support office operating 24/7 located close to the border between Bulgaria and Turkey in Svilengrad. This office supports SGS clients who are crossing the border to and from Turkey. SGS offers transit from all important locations throughout Bulgaria including Svilengrad and the major ports of Bourgas and Varna.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="romania" data-url="" data-type="transit" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Romania</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS from Romania offers companies a transit solution throughout the country including from Siret, Constanta,
 		Brasov and the main border crossing point from the Ukraine and Moldova. We also have an office on the
 		Moldovan border operating 24/7 in Albita. Transit is also possible from Moravița on the border with Serbia
 		as well as from important inland locations such as Bucharest. SGS also have authorised consignor status from
 		certain locations.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="turkey" data-url="" data-type="transit" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Turkey</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>From Turkey, SGS offers companies a complex transit service throughout the country including from the major
 		logistic points of Muratbey and Erenköy in Istanbul. Transit is also possible from the major entry ports of
 		Pendik, Yalova, Mersin and Çeşme. We have an integration with DFDS and Ulusoy lines ensuring a full
 		compliance with security requirements for goods entering EU ports. We also provide UETDS declarations.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="albania" data-url="" data-type="inactive" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Albania</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>Lorem ipsum doler ismet saleh. Lorem ipsum doler ismet saleh.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="austria" data-url="" data-type="inactive" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>austria</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>Lorem ipsum doler ismet saleh. Lorem ipsum doler ismet saleh.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="luxembourg" data-url="" data-type="inactive" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Luxembourg</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>Lorem ipsum doler ismet saleh. Lorem ipsum doler ismet saleh.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="portugal" data-url="" data-type="inactive" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Portugal</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>Lorem ipsum doler ismet saleh. Lorem ipsum doler ismet saleh.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="ukraine" data-url="" data-type="transit" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Ukraine</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>SGS in Ukraine offers a full transit service with transits possible from all internal Ukraine customs offices. For trucks entering the EU from Ukraine, it is also possible to open transit declarations at any EU entry border crossing point.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="russia" data-url="" data-type="inactive" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Russia</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>Lorem ipsum doler ismet saleh. Lorem ipsum doler ismet saleh.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="czechia" data-url="" data-type="inactive" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Czechia</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>Lorem ipsum doler ismet saleh. Lorem ipsum doler ismet saleh.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="finland" data-url="" data-type="inactive" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Finland</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>Lorem ipsum doler ismet saleh. Lorem ipsum doler ismet saleh.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="norway" data-url="" data-type="inactive" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Norway</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>Lorem ipsum doler ismet saleh. Lorem ipsum doler ismet saleh.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="sweden" data-url="" data-type="inactive" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Sweden</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>Lorem ipsum doler ismet saleh. Lorem ipsum doler ismet saleh.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="denmark" data-url="" data-type="inactive" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Denmark</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>Lorem ipsum doler ismet saleh. Lorem ipsum doler ismet saleh.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="montenegro" data-url="" data-type="inactive" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Montenegro</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>Lorem ipsum doler ismet saleh. Lorem ipsum doler ismet saleh.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="bosnia" data-url="" data-type="inactive" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Bosnia</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>Lorem ipsum doler ismet saleh. Lorem ipsum doler ismet saleh.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 <div class="info-text" data-name="iceland" data-url="" data-type="inactive" style="display: none;"><div class="ec-detail-card">
 <div class="ec-detail-card__head"><h3>Iceland</h3><button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>
 <div class="ec-detail-card__body"><p>Lorem ipsum doler ismet saleh. Lorem ipsum doler ismet saleh.</p></div>
-
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>
 </div></div>
 
 </div>

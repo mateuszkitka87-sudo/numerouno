@@ -29,68 +29,6 @@ const CSS_FILES = [
   'styles/hooks.css',
 ];
 
-const DETAIL_CHIPS = `
-<div class="ec-detail-card__chips">
-  <span class="ec-chip ec-chip--transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-transit">Transit</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-brokerage">Transit + Brokerage</span>
-  <span class="ec-chip ec-chip--type ec-chip--type-export">Transit + Export</span>
-</div>`;
-
-const DETAIL_SERVICES = `
-<ul class="ec-detail-card__services">
-  <li class="ec-service ec-service--transit">
-    <span class="ec-service__icon" aria-hidden="true">⬡</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Transit operations</span>
-      <span class="ec-service__sub">Full support across all borders</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--brokerage">
-    <span class="ec-service__icon" aria-hidden="true">◫</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Brokerage services</span>
-      <span class="ec-service__sub">Import, export, and declarations</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--export">
-    <span class="ec-service__icon" aria-hidden="true">▣</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Export declarations</span>
-      <span class="ec-service__sub">Export documentation &amp; filings</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-  <li class="ec-service ec-service--support">
-    <span class="ec-service__icon" aria-hidden="true">◉</span>
-    <span class="ec-service__text">
-      <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">End-to-end compliance</span>
-    </span>
-    <span class="ec-service__status" aria-hidden="true"></span>
-  </li>
-</ul>`;
-
-function enhanceCountryChips(mapDiv) {
-  const chipH = 210;
-  const chipRx = 66;
-
-  return mapDiv.replace(
-    /(<g id="(?!map-container)([a-z_]+)">\s*)(<circle\b[^>]*\bcx="([-\d.]+)"[^>]*\bcy="([-\d.]+)"[^>]*\/>)/gi,
-    (_, gOpen, id, circleTag, cx, cy) => {
-      const cxN = parseFloat(cx);
-      const cyN = parseFloat(cy);
-      const chipW = id.length > 8 ? 302 : id.length > 6 ? 269 : 252;
-      const x = (cxN - chipW / 2).toFixed(1);
-      const y = (cyN - chipH / 2).toFixed(1);
-      const rect = `<rect class="ec-chip-bg" x="${x}" y="${y}" width="${chipW}" height="${chipH}" rx="${chipRx}" ry="${chipRx}"/>`;
-      return `${gOpen}${rect}\n\t\t\t${circleTag}`;
-    }
-  );
-}
-
 function wrapDetailCards(mapHtml) {
   return mapHtml.replace(
     /(<div class="info-text"[^>]*>)([\s\S]*?)(<\/div>)/g,
@@ -106,12 +44,28 @@ function wrapDetailCards(mapHtml) {
         open +
         `<div class="ec-detail-card">
 <div class="ec-detail-card__head">${h3}<button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
-${DETAIL_CHIPS}
 <div class="ec-detail-card__body">${p}</div>
-${DETAIL_SERVICES}
 </div>` +
         close
       );
+    }
+  );
+}
+
+function enhanceCountryChips(mapDiv) {
+  const chipH = 210;
+  const chipRx = 66;
+
+  return mapDiv.replace(
+    /(<g id="(?!map-container)([a-z_]+)">\s*)(<circle\b[^>]*\bcx="([-\d.]+)"[^>]*\bcy="([-\d.]+)"[^>]*\/>)/gi,
+    (_, gOpen, id, circleTag, cx, cy) => {
+      const cxN = parseFloat(cx);
+      const cyN = parseFloat(cy);
+      const chipW = id.length > 8 ? 302 : id.length > 6 ? 269 : 252;
+      const x = (cxN - chipW / 2).toFixed(1);
+      const y = (cyN - chipH / 2).toFixed(1);
+      const rect = `<rect class="ec-chip-bg" x="${x}" y="${y}" width="${chipW}" height="${chipH}" rx="${chipRx}" ry="${chipRx}"/>`;
+      return `${gOpen}${rect}\n\t\t\t${circleTag}`;
     }
   );
 }
