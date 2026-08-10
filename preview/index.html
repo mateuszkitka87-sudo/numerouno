@@ -38,24 +38,24 @@
   --ec-hairline: rgba(0, 0, 0, 0.05);
 
   --ec-accent: #e85d1a;
-  --ec-land: #f7f7f8;
-  --ec-land-stroke: #f7f7f8;
-  --ec-land-muted: #f2f2f4;
+  --ec-land: #eef0f3;
+  --ec-land-stroke: #eef0f3;
+  --ec-land-muted: #e8eaed;
 
-  --ec-transit-bg: #fef6f1;
-  --ec-transit-border: rgba(232, 93, 26, 0.14);
-  --ec-transit-text: #8a6349;
-  --ec-transit-dot: #e07030;
+  --ec-transit-bg: #fcefe5;
+  --ec-transit-border: rgba(210, 120, 60, 0.22);
+  --ec-transit-text: #6b4423;
+  --ec-transit-dot: #d97830;
 
-  --ec-brokerage-bg: #f3f5f7;
-  --ec-brokerage-border: rgba(74, 85, 104, 0.12);
-  --ec-brokerage-text: #5a6670;
-  --ec-brokerage-dot: #5c6a75;
+  --ec-brokerage-bg: #eef2f4;
+  --ec-brokerage-border: rgba(74, 85, 104, 0.18);
+  --ec-brokerage-text: #3d4a54;
+  --ec-brokerage-dot: #4f5f6b;
 
-  --ec-export-bg: #f8f3f6;
-  --ec-export-border: rgba(161, 30, 94, 0.12);
-  --ec-export-text: #755566;
-  --ec-export-dot: #9a4870;
+  --ec-export-bg: #f5eaf1;
+  --ec-export-border: rgba(140, 70, 110, 0.18);
+  --ec-export-text: #5c3f4f;
+  --ec-export-dot: #8a4a70;
 
   --ec-space-1: 4px;
   --ec-space-2: 8px;
@@ -75,8 +75,9 @@
   --ec-radius-xl: 20px;
   --ec-radius-pill: 100px;
 
-  --ec-shadow-card: 0 1px 2px rgba(0, 0, 0, 0.02), 0 4px 16px rgba(0, 0, 0, 0.03);
-  --ec-shadow-chip: 0 1px 1px rgba(0, 0, 0, 0.03);
+  --ec-shadow-card: 0 1px 2px rgba(0, 0, 0, 0.03), 0 2px 10px rgba(0, 0, 0, 0.04);
+  --ec-shadow-chip: none;
+  --ec-shadow-legend: 0 1px 2px rgba(0, 0, 0, 0.04);
   --ec-shadow-elevated: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.03);
 
   --ec-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
@@ -237,7 +238,6 @@
   width: 100%;
   height: auto;
   margin: 0;
-  opacity: 0.96;
 }
 
 #interactive-map g.legend {
@@ -267,27 +267,27 @@
     filter var(--ec-duration-interaction) var(--ec-ease-calm) !important;
 }
 
-#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) path,
-#interactive-map #map-container > g:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) path,
-#interactive-map #map-container > g:has(> g[id][data-selected]) > g[id]:not([data-selected]):not(:hover):not(.ec-country--hover) path {
-  opacity: 0.72;
+#interactive-map #map-container:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) path,
+#interactive-map #map-container:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) path,
+#interactive-map #map-container:has(> g[id][data-selected]) > g[id]:not([data-selected]):not(:hover):not(.ec-country--hover) path {
+  opacity: 0.88;
 }
 
-#interactive-map #map-container > g > g[id]:hover path,
-#interactive-map #map-container > g > g[id].ec-country--hover path,
-#interactive-map #map-container > g > g[id][data-selected] path {
+#interactive-map #map-container > g[id]:hover path,
+#interactive-map #map-container > g[id].ec-country--hover path,
+#interactive-map #map-container > g[id][data-selected] path {
   opacity: 1;
 }
 
-#interactive-map #map-container > g > g[id][data-selected] path {
+#interactive-map #map-container > g[id][data-selected] path {
   filter: brightness(0.985);
 }
 
-#interactive-map #map-container > g > g[id] {
+#interactive-map #map-container > g[id] {
   cursor: pointer;
 }
 
-#interactive-map #map-container > g > g[id]:focus-visible {
+#interactive-map #map-container > g[id]:focus-visible {
   outline: 2px solid rgba(29, 29, 31, 0.14);
   outline-offset: 3px;
   border-radius: 4px;
@@ -313,15 +313,15 @@
   display: inline-flex;
   align-items: center;
   gap: 5px;
-  padding: 4px 10px 4px 8px;
+  padding: 5px 11px 5px 9px;
   border-radius: var(--ec-radius-pill);
-  background: rgba(255, 255, 255, 0.72);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  box-shadow: none;
-  font-size: 10px;
-  font-weight: var(--ec-weight-body);
-  letter-spacing: -0.008em;
-  color: var(--ec-text-soft);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  box-shadow: var(--ec-shadow-legend);
+  font-size: 11px;
+  font-weight: var(--ec-weight-title);
+  letter-spacing: -0.006em;
+  color: var(--ec-text-muted);
   white-space: nowrap;
   transition:
     opacity var(--ec-duration) var(--ec-ease),
@@ -330,9 +330,9 @@
 }
 
 .ec-legend__pill:hover {
-  background: rgba(255, 255, 255, 0.95);
-  border-color: rgba(0, 0, 0, 0.07);
-  color: var(--ec-text-muted);
+  background: #ffffff;
+  border-color: rgba(0, 0, 0, 0.1);
+  color: var(--ec-text);
 }
 
 .ec-legend__dot {
@@ -340,7 +340,7 @@
   height: 6px;
   border-radius: 50%;
   flex-shrink: 0;
-  opacity: 0.75;
+  opacity: 0.9;
 }
 
 .ec-legend__pill--transit .ec-legend__dot {
@@ -418,66 +418,72 @@
   stroke-width: 5px !important;
 }
 
-#interactive-map #map-container > g > g[id] > circle {
+#interactive-map #map-container > g[id] > circle {
   paint-order: stroke fill;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.03));
+  filter: none;
   transform: scale(0.25);
   transform-box: fill-box;
   transform-origin: center;
+  opacity: 1;
   transition:
     opacity var(--ec-duration-interaction) var(--ec-ease-calm),
     fill var(--ec-duration-interaction) var(--ec-ease-calm),
-    stroke var(--ec-duration-interaction) var(--ec-ease-calm),
-    filter var(--ec-duration-interaction) var(--ec-ease-calm) !important;
+    stroke var(--ec-duration-interaction) var(--ec-ease-calm) !important;
 }
 
-#interactive-map #map-container > g > g[id] > g path.st2 {
+#interactive-map #map-container > g[id] > g path.st2,
+#interactive-map #map-container > g[id] > g path.st2.brokerage,
+#interactive-map #map-container > g[id] > g path.st2.transit,
+#interactive-map #map-container > g[id] > g path.st2.export {
   fill: var(--ec-brokerage-text) !important;
   filter: none !important;
-  opacity: 0.94;
-  letter-spacing: 0.02em;
+  opacity: 1;
+  font-family: var(--font-sans) !important;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
   transition:
     opacity var(--ec-duration-interaction) var(--ec-ease-calm),
     fill var(--ec-duration-interaction) var(--ec-ease-calm) !important;
 }
 
-#interactive-map #map-container > g > g[id]:has(> circle.transit) > g path.st2 {
+#interactive-map #map-container > g[id]:has(> circle.transit) > g path.st2 {
   fill: var(--ec-transit-text) !important;
 }
 
-#interactive-map #map-container > g > g[id]:has(> circle.export) > g path.st2 {
+#interactive-map #map-container > g[id]:has(> circle.export) > g path.st2 {
   fill: var(--ec-export-text) !important;
 }
 
-#interactive-map #map-container > g > g[id]:hover > circle {
+#interactive-map #map-container > g[id]:hover > circle {
   opacity: 1;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.04)) brightness(0.995);
+  filter: none;
 }
 
-#interactive-map #map-container > g > g[id][data-selected] > circle {
+#interactive-map #map-container > g[id][data-selected] > circle {
   opacity: 1;
-  filter: drop-shadow(0 1px 2px rgba(0, 0, 0, 0.05));
+  filter: none;
 }
 
-#interactive-map #map-container > g > g[id][data-selected] > g path.st2 {
+#interactive-map #map-container > g[id][data-selected] > g path.st2 {
   fill: var(--ec-text) !important;
   opacity: 1;
 }
 
-#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) > circle,
-#interactive-map #map-container > g:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) > circle {
-  opacity: 0.7;
+#interactive-map #map-container:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) > circle,
+#interactive-map #map-container:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) > circle {
+  opacity: 0.88;
   filter: none;
 }
 
-#interactive-map #map-container > g:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) > g path.st2,
-#interactive-map #map-container > g:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) > g path.st2 {
-  opacity: 0.65;
+#interactive-map #map-container:has(> g[id]:hover) > g[id]:not(:hover):not([data-selected]) > g path.st2,
+#interactive-map #map-container:has(> g[id].ec-country--hover) > g[id]:not(.ec-country--hover):not([data-selected]) > g path.st2 {
+  opacity: 0.88;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  #interactive-map #map-container > g > g[id] > circle,
-  #interactive-map #map-container > g > g[id] > g path.st2 {
+  #interactive-map #map-container > g[id] > circle,
+  #interactive-map #map-container > g[id] > g path.st2 {
     transition: opacity var(--ec-duration-interaction) var(--ec-ease-calm) !important;
   }
 }
@@ -492,7 +498,7 @@
   align-self: start;
   justify-self: stretch;
   background: var(--ec-surface-raised);
-  border: 1px solid var(--ec-border-subtle);
+  border: 1px solid rgba(0, 0, 0, 0.07);
   border-radius: var(--ec-radius-xl);
   box-shadow: var(--ec-shadow-card);
   overflow: hidden;
@@ -881,24 +887,6 @@
   }
 }
 
-#interactive-map .transit,
-#interactive-map .brokerage,
-#interactive-map .export {
-  fill: #848484 !important;
-}
-
-#interactive-map .brokerage {
-  fill: url(#brokeragestripes) !important;
-}
-
-#interactive-map .export {
-  fill: url(#exportstripes) !important;
-}
-
-#interactive-map .transit {
-  fill: #ff6600 !important;
-}
-
 #interactive-map .has_url {
   cursor: pointer;
 }
@@ -910,18 +898,6 @@
 #interactive-map .st4 {
   fill-rule: evenodd;
   clip-rule: evenodd;
-}
-
-#interactive-map path.st2.brokerage,
-#interactive-map path.st2.transit {
-  fill: #ffffff !important;
-}
-
-#interactive-map #ukraine g path.st2,
-#interactive-map #bosnia g path.st2,
-#interactive-map #poland g path.st2,
-#interactive-map #switserland g path.st2 {
-  fill: #ffffff !important;
 }
 
 #interactive-map #brokeragestripes line,

@@ -1,23 +1,5 @@
 /* JavaScript-required map class hooks */
 
-#interactive-map .transit,
-#interactive-map .brokerage,
-#interactive-map .export {
-  fill: #848484 !important;
-}
-
-#interactive-map .brokerage {
-  fill: url(#brokeragestripes) !important;
-}
-
-#interactive-map .export {
-  fill: url(#exportstripes) !important;
-}
-
-#interactive-map .transit {
-  fill: #ff6600 !important;
-}
-
 #interactive-map .has_url {
   cursor: pointer;
 }
@@ -29,18 +11,6 @@
 #interactive-map .st4 {
   fill-rule: evenodd;
   clip-rule: evenodd;
-}
-
-#interactive-map path.st2.brokerage,
-#interactive-map path.st2.transit {
-  fill: #ffffff !important;
-}
-
-#interactive-map #ukraine g path.st2,
-#interactive-map #bosnia g path.st2,
-#interactive-map #poland g path.st2,
-#interactive-map #switserland g path.st2 {
-  fill: #ffffff !important;
 }
 
 #interactive-map #brokeragestripes line,

@@ -15,25 +15,25 @@
   --ec-hairline: rgba(0, 0, 0, 0.05);
 
   --ec-accent: #e85d1a;
-  --ec-land: #f7f7f8;
-  --ec-land-stroke: #f7f7f8;
-  --ec-land-muted: #f2f2f4;
+  --ec-land: #eef0f3;
+  --ec-land-stroke: #eef0f3;
+  --ec-land-muted: #e8eaed;
 
-  /* Subtle pastel fills — ~8% tint */
-  --ec-transit-bg: #fef6f1;
-  --ec-transit-border: rgba(232, 93, 26, 0.14);
-  --ec-transit-text: #8a6349;
-  --ec-transit-dot: #e07030;
+  /* Country chip pastels */
+  --ec-transit-bg: #fcefe5;
+  --ec-transit-border: rgba(210, 120, 60, 0.22);
+  --ec-transit-text: #6b4423;
+  --ec-transit-dot: #d97830;
 
-  --ec-brokerage-bg: #f3f5f7;
-  --ec-brokerage-border: rgba(74, 85, 104, 0.12);
-  --ec-brokerage-text: #5a6670;
-  --ec-brokerage-dot: #5c6a75;
+  --ec-brokerage-bg: #eef2f4;
+  --ec-brokerage-border: rgba(74, 85, 104, 0.18);
+  --ec-brokerage-text: #3d4a54;
+  --ec-brokerage-dot: #4f5f6b;
 
-  --ec-export-bg: #f8f3f6;
-  --ec-export-border: rgba(161, 30, 94, 0.12);
-  --ec-export-text: #755566;
-  --ec-export-dot: #9a4870;
+  --ec-export-bg: #f5eaf1;
+  --ec-export-border: rgba(140, 70, 110, 0.18);
+  --ec-export-text: #5c3f4f;
+  --ec-export-dot: #8a4a70;
 
   /* 8pt grid */
   --ec-space-1: 4px;
@@ -54,8 +54,9 @@
   --ec-radius-xl: 20px;
   --ec-radius-pill: 100px;
 
-  --ec-shadow-card: 0 1px 2px rgba(0, 0, 0, 0.02), 0 4px 16px rgba(0, 0, 0, 0.03);
-  --ec-shadow-chip: 0 1px 1px rgba(0, 0, 0, 0.03);
+  --ec-shadow-card: 0 1px 2px rgba(0, 0, 0, 0.03), 0 2px 10px rgba(0, 0, 0, 0.04);
+  --ec-shadow-chip: none;
+  --ec-shadow-legend: 0 1px 2px rgba(0, 0, 0, 0.04);
   --ec-shadow-elevated: 0 1px 2px rgba(0, 0, 0, 0.04), 0 2px 6px rgba(0, 0, 0, 0.03);
 
   --ec-ease: cubic-bezier(0.25, 0.1, 0.25, 1);
