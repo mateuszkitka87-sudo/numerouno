@@ -58,8 +58,8 @@ const DETAIL_SERVICES = `
   <li class="ec-service ec-service--export">
     <span class="ec-service__icon" aria-hidden="true">▣</span>
     <span class="ec-service__text">
-      <span class="ec-service__title">Export documentation</span>
-      <span class="ec-service__sub">Declarations and compliance</span>
+      <span class="ec-service__title">Export declarations</span>
+      <span class="ec-service__sub">Export documentation &amp; filings</span>
     </span>
     <span class="ec-service__status" aria-hidden="true"></span>
   </li>
@@ -67,7 +67,7 @@ const DETAIL_SERVICES = `
     <span class="ec-service__icon" aria-hidden="true">◉</span>
     <span class="ec-service__text">
       <span class="ec-service__title">Customs support</span>
-      <span class="ec-service__sub">Consulting and certification</span>
+      <span class="ec-service__sub">End-to-end compliance</span>
     </span>
     <span class="ec-service__status" aria-hidden="true"></span>
   </li>
