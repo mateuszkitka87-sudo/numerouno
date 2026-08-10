@@ -37,7 +37,8 @@
 #interactive-map #map-container > g > g[id] > g path.st2 {
   fill: var(--ec-brokerage-text) !important;
   filter: none !important;
-  opacity: 0.92;
+  opacity: 0.94;
+  letter-spacing: 0.02em;
   transition:
     opacity var(--ec-duration-interaction) var(--ec-ease-calm),
     fill var(--ec-duration-interaction) var(--ec-ease-calm) !important;

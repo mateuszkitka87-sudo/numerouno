@@ -1,19 +1,20 @@
-/* Map — hero + detail panel, always side by side */
+/* Map — center hero, open white surface, legend above */
 
 .ec-map {
-  display: inline-grid;
-  grid-template-columns: var(--ec-map-max) var(--ec-detail-width);
-  gap: var(--ec-space-4);
+  grid-column: 2;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) var(--ec-detail-width);
+  gap: var(--ec-space-6);
   align-items: start;
   position: relative;
-  width: fit-content;
-  max-width: 100%;
+  width: 100%;
+  min-width: 0;
 }
 
 #interactive-map {
   position: relative !important;
-  width: fit-content !important;
-  max-width: 100% !important;
+  width: 100% !important;
+  max-width: none !important;
   margin: 0 !important;
   font-family: var(--font-sans) !important;
   font-size: 16px !important;
@@ -34,8 +35,11 @@
   grid-column: 1;
   grid-row: 1;
   position: relative;
-  width: var(--ec-map-max);
-  padding: 0;
+  min-width: 0;
+  padding: var(--ec-space-10) 0 0;
+  background: transparent;
+  border: none;
+  box-shadow: none;
 }
 
 .ec-map__stage > svg {
@@ -66,7 +70,7 @@
 #interactive-map .st10 {
   fill: var(--ec-land) !important;
   stroke: var(--ec-land-stroke) !important;
-  stroke-width: 0.5px !important;
+  stroke-width: 0 !important;
 }
 
 #interactive-map path,
@@ -106,7 +110,7 @@
 
 .ec-legend {
   position: absolute;
-  top: var(--ec-space-2);
+  top: 0;
   left: 50%;
   transform: translateX(-50%);
   z-index: 4;
@@ -116,6 +120,8 @@
   gap: var(--ec-space-1);
   margin: 0;
   padding: 0;
+  width: max-content;
+  max-width: 100%;
 }
 
 .ec-legend__pill {
@@ -162,6 +168,18 @@
 
 .ec-legend__pill--export .ec-legend__dot {
   background: var(--ec-export-dot);
+}
+
+@media (max-width: 720px) {
+  .ec-map {
+    grid-column: 1;
+    grid-template-columns: 1fr;
+    gap: var(--ec-space-6);
+  }
+
+  .ec-map__stage {
+    padding-top: var(--ec-space-8);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

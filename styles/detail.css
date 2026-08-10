@@ -368,6 +368,24 @@
   filter: brightness(0.97);
 }
 
+@media (max-width: 720px) {
+  .ec-detail-slot {
+    grid-column: 1;
+    min-height: 0;
+  }
+
+  .ec-detail-idle {
+    min-height: 0;
+  }
+
+  #interactive-map > .info-text {
+    grid-column: 1;
+    position: relative !important;
+    top: auto !important;
+    left: auto !important;
+    right: auto !important;
+    width: 100% !important;
+  }
 @media (prefers-reduced-motion: reduce) {
   #interactive-map > .info-text,
   .ec-detail-idle,

@@ -1,10 +1,10 @@
-/* App shell — compact header, map + details composition */
+/* App shell — three-part reference composition */
 
 .wpb_raw_html .ec-app,
 .ec-app {
   box-sizing: border-box;
   min-height: 0;
-  padding: var(--ec-space-6) var(--ec-space-6) var(--ec-space-8);
+  padding: var(--ec-space-6) var(--ec-space-8) var(--ec-space-10);
   background: var(--ec-bg);
   font-family: var(--font-sans);
   font-weight: var(--ec-weight-body);
@@ -21,17 +21,23 @@
   box-sizing: border-box;
 }
 
+.ec-workspace {
+  display: grid;
+  grid-template-columns: minmax(200px, 23%) minmax(0, 1fr);
+  gap: var(--ec-space-8);
+  align-items: start;
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
 .ec-intro {
-  display: flex;
-  flex-direction: column;
-  gap: var(--ec-space-1);
-  width: calc(var(--ec-map-max) + var(--ec-detail-width) + var(--ec-space-4));
-  max-width: 100%;
-  margin: 0 auto var(--ec-space-4);
+  grid-column: 1;
+  padding-top: var(--ec-space-2);
+  max-width: 28ch;
 }
 
 .ec-intro__label {
-  margin: 0;
+  margin: 0 0 var(--ec-space-2);
   font-size: 0.625rem;
   font-weight: var(--ec-weight-title);
   letter-spacing: 0.14em;
@@ -41,27 +47,46 @@
 
 .wpb_raw_html .ec-intro__title,
 .ec-intro__title {
-  margin: 0 !important;
-  font-size: clamp(1.75rem, 2.5vw, 2.25rem) !important;
+  margin: 0 0 var(--ec-space-2) !important;
+  font-size: clamp(2rem, 3vw, 2.625rem) !important;
   font-weight: var(--ec-weight-title) !important;
-  line-height: 1.05 !important;
-  letter-spacing: -0.034em !important;
+  line-height: 1.04 !important;
+  letter-spacing: -0.038em !important;
   color: var(--ec-text) !important;
   text-transform: none !important;
 }
 
-.ec-composition {
-  width: 100%;
-  overflow-x: auto;
-  -webkit-overflow-scrolling: touch;
+.ec-intro__subtitle {
+  margin: 0 0 var(--ec-space-4);
+  font-size: 1rem;
+  font-weight: var(--ec-weight-title);
+  letter-spacing: -0.016em;
+  line-height: 1.35;
+  color: var(--ec-text);
 }
 
-.ec-composition .ec-map {
-  margin-inline: auto;
+.ec-intro__body {
+  margin: 0;
+  font-size: 0.8125rem;
+  font-weight: var(--ec-weight-body);
+  line-height: 1.6;
+  letter-spacing: -0.006em;
+  color: var(--ec-text-muted);
+}
+
+@media (max-width: 720px) {
+  .ec-workspace {
+    grid-template-columns: 1fr;
+    gap: var(--ec-space-6);
+  }
+
+  .ec-intro {
+    max-width: none;
+  }
 }
 
 @media (max-width: 640px) {
   .ec-app {
-    padding: var(--ec-space-4) var(--ec-space-4) var(--ec-space-6);
+    padding: var(--ec-space-4) var(--ec-space-4) var(--ec-space-8);
   }
 }
