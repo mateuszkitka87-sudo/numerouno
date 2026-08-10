@@ -16,7 +16,7 @@ export function buildWpHarness(embedHtml, { themeCss = '', outPath = null } = {}
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;600;700&display=swap" rel="stylesheet">
   <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
   ${themeCss ? `<style id="theme-css">${themeCss.replace(/<\/style/gi, '<\\/style')}</style>` : ''}
-  <style>html, body { margin: 0; padding: 0; min-height: 100%; background: #ffffff; }</style>
+  <style>html, body { margin: 0; padding: 0; background: #ffffff; }</style>
 </head>
 <body id="the7-body" class="home wp-singular page">
   <div id="page" class="closed-mobile-header">

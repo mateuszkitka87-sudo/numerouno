@@ -63,10 +63,9 @@
   --ec-duration: 240ms;
   --ec-duration-interaction: 300ms;
 
-  --ec-intro-width: 290px;
-  --ec-detail-width: 310px;
-  --ec-map-width: min(760px, 100%);
-  --ec-map-panel-gap: 28px;
+  --ec-intro-width: 260px;
+  --ec-detail-width: 300px;
+  --ec-map-panel-gap: 24px;
 
   --ec-weight-title: 600;
   --ec-weight-body: 400;

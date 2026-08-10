@@ -25,20 +25,12 @@
   display: grid;
   grid-template-columns:
     var(--ec-intro-width)
-    minmax(0, var(--ec-map-width))
+    minmax(0, 1fr)
     var(--ec-detail-width);
   column-gap: var(--ec-map-panel-gap);
   row-gap: var(--ec-space-8);
-  align-items: center;
+  align-items: start;
   width: 100%;
-  max-width: min(
-    100%,
-    calc(
-      var(--ec-intro-width) + var(--ec-map-panel-gap) +
-      var(--ec-map-width) + var(--ec-map-panel-gap) +
-      var(--ec-detail-width)
-    )
-  );
   margin: 0 auto;
 }
 
@@ -46,7 +38,7 @@
   grid-column: 1;
   align-self: start;
   padding-top: var(--ec-space-10);
-  max-width: 24ch;
+  max-width: var(--ec-intro-width);
 }
 
 .ec-intro__label {

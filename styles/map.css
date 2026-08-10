@@ -1,14 +1,13 @@
-/* Map — center column hero, legend above, vertically balanced with panel */
+/* Map — flexible center column hero, legend above */
 
 .ec-map {
   grid-column: 2 / span 2;
   display: grid;
   grid-template-columns: subgrid;
-  align-items: center;
+  align-items: start;
   position: relative;
   width: 100%;
   min-width: 0;
-  margin-top: var(--ec-space-10);
 }
 
 #interactive-map {
@@ -36,27 +35,20 @@
   grid-row: 1;
   position: relative;
   width: 100%;
-  max-width: var(--ec-map-width);
   min-width: 0;
-  justify-self: center;
+  align-self: center;
   padding: var(--ec-space-10) 0 0;
   background: transparent;
   border: none;
   box-shadow: none;
-  overflow: clip;
 }
 
 .ec-map__stage > svg {
   display: block;
   width: 100%;
-  max-width: 100%;
   height: auto;
   margin: 0;
   opacity: 0.96;
-}
-
-#interactive-map svg {
-  overflow: hidden !important;
 }
 
 #interactive-map g.legend {
@@ -181,9 +173,10 @@
 
   .ec-map {
     grid-column: 2;
-    grid-template-columns: minmax(0, var(--ec-map-width)) var(--ec-detail-width);
+    grid-template-columns: minmax(0, 1fr) var(--ec-detail-width);
     column-gap: var(--ec-map-panel-gap);
-    max-width: calc(var(--ec-map-width) + var(--ec-map-panel-gap) + var(--ec-detail-width));
+    width: 100%;
+    max-width: 100%;
   }
 }
 
@@ -196,20 +189,14 @@
     grid-column: 1;
     grid-template-columns: 1fr;
     gap: var(--ec-space-6);
-    margin-top: 0;
     width: 100%;
     max-width: 100%;
   }
 
   .ec-map__stage {
     width: 100%;
-    max-width: 100%;
     padding-top: var(--ec-space-8);
-    overflow: visible;
-  }
-
-  #interactive-map svg {
-    overflow: visible !important;
+    align-self: start;
   }
 }
 
