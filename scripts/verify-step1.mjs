@@ -67,20 +67,30 @@ async function run() {
     const title = document.querySelector('.ec-intro__title');
     const entry = document.querySelector('#interactive-map .info-text[data-name=netherlands]');
     const mapStage = document.querySelector('.ec-map__stage');
+    const workspace = document.querySelector('.ec-workspace');
     const pcs = entry ? getComputedStyle(entry) : null;
     const titleRect = title?.getBoundingClientRect();
     const entryRect = entry?.getBoundingClientRect();
     const mapRect = mapStage?.getBoundingClientRect();
+    const workspaceRect = workspace?.getBoundingClientRect();
+    const visiblePanels = [...document.querySelectorAll('#interactive-map > .info-text')].filter(
+      (el) => getComputedStyle(el).display !== 'none' && el.getBoundingClientRect().height > 0
+    );
+    const belowMap = visiblePanels.filter((el) => el.getBoundingClientRect().top > (mapRect?.bottom ?? 0) + 5);
     return {
       entryDisplay: pcs?.display,
       entryPosition: pcs?.position,
       alignedWithCoverage: titleRect && entryRect
         ? Math.abs(entryRect.left - titleRect.left) <= 2
         : null,
-      leftOfMap: mapRect && entryRect
-        ? entryRect.right <= mapRect.right
-        : null,
       entryTop: entryRect ? Math.round(entryRect.top) : null,
+      entryLeft: entryRect ? Math.round(entryRect.left) : null,
+      entryWidth: entryRect ? Math.round(entryRect.width) : null,
+      visiblePanelCount: visiblePanels.length,
+      belowMapCount: belowMap.length,
+      workspaceHeight: workspaceRect ? Math.round(workspaceRect.height) : null,
+      mapHeight: mapRect ? Math.round(mapRect.height) : null,
+      scrollHeight: document.documentElement.scrollHeight,
       hasDetailCard: !!entry?.querySelector('.ec-detail-card'),
       entryH3: entry?.querySelector('h3')?.textContent?.trim(),
     };
@@ -110,7 +120,11 @@ async function run() {
 
   if (hover.entryDisplay !== 'block') failures.push(`Panel entry display: ${hover.entryDisplay}`);
   if (!hover.alignedWithCoverage) failures.push('Panel not aligned with Coverage title');
-  if (!hover.leftOfMap) failures.push('Panel not in left column area');
+  if (hover.visiblePanelCount !== 1) failures.push(`Expected 1 visible panel, got ${hover.visiblePanelCount}`);
+  if (hover.belowMapCount > 0) failures.push('Country detail appears below map section');
+  if (hover.entryTop !== 72) failures.push(`Panel top: ${hover.entryTop} (expected 72)`);
+  if (hover.entryLeft !== 24) failures.push(`Panel left: ${hover.entryLeft} (expected 24)`);
+  if (hover.entryWidth !== 300) failures.push(`Panel width: ${hover.entryWidth} (expected 300)`);
   if (!hover.hasDetailCard) failures.push('Missing detail card chrome');
   if (!hover.entryH3?.includes('Netherlands')) failures.push('Panel missing Netherlands title');
   if (afterLeave.entryDisplay !== 'none') failures.push(`After mouseleave entry still: ${afterLeave.entryDisplay}`);

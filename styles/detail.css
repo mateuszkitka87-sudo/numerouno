@@ -1,16 +1,18 @@
-/* Detail panel — left-column country card (Coverage-aligned) */
+/* Detail panel — floating left overlay (Coverage-aligned, out of document flow) */
 
 #interactive-map > .info-text {
   position: absolute !important;
   top: var(--ec-space-10) !important;
-  left: calc(-1 * (var(--ec-intro-width) + var(--ec-map-panel-gap))) !important;
+  left: 0 !important;
   right: auto !important;
   bottom: auto !important;
+  grid-column: 1 !important;
+  grid-row: 1 !important;
   width: var(--ec-detail-width) !important;
   max-width: var(--ec-detail-width) !important;
   margin: 0 !important;
   transform: none !important;
-  z-index: 5;
+  z-index: 10;
   display: none;
   padding: 0 !important;
   background: transparent !important;
@@ -20,6 +22,7 @@
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
+  overflow: hidden;
   transition:
     opacity var(--ec-duration-interaction) var(--ec-ease-calm),
     visibility var(--ec-duration-interaction) var(--ec-ease-calm) !important;
@@ -29,7 +32,7 @@
   opacity: 1 !important;
   visibility: visible !important;
   pointer-events: auto;
-  z-index: 5;
+  z-index: 10;
   background: #ffffff !important;
   border: 1px solid rgba(0, 0, 0, 0.06) !important;
   border-radius: 20px !important;
@@ -40,7 +43,7 @@
 }
 
 #interactive-map > .info-text.is-selected {
-  z-index: 6;
+  z-index: 11;
   background: #ffffff !important;
   border: 1px solid rgba(0, 0, 0, 0.06) !important;
   border-radius: 20px !important;
@@ -280,11 +283,14 @@
 }
 
 #interactive-map > .info-text.is-measuring {
+  left: -10000px !important;
+  top: 0 !important;
   opacity: 0 !important;
   visibility: hidden !important;
   background: transparent !important;
   box-shadow: none !important;
   border: none !important;
+  pointer-events: none !important;
 }
 
 #interactive-map > .info-text > .button-map {
@@ -319,17 +325,6 @@
 #interactive-map > .info-text > .button-map::after {
   content: "→";
   margin-left: 2px;
-}
-
-@media (max-width: 720px) {
-  #interactive-map > .info-text {
-    position: relative !important;
-    top: auto !important;
-    left: auto !important;
-    right: auto !important;
-    width: 100% !important;
-    max-width: 100% !important;
-  }
 }
 
 @media (prefers-reduced-motion: reduce) {

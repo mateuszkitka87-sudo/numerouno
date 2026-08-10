@@ -11,7 +11,7 @@
 }
 
 #interactive-map {
-  position: relative !important;
+  position: static !important;
   width: 100% !important;
   max-width: 100% !important;
   margin: 0 !important;
@@ -110,27 +110,34 @@
   transform: translateX(-50%);
   z-index: 4;
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
+  align-items: center;
   justify-content: center;
-  gap: var(--ec-space-1);
+  gap: 6px;
   margin: 0;
-  padding: 0;
+  padding: 7px 9px;
   width: max-content;
-  max-width: 100%;
+  max-width: calc(100% - 24px);
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 14px;
+  box-shadow:
+    0 1px 2px rgba(0, 0, 0, 0.04),
+    0 4px 14px rgba(0, 0, 0, 0.06);
 }
 
 .ec-legend__pill {
   display: inline-flex;
   align-items: center;
-  gap: 5px;
-  padding: 5px 11px 5px 9px;
+  gap: 6px;
+  padding: 7px 13px 7px 10px;
   border-radius: var(--ec-radius-pill);
   background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.08);
-  box-shadow: var(--ec-shadow-legend);
-  font-size: 11px;
+  border: 1px solid transparent;
+  box-shadow: none;
+  font-size: 12px;
   font-weight: var(--ec-weight-title);
-  letter-spacing: -0.006em;
+  letter-spacing: -0.008em;
   color: var(--ec-text-muted);
   white-space: nowrap;
   transition:
@@ -139,18 +146,34 @@
     border-color var(--ec-duration) var(--ec-ease);
 }
 
+.ec-legend__pill--transit {
+  background: var(--ec-transit-bg);
+  color: var(--ec-transit-text);
+  border-color: var(--ec-transit-border);
+}
+
+.ec-legend__pill--brokerage {
+  background: #e3edf5;
+  color: #2c4a66;
+  border-color: rgba(58, 108, 150, 0.28);
+}
+
+.ec-legend__pill--export {
+  background: var(--ec-export-bg);
+  color: var(--ec-export-text);
+  border-color: var(--ec-export-border);
+}
+
 .ec-legend__pill:hover {
-  background: #ffffff;
-  border-color: rgba(0, 0, 0, 0.1);
-  color: var(--ec-text);
+  opacity: 0.92;
 }
 
 .ec-legend__dot {
-  width: 6px;
-  height: 6px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
   flex-shrink: 0;
-  opacity: 0.9;
+  opacity: 1;
 }
 
 .ec-legend__pill--transit .ec-legend__dot {
@@ -158,7 +181,7 @@
 }
 
 .ec-legend__pill--brokerage .ec-legend__dot {
-  background: var(--ec-brokerage-dot);
+  background: #3a6c96;
 }
 
 .ec-legend__pill--export .ec-legend__dot {

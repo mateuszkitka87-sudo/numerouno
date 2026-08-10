@@ -30,6 +30,7 @@
   column-gap: var(--ec-map-panel-gap);
   row-gap: var(--ec-space-8);
   align-items: start;
+  position: relative;
   width: 100%;
   margin: 0 auto;
 }
