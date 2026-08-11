@@ -1,0 +1,313 @@
+{
+  "diagnosis": {
+    "controllingElement": "#interactive-map svg (width follows #interactive-map when svg uses width:100%)",
+    "themeRule": "#interactive-map { width:100%; max-width:1080px; margin:0 auto } from 1243-scss-output.css",
+    "liveSiteNote": "ecustoms.sgs.com has no #sgs-e-customs-map-embed — uses theme rule only"
+  },
+  "svgWidthBefore": 1080,
+  "svgWidthAfter": 780,
+  "svgWidthDelta": -300,
+  "before": {
+    "interactiveMap": {
+      "rect": {
+        "x": 160,
+        "y": 0,
+        "width": 1080,
+        "height": 835
+      },
+      "width": "1080px",
+      "maxWidth": "1080px",
+      "minWidth": "0px",
+      "flex": "0 1 auto",
+      "flexBasis": "auto",
+      "gridColumn": "auto",
+      "gridTemplateColumns": "none",
+      "position": "static",
+      "marginLeft": "160px",
+      "marginRight": "160px"
+    },
+    "stage": {
+      "rect": {
+        "x": 160,
+        "y": 0,
+        "width": 1080,
+        "height": 835
+      },
+      "width": "1080px",
+      "maxWidth": "none",
+      "minWidth": "0px",
+      "flex": "0 1 auto",
+      "flexBasis": "auto",
+      "gridColumn": "auto",
+      "gridTemplateColumns": "none",
+      "position": "static",
+      "marginLeft": "0px",
+      "marginRight": "0px"
+    },
+    "svg": {
+      "rect": {
+        "x": 160,
+        "y": 18,
+        "width": 1080,
+        "height": 813
+      },
+      "width": "1080px",
+      "maxWidth": "none",
+      "minWidth": "0px",
+      "flex": "0 1 auto",
+      "flexBasis": "auto",
+      "gridColumn": "auto",
+      "gridTemplateColumns": "none",
+      "position": "static",
+      "marginLeft": "0px",
+      "marginRight": "0px"
+    },
+    "legend": {
+      "rect": {
+        "x": 160,
+        "y": 0,
+        "width": 1080,
+        "height": 18
+      },
+      "width": "1080px",
+      "maxWidth": "none",
+      "minWidth": "0px",
+      "flex": "0 1 auto",
+      "flexBasis": "auto",
+      "gridColumn": "auto",
+      "gridTemplateColumns": "none",
+      "position": "static",
+      "marginLeft": "0px",
+      "marginRight": "0px"
+    },
+    "widthMatches": [
+      {
+        "tag": "DIV",
+        "id": "interactive-map",
+        "class": "ec-map",
+        "width": 1080
+      },
+      {
+        "tag": "DIV",
+        "id": "",
+        "class": "ec-map__stage",
+        "width": 1080
+      },
+      {
+        "tag": "NAV",
+        "id": "",
+        "class": "ec-legend",
+        "width": 1080
+      },
+      {
+        "tag": "svg",
+        "id": "interactive-map-svg",
+        "class": "[object SVGAnimatedString]",
+        "width": 1080
+      }
+    ],
+    "hasEmbedStyle": false
+  },
+  "after": {
+    "interactiveMap": {
+      "rect": {
+        "x": 372,
+        "y": 16,
+        "width": 780,
+        "height": 643
+      },
+      "width": "780px",
+      "maxWidth": "780px",
+      "minWidth": "0px",
+      "flex": "0 1 auto",
+      "flexBasis": "auto",
+      "gridColumn": "auto",
+      "gridTemplateColumns": "none",
+      "position": "relative",
+      "marginLeft": "356px",
+      "marginRight": "224px"
+    },
+    "stage": {
+      "rect": {
+        "x": 372,
+        "y": 16,
+        "width": 780,
+        "height": 643
+      },
+      "width": "780px",
+      "maxWidth": "780px",
+      "minWidth": "0px",
+      "flex": "0 1 auto",
+      "flexBasis": "auto",
+      "gridColumn": "auto",
+      "gridTemplateColumns": "none",
+      "position": "relative",
+      "marginLeft": "0px",
+      "marginRight": "0px"
+    },
+    "svg": {
+      "rect": {
+        "x": 372,
+        "y": 72,
+        "width": 780,
+        "height": 587
+      },
+      "width": "780px",
+      "maxWidth": "780px",
+      "minWidth": "0px",
+      "flex": "0 1 auto",
+      "flexBasis": "auto",
+      "gridColumn": "auto",
+      "gridTemplateColumns": "none",
+      "position": "static",
+      "marginLeft": "0px",
+      "marginRight": "0px"
+    },
+    "legend": {
+      "rect": {
+        "x": 515,
+        "y": 16,
+        "width": 494,
+        "height": 65
+      },
+      "width": "493.859px",
+      "maxWidth": "calc(100% - 24px)",
+      "minWidth": "0px",
+      "flex": "0 1 auto",
+      "flexBasis": "auto",
+      "gridColumn": "auto",
+      "gridTemplateColumns": "none",
+      "position": "absolute",
+      "marginLeft": "0px",
+      "marginRight": "0px"
+    },
+    "widthMatches": [
+      {
+        "tag": "DIV",
+        "id": "interactive-map",
+        "class": "ec-map",
+        "width": 780
+      },
+      {
+        "tag": "DIV",
+        "id": "",
+        "class": "ec-map__stage",
+        "width": 780
+      },
+      {
+        "tag": "svg",
+        "id": "interactive-map-svg",
+        "class": "[object SVGAnimatedString]",
+        "width": 780
+      }
+    ],
+    "hasEmbedStyle": true
+  },
+  "hoverSnaps": {
+    "britain": {
+      "panel": {
+        "x": 48,
+        "y": 56,
+        "width": 300,
+        "height": 569
+      },
+      "mapStage": {
+        "x": 372,
+        "y": 16,
+        "width": 780,
+        "height": 643
+      },
+      "svg": {
+        "x": 372,
+        "y": 72,
+        "width": 780,
+        "height": 587
+      },
+      "legend": {
+        "x": 515,
+        "y": 16,
+        "width": 494,
+        "height": 65
+      }
+    },
+    "germany": {
+      "panel": {
+        "x": 48,
+        "y": 56,
+        "width": 300,
+        "height": 449
+      },
+      "mapStage": {
+        "x": 372,
+        "y": 16,
+        "width": 780,
+        "height": 643
+      },
+      "svg": {
+        "x": 372,
+        "y": 72,
+        "width": 780,
+        "height": 587
+      },
+      "legend": {
+        "x": 515,
+        "y": 16,
+        "width": 494,
+        "height": 65
+      }
+    },
+    "poland": {
+      "panel": {
+        "x": 48,
+        "y": 56,
+        "width": 300,
+        "height": 593
+      },
+      "mapStage": {
+        "x": 372,
+        "y": 16,
+        "width": 780,
+        "height": 643
+      },
+      "svg": {
+        "x": 372,
+        "y": 72,
+        "width": 780,
+        "height": 587
+      },
+      "legend": {
+        "x": 515,
+        "y": 16,
+        "width": 494,
+        "height": 65
+      }
+    },
+    "france": {
+      "panel": {
+        "x": 48,
+        "y": 56,
+        "width": 300,
+        "height": 449
+      },
+      "mapStage": {
+        "x": 372,
+        "y": 16,
+        "width": 780,
+        "height": 643
+      },
+      "svg": {
+        "x": 372,
+        "y": 72,
+        "width": 780,
+        "height": 587
+      },
+      "legend": {
+        "x": 515,
+        "y": 16,
+        "width": 494,
+        "height": 65
+      }
+    }
+  },
+  "svgStableAcrossHovers": true
+}

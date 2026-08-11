@@ -33,6 +33,11 @@
   margin-left: 0 !important;
 }
 
-#interactive-map .info-text .button-map {
-  pointer-events: all !important;
+#interactive-map.ec-map {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+#interactive-map .info-text .ec-detail-card__close {
+  display: none !important;
 }
