@@ -4,7 +4,7 @@
 #interactive-map > .info-text,
 #interactive-map > .info-text.is-visible,
 #interactive-map > .info-text.is-selected {
-  left: calc(var(--ec-detail-panel-x) - var(--ec-space-4)) !important;
+  left: calc(-1 * (var(--ec-detail-width) + var(--ec-map-panel-gap))) !important;
   right: auto !important;
   margin-left: 0 !important;
   transform: none !important;
@@ -105,10 +105,6 @@
 }
 
 #interactive-map > .info-text .ec-detail-card__head {
-  display: flex;
-  align-items: flex-start;
-  justify-content: space-between;
-  gap: 12px;
   padding: 24px 24px 12px 28px;
 }
 
@@ -120,26 +116,6 @@
   letter-spacing: -0.028em !important;
   line-height: 1.12 !important;
   color: var(--ec-text) !important;
-}
-
-#interactive-map > .info-text .ec-detail-card__close {
-  flex-shrink: 0;
-  width: auto;
-  height: auto;
-  margin: 4px 0 0;
-  padding: 0;
-  border: none;
-  border-radius: 0;
-  background: transparent;
-  color: var(--ec-text-soft);
-  font-size: 1.25rem;
-  line-height: 1;
-  cursor: pointer;
-  transition: opacity var(--ec-duration) var(--ec-ease);
-}
-
-#interactive-map > .info-text .ec-detail-card__close:hover {
-  opacity: 0.65;
 }
 
 #interactive-map > .info-text .ec-detail-card__chips {

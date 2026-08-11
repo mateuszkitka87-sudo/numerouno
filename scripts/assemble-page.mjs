@@ -59,7 +59,7 @@ function wrapDetailCards(mapHtml) {
       return (
         open +
         `<div class="ec-detail-card">
-<div class="ec-detail-card__head">${h3}<button type="button" class="ec-detail-card__close" aria-label="Close">×</button></div>
+<div class="ec-detail-card__head">${h3}</div>
 ${DETAIL_CHIPS}
 <div class="ec-detail-card__body">${p}</div>
 </div>` +

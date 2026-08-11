@@ -9,8 +9,10 @@
 #interactive-map {
   position: relative !important;
   width: 100% !important;
-  max-width: 1080px !important;
-  margin-left: 0 !important;
+  max-width: var(--ec-map-max-width) !important;
+  margin-left: calc(
+    var(--ec-detail-panel-x) + var(--ec-detail-width) + var(--ec-map-panel-gap) - var(--ec-space-4)
+  ) !important;
   margin-right: auto !important;
   transform: none !important;
   translate: none !important;

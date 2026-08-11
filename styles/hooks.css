@@ -26,7 +26,7 @@
 
 #interactive-map .info-text {
   top: calc(var(--ec-header-clearance, 0px) + var(--ec-space-10)) !important;
-  left: calc(var(--ec-detail-panel-x) - var(--ec-space-4)) !important;
+  left: calc(-1 * (var(--ec-detail-width) + var(--ec-map-panel-gap))) !important;
   right: auto !important;
   transform: none !important;
   translate: none !important;

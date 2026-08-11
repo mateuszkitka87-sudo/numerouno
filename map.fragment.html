@@ -1626,12 +1626,6 @@ jQuery(document).ready(function ($) {
 		}
 	});
 
-	$mapRoot.on('click', '.ec-detail-card__close', function (e) {
-		e.preventDefault();
-		e.stopPropagation();
-		deselectCountry();
-	});
-
 	$(window).on('resize orientationchange', function () {
 		if (!selectedCountry) return;
 		var $popup = $(popupClass + "[data-name='" + selectedCountry + "']");

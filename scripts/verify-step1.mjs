@@ -76,6 +76,9 @@ async function run() {
   const hover = await page.evaluate(() => {
     const entry = document.querySelector('#interactive-map .info-text[data-name=netherlands]');
     const mapStage = document.querySelector('.ec-map__stage');
+    const svg = document.querySelector('#interactive-map svg');
+    const mapStageRect = mapStage?.getBoundingClientRect();
+    const svgRect = svg?.getBoundingClientRect();
     const workspace = document.querySelector('.ec-workspace');
     const mapRoot = document.querySelector('#interactive-map');
     const pcs = entry ? getComputedStyle(entry) : null;
@@ -94,6 +97,14 @@ async function run() {
       entryLeft: entryRect ? Math.round(entryRect.left) : null,
       entryWidth: entryRect ? Math.round(entryRect.width) : null,
       mapRootLeft: mapRootRect ? Math.round(mapRootRect.left) : null,
+      mapRootWidth: mapRootRect ? Math.round(mapRootRect.width) : null,
+      mapStageLeft: mapStageRect ? Math.round(mapStageRect.left) : null,
+      mapStageWidth: mapStageRect ? Math.round(mapStageRect.width) : null,
+      svgWidth: svgRect ? Math.round(svgRect.width) : null,
+      panelOverlapsMap: entryRect && mapRootRect
+        ? entryRect.right > mapRootRect.left + 2
+        : null,
+      closeButtonCount: document.querySelectorAll('.ec-detail-card__close').length,
       visiblePanelCount: visiblePanels.length,
       belowMapCount: belowMap.length,
       workspaceHeight: workspaceRect ? Math.round(workspaceRect.height) : null,
@@ -206,7 +217,15 @@ async function run() {
   if (hover.entryDisplay !== 'block') failures.push(`Panel entry display: ${hover.entryDisplay}`);
   if (hover.visiblePanelCount !== 1) failures.push(`Expected 1 visible panel, got ${hover.visiblePanelCount}`);
   if (hover.belowMapCount > 0) failures.push('Country detail appears below map section');
-  if (hover.mapRootLeft > 80) failures.push(`Map too far right: left ${hover.mapRootLeft} (expected <= 80)`);
+  const expectedMapLeft = 48 + 300 + 24; // panel x + width + gap
+  if (hover.mapRootLeft < expectedMapLeft - 8 || hover.mapRootLeft > expectedMapLeft + 8) {
+    failures.push(`Map left ${hover.mapRootLeft} outside ${expectedMapLeft}px target (±8)`);
+  }
+  if (hover.mapRootWidth > 960 || hover.mapRootWidth < 900) {
+    failures.push(`Map width ${hover.mapRootWidth} outside 900–960px reduced target`);
+  }
+  if (hover.panelOverlapsMap) failures.push('Country panel overlaps map column');
+  if (hover.closeButtonCount > 0) failures.push(`Close buttons in DOM: ${hover.closeButtonCount}`);
   if (hover.entryLeft < 40 || hover.entryLeft > 60) failures.push(`Panel x ${hover.entryLeft} outside 40-60px target`);
   if (hover.entryWidth !== 300) failures.push(`Panel width: ${hover.entryWidth} (expected 300)`);
   if (hover.serviceTitles.length > 0) failures.push(`Visible service rows: ${hover.serviceTitles.join(', ')}`);
