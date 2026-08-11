@@ -221,8 +221,8 @@ async function run() {
   if (hover.mapRootLeft < expectedMapLeft - 8 || hover.mapRootLeft > expectedMapLeft + 8) {
     failures.push(`Map left ${hover.mapRootLeft} outside ${expectedMapLeft}px target (±8)`);
   }
-  if (hover.mapRootWidth > 724 || hover.mapRootWidth < 680) {
-    failures.push(`Map width ${hover.mapRootWidth} outside 680–724px reduced target`);
+  if (hover.mapRootWidth > 720 || hover.mapRootWidth < 680) {
+    failures.push(`Map width ${hover.mapRootWidth} outside 680–720px reduced target`);
   }
   const mapRight = hover.mapRootLeft + hover.mapRootWidth;
   if (mapRight > 1100) failures.push(`Map extends too far right: right edge ${mapRight} (expected visible right whitespace)`);

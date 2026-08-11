@@ -69,7 +69,7 @@
 
   --ec-detail-width: 300px;
   --ec-map-panel-gap: 24px;
-  --ec-map-render-width: 702px;
+  --ec-map-render-width: 700px;
   --ec-map-max-width: var(--ec-map-render-width);
 
   --ec-weight-title: 600;
