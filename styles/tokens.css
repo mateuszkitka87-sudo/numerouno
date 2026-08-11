@@ -67,10 +67,12 @@
   --ec-duration: 240ms;
   --ec-duration-interaction: 300ms;
 
-  --ec-intro-width: 260px;
   --ec-detail-width: 300px;
-  --ec-map-panel-gap: 24px;
 
   --ec-weight-title: 600;
   --ec-weight-body: 400;
+}
+
+.ec-app {
+  --ec-header-clearance: 0px;
 }

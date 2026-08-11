@@ -1449,12 +1449,30 @@ Through our Italian offices, companies can initiate transit declarations from ke
 jQuery(document).ready(function ($) {
 	var popupClass = '.info-text';
 	var $mapRoot = $('#interactive-map');
+	var $appRoot = $mapRoot.closest('.ec-app');
 	var desktopBreakpoint = 1000;
 	var popupPadding = 12;
 	var selectedCountry = null;
 	var countryMeta = {};
 	var animMs = window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 300;
 	var hoverPreviewCountry = null;
+
+	function updateHeaderClearance() {
+		if (!$appRoot.length) return;
+		var clearance = 0;
+		var appTop = $appRoot[0].getBoundingClientRect().top;
+		var headerSelectors = '.masthead, #header, .header-bar, .top-bar, [class*="masthead"]';
+		$(headerSelectors).each(function () {
+			var $el = $(this);
+			if (!$el.is(':visible')) return;
+			var bottom = this.getBoundingClientRect().bottom;
+			if (bottom > appTop) {
+				clearance = Math.max(clearance, Math.ceil(bottom - appTop));
+			}
+		});
+		$appRoot[0].style.setProperty('--ec-header-clearance', clearance + 'px');
+		$mapRoot[0].style.setProperty('--ec-header-clearance', clearance + 'px');
+	}
 
 	function isDesktopLayout() {
 		return $(window).width() >= desktopBreakpoint;
@@ -1711,5 +1729,8 @@ jQuery(document).ready(function ($) {
 
 		}
 	});
+
+	updateHeaderClearance();
+	$(window).on('load resize scroll', updateHeaderClearance);
 });
 </script>

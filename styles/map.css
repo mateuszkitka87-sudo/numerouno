@@ -1,17 +1,13 @@
-/* Map — flexible center column hero, legend above */
+/* Map — full-width hero, legend above */
 
 .ec-map {
-  grid-column: 2 / span 2;
-  display: grid;
-  grid-template-columns: subgrid;
-  align-items: start;
   position: relative;
   width: 100%;
   min-width: 0;
 }
 
 #interactive-map {
-  position: static !important;
+  position: relative !important;
   width: 100% !important;
   max-width: 100% !important;
   margin: 0 !important;
@@ -31,13 +27,10 @@
 }
 
 .ec-map__stage {
-  grid-column: 1;
-  grid-row: 1;
   position: relative;
   width: 100%;
   min-width: 0;
-  align-self: start;
-  padding: var(--ec-space-10) 0 0;
+  padding: calc(var(--ec-space-12) + var(--ec-space-2)) 0 0;
   background: transparent;
   border: none;
   box-shadow: none;
@@ -113,29 +106,29 @@
   flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 12px;
   margin: 0;
-  padding: 8px 10px;
+  padding: 10px 14px;
   width: max-content;
   max-width: calc(100% - 24px);
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.08);
-  border-radius: 16px;
+  border-radius: 18px;
   box-shadow:
     0 1px 2px rgba(0, 0, 0, 0.04),
-    0 6px 18px rgba(0, 0, 0, 0.07);
+    0 8px 24px rgba(0, 0, 0, 0.08);
 }
 
 .ec-legend__pill {
   display: inline-flex;
   align-items: center;
-  gap: 7px;
-  padding: 8px 14px 8px 11px;
+  gap: 8px;
+  padding: 10px 18px 10px 14px;
   border-radius: var(--ec-radius-pill);
   background: #ffffff;
   border: 1px solid transparent;
   box-shadow: none;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: var(--ec-weight-title);
   letter-spacing: -0.008em;
   color: var(--ec-text-muted);
@@ -169,8 +162,8 @@
 }
 
 .ec-legend__dot {
-  width: 7px;
-  height: 7px;
+  width: 8px;
+  height: 8px;
   border-radius: 50%;
   flex-shrink: 0;
   opacity: 1;
@@ -188,37 +181,20 @@
   background: var(--ec-export-dot);
 }
 
-@supports not (grid-template-columns: subgrid) {
-  .ec-workspace {
-    grid-template-columns: var(--ec-intro-width) minmax(0, 1fr);
-  }
-
-  .ec-map {
-    grid-column: 2;
-    grid-template-columns: minmax(0, 1fr) var(--ec-detail-width);
-    column-gap: var(--ec-map-panel-gap);
-    width: 100%;
-    max-width: 100%;
-  }
-}
-
 @media (max-width: 720px) {
-  .ec-workspace {
-    grid-template-columns: 1fr;
-  }
-
-  .ec-map {
-    grid-column: 1;
-    grid-template-columns: 1fr;
-    gap: var(--ec-space-6);
-    width: 100%;
-    max-width: 100%;
-  }
-
   .ec-map__stage {
-    width: 100%;
-    padding-top: var(--ec-space-8);
-    align-self: start;
+    padding-top: calc(var(--ec-space-10) + var(--ec-space-2));
+  }
+
+  .ec-legend {
+    gap: 8px;
+    padding: 8px 10px;
+    max-width: calc(100% - 16px);
+  }
+
+  .ec-legend__pill {
+    padding: 8px 12px 8px 10px;
+    font-size: 12px;
   }
 }
 
