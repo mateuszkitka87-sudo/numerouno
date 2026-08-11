@@ -4,7 +4,7 @@
 .ec-app {
   box-sizing: border-box;
   min-height: 0;
-  padding: var(--ec-space-6) var(--ec-space-6) var(--ec-space-10);
+  padding: var(--ec-space-4) var(--ec-space-6) var(--ec-space-10);
   background: var(--ec-bg);
   font-family: var(--font-sans);
   font-weight: var(--ec-weight-body);
