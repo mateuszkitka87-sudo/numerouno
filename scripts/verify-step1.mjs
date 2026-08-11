@@ -206,7 +206,8 @@ async function run() {
   if (hover.entryDisplay !== 'block') failures.push(`Panel entry display: ${hover.entryDisplay}`);
   if (hover.visiblePanelCount !== 1) failures.push(`Expected 1 visible panel, got ${hover.visiblePanelCount}`);
   if (hover.belowMapCount > 0) failures.push('Country detail appears below map section');
-  if (hover.entryLeft !== hover.mapRootLeft) failures.push(`Panel left ${hover.entryLeft} not aligned with map ${hover.mapRootLeft}`);
+  if (hover.mapRootLeft > 80) failures.push(`Map too far right: left ${hover.mapRootLeft} (expected <= 80)`);
+  if (hover.entryLeft !== hover.mapRootLeft) failures.push(`Panel left ${hover.entryLeft} should match map left ${hover.mapRootLeft}`);
   if (hover.entryWidth !== 300) failures.push(`Panel width: ${hover.entryWidth} (expected 300)`);
   if (hover.serviceTitles.length > 0) failures.push(`Visible service rows: ${hover.serviceTitles.join(', ')}`);
 

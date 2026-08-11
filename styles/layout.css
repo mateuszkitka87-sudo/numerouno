@@ -6,6 +6,7 @@
   min-height: 0;
   padding: var(--ec-space-4) var(--ec-space-6) var(--ec-space-10);
   background: var(--ec-bg);
+  overflow: visible;
   font-family: var(--font-sans);
   font-weight: var(--ec-weight-body);
   color: var(--ec-text);
@@ -25,6 +26,7 @@
   position: relative;
   width: 100%;
   margin: 0 auto;
+  overflow: visible;
 }
 
 @media (max-width: 640px) {

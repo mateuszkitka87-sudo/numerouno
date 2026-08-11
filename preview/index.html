@@ -89,6 +89,7 @@
   --ec-duration-interaction: 300ms;
 
   --ec-detail-width: 300px;
+  --ec-map-panel-gap: 24px;
 
   --ec-weight-title: 600;
   --ec-weight-body: 400;
@@ -104,6 +105,7 @@
   min-height: 0;
   padding: var(--ec-space-4) var(--ec-space-6) var(--ec-space-10);
   background: var(--ec-bg);
+  overflow: visible;
   font-family: var(--font-sans);
   font-weight: var(--ec-weight-body);
   color: var(--ec-text);
@@ -123,6 +125,7 @@
   position: relative;
   width: 100%;
   margin: 0 auto;
+  overflow: visible;
 }
 
 @media (max-width: 640px) {
@@ -141,7 +144,8 @@
   position: relative !important;
   width: 100% !important;
   max-width: 1080px !important;
-  margin: 0 auto !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
   font-family: var(--font-sans) !important;
   font-size: 16px !important;
   font-weight: var(--ec-weight-body) !important;
