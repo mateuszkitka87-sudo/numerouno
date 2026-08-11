@@ -1,15 +1,22 @@
 /* Detail panel — floating left overlay (out of document flow) */
 
+/* Authoritative horizontal position for the visible country panel (.info-text) */
+#interactive-map > .info-text,
+#interactive-map > .info-text.is-visible,
+#interactive-map > .info-text.is-selected {
+  left: calc(var(--ec-detail-panel-x) - var(--ec-space-4)) !important;
+  right: auto !important;
+  margin-left: 0 !important;
+  transform: none !important;
+  translate: none !important;
+}
+
 #interactive-map > .info-text {
   position: absolute !important;
   top: calc(var(--ec-header-clearance, 0px) + var(--ec-space-10)) !important;
-  left: 0 !important;
-  right: auto !important;
-  bottom: auto !important;
   width: var(--ec-detail-width) !important;
   max-width: var(--ec-detail-width) !important;
   margin: 0 !important;
-  transform: none !important;
   z-index: 10;
   display: none;
   padding: 0 !important;

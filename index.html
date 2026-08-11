@@ -73,6 +73,7 @@
 
 .ec-app {
   --ec-header-clearance: 0px;
+  --ec-detail-panel-x: 48px;
 }
 
 .wpb_raw_html .ec-app,
@@ -80,6 +81,7 @@
   box-sizing: border-box;
   min-height: 0;
   padding: var(--ec-space-4) var(--ec-space-6) var(--ec-space-10);
+  padding-left: var(--ec-space-4);
   background: var(--ec-bg);
   overflow: visible;
   font-family: var(--font-sans);
@@ -122,6 +124,8 @@
   max-width: 1080px !important;
   margin-left: 0 !important;
   margin-right: auto !important;
+  transform: none !important;
+  translate: none !important;
   font-family: var(--font-sans) !important;
   font-size: 16px !important;
   font-weight: var(--ec-weight-body) !important;
@@ -141,6 +145,7 @@
   position: relative;
   width: 100%;
   min-width: 0;
+  margin-left: 0;
   padding: calc(var(--ec-space-12) + var(--ec-space-2)) 0 0;
   background: transparent;
   border: none;
@@ -444,16 +449,22 @@
   }
 }
 
+#interactive-map > .info-text,
+#interactive-map > .info-text.is-visible,
+#interactive-map > .info-text.is-selected {
+  left: calc(var(--ec-detail-panel-x) - var(--ec-space-4)) !important;
+  right: auto !important;
+  margin-left: 0 !important;
+  transform: none !important;
+  translate: none !important;
+}
+
 #interactive-map > .info-text {
   position: absolute !important;
   top: calc(var(--ec-header-clearance, 0px) + var(--ec-space-10)) !important;
-  left: 0 !important;
-  right: auto !important;
-  bottom: auto !important;
   width: var(--ec-detail-width) !important;
   max-width: var(--ec-detail-width) !important;
   margin: 0 !important;
-  transform: none !important;
   z-index: 10;
   display: none;
   padding: 0 !important;
@@ -719,6 +730,15 @@
   border: none !important;
   padding: 0 !important;
   margin: 0 !important;
+}
+
+#interactive-map .info-text {
+  top: calc(var(--ec-header-clearance, 0px) + var(--ec-space-10)) !important;
+  left: calc(var(--ec-detail-panel-x) - var(--ec-space-4)) !important;
+  right: auto !important;
+  transform: none !important;
+  translate: none !important;
+  margin-left: 0 !important;
 }
 
 #interactive-map .info-text .button-map {

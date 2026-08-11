@@ -76,4 +76,5 @@
 
 .ec-app {
   --ec-header-clearance: 0px;
+  --ec-detail-panel-x: 48px;
 }

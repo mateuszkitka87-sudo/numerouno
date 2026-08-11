@@ -12,6 +12,8 @@
   max-width: 1080px !important;
   margin-left: 0 !important;
   margin-right: auto !important;
+  transform: none !important;
+  translate: none !important;
   font-family: var(--font-sans) !important;
   font-size: 16px !important;
   font-weight: var(--ec-weight-body) !important;
@@ -31,6 +33,7 @@
   position: relative;
   width: 100%;
   min-width: 0;
+  margin-left: 0;
   padding: calc(var(--ec-space-12) + var(--ec-space-2)) 0 0;
   background: transparent;
   border: none;
