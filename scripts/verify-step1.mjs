@@ -221,9 +221,11 @@ async function run() {
   if (hover.mapRootLeft < expectedMapLeft - 8 || hover.mapRootLeft > expectedMapLeft + 8) {
     failures.push(`Map left ${hover.mapRootLeft} outside ${expectedMapLeft}px target (±8)`);
   }
-  if (hover.mapRootWidth > 960 || hover.mapRootWidth < 900) {
-    failures.push(`Map width ${hover.mapRootWidth} outside 900–960px reduced target`);
+  if (hover.mapRootWidth > 810 || hover.mapRootWidth < 740) {
+    failures.push(`Map width ${hover.mapRootWidth} outside 740–810px reduced target`);
   }
+  const mapRight = hover.mapRootLeft + hover.mapRootWidth;
+  if (mapRight > 1180) failures.push(`Map extends too far right: right edge ${mapRight} (expected visible right whitespace)`);
   if (hover.panelOverlapsMap) failures.push('Country panel overlaps map column');
   if (hover.closeButtonCount > 0) failures.push(`Close buttons in DOM: ${hover.closeButtonCount}`);
   if (hover.entryLeft < 40 || hover.entryLeft > 60) failures.push(`Panel x ${hover.entryLeft} outside 40-60px target`);
