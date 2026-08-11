@@ -41,6 +41,20 @@ async function run() {
     out.layout.hasNav = !!document.querySelector('.ec-nav');
     out.layout.hasIdlePanel = !!document.querySelector('.ec-detail-slot');
     out.layout.serviceRowCount = document.querySelectorAll('.ec-service__title').length;
+    out.layout.forbiddenUiText = [];
+    const uiText = document.querySelector('.ec-app')?.innerText || '';
+    const forbidden = [
+      'NETWORK',
+      'Coverage',
+      'Interactive customs network',
+      'Explore transit, brokerage, and export',
+      'Transit operations',
+      'Export declarations',
+      'Customs support',
+    ];
+    for (const term of forbidden) {
+      if (uiText.includes(term)) out.layout.forbiddenUiText.push(term);
+    }
     out.layout.singleInlineStyle = !!embedStyle;
     if (svg) {
       out.layout.svgWidth = Math.round(svg.getBoundingClientRect().width);
@@ -186,6 +200,7 @@ async function run() {
   if (rest.layout.hasNav) failures.push('Site chrome nav should not be present in embed');
   if (rest.layout.hasIdlePanel) failures.push('Idle Explore coverage panel should not be present');
   if (rest.layout.serviceRowCount > 0) failures.push(`Service rows in DOM: ${rest.layout.serviceRowCount}`);
+  if (rest.layout.forbiddenUiText?.length) failures.push(`Forbidden UI text: ${rest.layout.forbiddenUiText.join(', ')}`);
   if (!rest.layout.singleInlineStyle) failures.push('Missing single inline embed stylesheet');
 
   if (hover.entryDisplay !== 'block') failures.push(`Panel entry display: ${hover.entryDisplay}`);

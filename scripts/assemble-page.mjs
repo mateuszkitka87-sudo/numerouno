@@ -38,7 +38,9 @@ const DETAIL_CHIPS = `
 </div>`;
 
 function stripDetailServices(mapHtml) {
-  return mapHtml.replace(/<ul class="ec-detail-card__services">[\s\S]*?<\/ul>\s*/gi, '');
+  return mapHtml
+    .replace(/<ul class="ec-detail-card__services">[\s\S]*?<\/ul>\s*/gi, '')
+    .replace(/<li class="ec-service[^"]*"[\s\S]*?<\/li>\s*/gi, '');
 }
 
 function wrapDetailCards(mapHtml) {
