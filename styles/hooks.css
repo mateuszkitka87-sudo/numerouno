@@ -1,0 +1,43 @@
+/* JavaScript-required map class hooks */
+
+#interactive-map .has_url {
+  cursor: pointer;
+}
+
+#interactive-map .st0,
+#interactive-map .st1,
+#interactive-map .st2,
+#interactive-map .st3,
+#interactive-map .st4 {
+  fill-rule: evenodd;
+  clip-rule: evenodd;
+}
+
+#interactive-map #brokeragestripes line,
+#interactive-map #exportstripes line {
+  transform: rotate(270deg);
+}
+
+#interactive-map g.legend {
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+#interactive-map .info-text {
+  top: calc(var(--ec-header-clearance, 0px) + var(--ec-space-10)) !important;
+  left: calc(-1 * (var(--ec-detail-width) + var(--ec-map-panel-gap))) !important;
+  right: auto !important;
+  transform: none !important;
+  translate: none !important;
+  margin-left: 0 !important;
+}
+
+#interactive-map.ec-map {
+  margin-top: 0 !important;
+  margin-bottom: 0 !important;
+}
+
+#interactive-map .info-text .ec-detail-card__close {
+  display: none !important;
+}

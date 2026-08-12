@@ -1,0 +1,97 @@
+{
+  "viewport": {
+    "width": 1400,
+    "height": 900
+  },
+  "before": {
+    "panel": null,
+    "stage": {
+      "x": 16,
+      "y": 16,
+      "width": 1080,
+      "height": 869.38
+    },
+    "svg": {
+      "x": 16,
+      "y": 72,
+      "width": 1080,
+      "height": 813.38
+    },
+    "map": {
+      "x": 16,
+      "y": 16,
+      "width": 1080,
+      "height": 869.38
+    }
+  },
+  "hoverPoland": {
+    "panel": {
+      "x": 48,
+      "y": 56,
+      "width": 300,
+      "height": 592.78
+    },
+    "panelComputedLeft": "32px",
+    "panelComputedTransform": "none",
+    "stage": {
+      "x": 16,
+      "y": 16,
+      "width": 1080,
+      "height": 869.38
+    },
+    "svg": {
+      "x": 16,
+      "y": 72,
+      "width": 1080,
+      "height": 813.38
+    },
+    "map": {
+      "x": 16,
+      "y": 16,
+      "width": 1080,
+      "height": 869.38
+    }
+  },
+  "hoverMoldova": {
+    "panel": {
+      "x": 48,
+      "y": 56,
+      "width": 300,
+      "height": 328.78
+    },
+    "panelComputedLeft": "32px",
+    "panelComputedTransform": "none",
+    "stage": {
+      "x": 16,
+      "y": 16,
+      "width": 1080,
+      "height": 869.38
+    },
+    "svg": {
+      "x": 16,
+      "y": 72,
+      "width": 1080,
+      "height": 813.38
+    },
+    "map": {
+      "x": 16,
+      "y": 16,
+      "width": 1080,
+      "height": 869.38
+    }
+  },
+  "stabilityAfterCountrySwitch": {
+    "stage": {
+      "x": 16,
+      "y": 16,
+      "width": 1080,
+      "height": 869.38
+    },
+    "svg": {
+      "x": 16,
+      "y": 72,
+      "width": 1080,
+      "height": 813.38
+    }
+  }
+}

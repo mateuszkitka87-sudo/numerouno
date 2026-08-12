@@ -1,0 +1,37 @@
+/* App shell — map hero composition */
+
+.wpb_raw_html .ec-app,
+.ec-app {
+  box-sizing: border-box;
+  min-height: 0;
+  padding: var(--ec-space-4) var(--ec-space-6) var(--ec-space-10);
+  padding-left: var(--ec-space-4);
+  background: var(--ec-bg);
+  overflow: visible;
+  font-family: var(--font-sans);
+  font-weight: var(--ec-weight-body);
+  color: var(--ec-text);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  font-feature-settings: "kern" 1, "liga" 1;
+}
+
+.ec-app *,
+.ec-app *::before,
+.ec-app *::after {
+  box-sizing: border-box;
+}
+
+.ec-workspace {
+  position: relative;
+  width: 100%;
+  margin: 0 auto;
+  overflow: visible;
+}
+
+@media (max-width: 640px) {
+  .ec-app {
+    padding: var(--ec-space-4) var(--ec-space-4) var(--ec-space-8);
+  }
+}
